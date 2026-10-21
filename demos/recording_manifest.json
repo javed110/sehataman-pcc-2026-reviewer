@@ -1,0 +1,167 @@
+{
+  "all_synthetic": true,
+  "format": "MP4 H264 1280x800 12fps output; actual browser sampling approximately 4fps",
+  "audio": "none",
+  "editing": "Live captured segments concatenated; authentication and waiting intervals omitted. No generated app footage.",
+  "segments": [
+    {
+      "segment": "patient-history-directory",
+      "title": "Patient history source provenance and separate physician checks",
+      "seconds": 7.219,
+      "captured_frames": 24,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "patient-booking",
+      "title": "Booking alone creates no record permission",
+      "seconds": 5.165,
+      "captured_frames": 17,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "physician-booking-no-consent",
+      "title": "Physician has no reports before explicit permission",
+      "seconds": 4.821,
+      "captured_frames": 16,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "patient-explicit-sharing",
+      "title": "Patient explicitly shares only R01 version 1 for a bounded interval",
+      "seconds": 7.5,
+      "captured_frames": 36,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "physician-authorized-version",
+      "title": "Physician reads the authorized version and source evidence",
+      "seconds": 5.021,
+      "captured_frames": 16,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "physician-current-state-block",
+      "title": "Separate controlled registration invalidation blocks a new request in the same session",
+      "seconds": 2.705,
+      "captured_frames": 9,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "lab-held-submission",
+      "title": "A specimen mismatch remains held and unpublished",
+      "seconds": 4.796,
+      "captured_frames": 16,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "lab-amendment-submission",
+      "title": "Lab proposes version 2 with a reason and distinct approver",
+      "seconds": 4.899,
+      "captured_frames": 16,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "lab-distinct-approval",
+      "title": "Distinct source approval publishes version 2 and preserves version 1",
+      "seconds": 7.62,
+      "captured_frames": 25,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "hospital-profile-separation",
+      "title": "Hospital profile and registration review request confer no clinical privilege",
+      "seconds": 7.565,
+      "captured_frames": 25,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "hospital-affiliation-change",
+      "title": "Separate affiliation revocation and renewal leave registration unchanged",
+      "seconds": 10.0,
+      "captured_frames": 34,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "physician-correction-scope",
+      "title": "Existing version 1 permission exposes only the historical version",
+      "seconds": 5.261,
+      "captured_frames": 17,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    },
+    {
+      "segment": "patient-corrected-history-withdrawal",
+      "title": "Patient sees correction lineage and withdraws old permission",
+      "seconds": 8.199,
+      "captured_frames": 27,
+      "source": "Actual working app browser screenshots at approximately four samples per second; role sign-ins omitted."
+    }
+  ],
+  "files": [
+    {
+      "file": "patient-sharing.mp4",
+      "bytes": 855666,
+      "sha256": "bfba1a2897a67667d7139f7f29d3e4809ae0e6adbac073cbc8fee2e1b8912e94",
+      "segments": [
+        "patient-history-directory",
+        "patient-booking",
+        "patient-explicit-sharing",
+        "patient-corrected-history-withdrawal"
+      ],
+      "full_decode_check": "passed"
+    },
+    {
+      "file": "physician-access.mp4",
+      "bytes": 396964,
+      "sha256": "ef821ba7bebf97211615c482ff58c811a00b9ca96e1798f3290bd54ea4de31d4",
+      "segments": [
+        "physician-booking-no-consent",
+        "physician-authorized-version",
+        "physician-current-state-block",
+        "physician-correction-scope"
+      ],
+      "full_decode_check": "passed"
+    },
+    {
+      "file": "laboratory-provenance.mp4",
+      "bytes": 624738,
+      "sha256": "38e13f79b6d8465c4d81ff3d9dba3fb51197980fcc2525eb3ae5e65b579196b4",
+      "segments": [
+        "lab-held-submission",
+        "lab-amendment-submission",
+        "lab-distinct-approval"
+      ],
+      "full_decode_check": "passed"
+    },
+    {
+      "file": "hospital-affiliation.mp4",
+      "bytes": 648528,
+      "sha256": "8f38090d5547fd3329d4d1d56a4c0f15516c859c290116e25b56d44b3004f5b2",
+      "segments": [
+        "hospital-profile-separation",
+        "hospital-affiliation-change"
+      ],
+      "full_decode_check": "passed"
+    },
+    {
+      "file": "sehataman-complete-walkthrough.mp4",
+      "bytes": 2523295,
+      "sha256": "24e83ef8cf14a0b94b2e6715fb0d3d65c959a905caaa2d660368fa644cf69e7c",
+      "segments": [
+        "patient-history-directory",
+        "patient-booking",
+        "physician-booking-no-consent",
+        "patient-explicit-sharing",
+        "physician-authorized-version",
+        "physician-current-state-block",
+        "lab-held-submission",
+        "lab-amendment-submission",
+        "lab-distinct-approval",
+        "hospital-profile-separation",
+        "hospital-affiliation-change",
+        "physician-correction-scope",
+        "patient-corrected-history-withdrawal"
+      ],
+      "full_decode_check": "passed"
+    }
+  ]
+}

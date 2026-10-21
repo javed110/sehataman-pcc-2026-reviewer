@@ -1,0 +1,91 @@
+SEHATAMAN — APPLICATION CLAIM AND EVIDENCE CHECKLIST
+21 October 2026. For reviewer inspection; not independent certification.
+
+FORM SECTIONS 1, 4 AND 7: PROBLEM AND NARROW CONTRIBUTION
+Claim: a Pakistan-informed integration/conformance profile tests current-state
+release and signed correction provenance across four entities.
+Evidence: planning/step2_research_security_protocol.json;
+planning/step4_frozen_scenario_manifest.json; planning/step5_reference_specification.json;
+planning/pakistan_web_validation_evidence.json; docs/STEP5_VALIDATION_REPORT.txt.
+Limit: public-source desk evidence does not prove absence of Pakistani competitors,
+local demand, clinical benefit, participant acceptance or first-in-country novelty.
+
+SECTION 2: PEOPLE AND AFFILIATIONS
+Claim: student team roles and academic details supplied by the applicant in chat.
+Evidence: planning/application_team_details.json; the filled Word team table.
+Limit: user-confirmed information, not independent enrollment/mentor verification.
+Humaira: BS Molecular Biology and Genetics, Semester 2, NUMS; contacts supplied.
+Three other members' contacts and Tehreem's exact MS program remain pending.
+Private application copies retain supplied contacts; public reviewer copies
+redact personal contacts without representing supplied facts as unknown.
+
+SECTION 3: CYBERSECURITY FOCUS
+Claim: access-control, source-integrity and resilience work using established
+cryptography; no AI model or automated diagnosis.
+Evidence: sehataman/domain.py, issuer.py, storage.py, crypto.py and server.py.
+Limit: a local loopback HTTP demonstrator, not production TLS or certification.
+The same-computer test-code helper is not an independent-device factor.
+
+SECTIONS 5–7: PATIENT PERMISSION AND CREDENTIAL TRANSITIONS
+Claim: profile/booking alone grants no clinical access; exact-version permission
+and separate current registration/affiliation checks govern release. Withdrawals
+and invalidations affect newly ordered requests in an existing session.
+Evidence: tests/test_mvp.py; tests/step5_validate.py; tests/step5_benchmarks.py;
+planning/step5_results/cases-20261021T203242-0137ad.json;
+planning/step5_results/benchmarks-20261021T202642-6561bb.json;
+patient-sharing.mp4, physician-access.mp4 and hospital-affiliation.mp4 in demos/.
+Limit: all identity/credential outcomes are simulated, not live PMDC/NADRA checks.
+Already delivered copies cannot be recalled; the trusted host/key assumption applies.
+
+SECTIONS 5–7: SUBMISSIONS AND CORRECTIONS
+Claim: concordant source linkage, signed packages and a distinct approver control
+acceptance. Corrections retain source originals, predecessors, reasons and versions.
+Old version permission does not silently widen to its successor.
+Evidence: sehataman/issuer.py and domain.py; tests/test_mvp.py;
+the frozen-case report above; demos/laboratory-provenance.mp4.
+Limit: assertions concern invented packages and fixtures, not real clinical accuracy.
+
+SECTIONS 5–6: NUMERICAL RESULTS AND COMPARISON
+120/120 cases per arm: 48 valid + 72 adverse/failure cases; 36 reserved variants
+were not blinded. 31 denied direct clinical read/file requests and 354 repeated
+provenance assertions per arm are reported, not 120 real patients or 354 unique reports.
+500/500 traces per arm: 100 each of withdrawal, affiliation, registration,
+appointment invalidation and competing correction transitions.
+MVP p95 668.130 ms: 1,000 mixed HTTP metadata requests (500 permitted/500 denied),
+concurrency 10, after 100 separate warm-ups; zero request errors/denied payload leaks.
+Reference p95 421.799 ms: equal correctness, shared stack, independently specified
+policy rules. This result does not establish an MVP speed/cost/security advantage.
+Evidence: the two named case/benchmark reports above; docs/STEP5_VALIDATION_REPORT.txt.
+27/27 regressions: tests/test_mvp.py. 46/46 supplementary groups across BOTH arms:
+planning/step5_results/routes-20261021T203247-a6e325.json.
+Five release checks: tests/test_release.py, rerun from a fresh ZIP extraction.
+Limit: one Windows laptop; sequential arms; agent-authored expectations/reference;
+no independent audit, blinded study or prospectively timed configuration effort.
+
+SECTION 8: BUSINESS, ROADMAP, RESOURCES AND STANDARDS
+Claim: the current demo runs on one laptop; future milestones are proposed.
+Evidence: requirements.txt, README.txt and the local persisted executable.
+Limit: budget/business/IP remain pending; no revenue, buyer commitment, patent,
+open-source licence, institutional endorsement or compliance certification is asserted.
+No real-data pilot or deployment is authorized. Legal/standards review remains outside
+this local engineering evaluation.
+
+SECTION 9: LINKS, MATERIALS AND DECLARATION
+Claim: the editable Word note, code, evidence and five MP4s form the reviewer
+delivery. The existing application repository remains private; a separate public,
+contact-redacted reviewer destination is authorized at
+https://github.com/javed110/sehataman-pcc-2026-reviewer . Use
+planning/reviewer_publication.json to confirm publication and link verification.
+A local reviewer guide serves the synthetic recordings after local startup.
+Evidence: README.md; demos/recording_manifest.json; tests/test_release.py;
+deliverables/GITHUB_VERIFICATION.json and ZIP_VERIFICATION.json in the owner workspace.
+Limit: private links need owner-arranged access; loopback URLs work only on the
+computer running the server. Public repository delivery is not app deployment.
+Recordings show the earlier interface copy; core workflow/access rules remain.
+The declaration remains unsigned for applicant review. No application has been submitted.
+
+FINAL GATE
+Engineering evidence and handover preparation are distinct from application
+completeness. Keep every unresolved item in APPLICATION_PENDING_FIELDS.txt pending.
+Only the applicant can confirm the remaining facts and sign the declaration.
+Obtain explicit user approval before any deployment or application submission.

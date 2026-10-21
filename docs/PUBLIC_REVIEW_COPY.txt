@@ -1,0 +1,22 @@
+SEHATAMAN PUBLIC REVIEW COPY
+
+Intended reviewer destination: https://github.com/javed110/sehataman-pcc-2026-reviewer
+Consult planning/reviewer_publication.json for publication and verification status.
+This package provides code, documents, evidence and recordings, not a running
+public app. Localhost instructions require a local server on the same computer.
+
+Personal contact values supplied by the team are withheld from this public copy.
+Humaira's email and phone were supplied privately and remain in the owner's
+private application note; they are redacted in this Word note and team JSON.
+Genuinely missing contacts and Tehreem's exact MS title remain pending. Confirmed
+names, roles and academic details remain user supplied. The retained original
+template is blank. No applicant signature or application submission is added.
+
+No open-source licence, IP ownership conclusion, patent or institutional
+endorsement is asserted. Public visibility alone is not a licence grant.
+All application entities and verification outcomes are synthetic. The local
+OS and protected keys are trusted; there is no live PMDC/NADRA integration,
+production TLS service, clinical validation or security certification.
+Stakeholder/domain and commercial market-gap validation remain pending.
+Recordings capture actual earlier interface copy; core access rules remain.
+No deployment, submission, reviewer invitation or email is authorized here.

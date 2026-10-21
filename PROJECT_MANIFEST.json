@@ -1,0 +1,482 @@
+{
+  "application": "SehatAman",
+  "version": "0.5.0",
+  "copy": "public contact-redacted reviewer copy",
+  "reviewer_destination": "https://github.com/javed110/sehataman-pcc-2026-reviewer",
+  "publication_status": "See planning/reviewer_publication.json",
+  "all_app_fixtures_synthetic": true,
+  "personal_contacts_redacted": true,
+  "excluded": [
+    "private Git history",
+    "local homes",
+    "credentials",
+    "keys",
+    "sessions",
+    "databases",
+    "Office lock files",
+    "JCPSP_Submission/",
+    "planning/build_jcpsp*"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 100,
+      "sha256": "25cd6998627067758bc94a42000d4350bc4454bc7653cc63232e73554317410e"
+    },
+    {
+      "path": "demos/hospital-affiliation.mp4",
+      "bytes": 648528,
+      "sha256": "8f38090d5547fd3329d4d1d56a4c0f15516c859c290116e25b56d44b3004f5b2"
+    },
+    {
+      "path": "demos/laboratory-provenance.mp4",
+      "bytes": 624738,
+      "sha256": "38e13f79b6d8465c4d81ff3d9dba3fb51197980fcc2525eb3ae5e65b579196b4"
+    },
+    {
+      "path": "demos/patient-sharing.mp4",
+      "bytes": 855666,
+      "sha256": "bfba1a2897a67667d7139f7f29d3e4809ae0e6adbac073cbc8fee2e1b8912e94"
+    },
+    {
+      "path": "demos/physician-access.mp4",
+      "bytes": 396964,
+      "sha256": "ef821ba7bebf97211615c482ff58c811a00b9ca96e1798f3290bd54ea4de31d4"
+    },
+    {
+      "path": "demos/recording_manifest.json",
+      "bytes": 6670,
+      "sha256": "7ac6fd7e98e94a3f1c3032ad60b91edc4ea3480260e6099989c6bbb7356917ab"
+    },
+    {
+      "path": "demos/sehataman-complete-walkthrough.mp4",
+      "bytes": 2523295,
+      "sha256": "24e83ef8cf14a0b94b2e6715fb0d3d65c959a905caaa2d660368fa644cf69e7c"
+    },
+    {
+      "path": "docs/APPLICATION_PENDING_FIELDS.txt",
+      "bytes": 1286,
+      "sha256": "aeb3d264153426694481be1b993a09ea9596c5ad56be2c0c86be11f136d842e5"
+    },
+    {
+      "path": "docs/CLAIM_EVIDENCE_CHECKLIST.txt",
+      "bytes": 5986,
+      "sha256": "b2623da0653084a4fda946b809d406ee40b75d2410511fb8f74b0ddcc4079ecd"
+    },
+    {
+      "path": "docs/PCC26_Concept_Note_Template.docx",
+      "bytes": 41248,
+      "sha256": "29e86601d55c2ee37c5dd4970a45a8ae5e2b94c25d88263d07c83492454e5eb7"
+    },
+    {
+      "path": "docs/PUBLIC_REVIEW_COPY.txt",
+      "bytes": 1448,
+      "sha256": "928eeb2b980d11040eb879cd9b73edf80800dd21c22a63c0ac661a91e481e2e9"
+    },
+    {
+      "path": "docs/REVIEWER_GUIDE.txt",
+      "bytes": 2887,
+      "sha256": "937de3e29a1b8943a3d35d5109effd8a88f957695f0e20de0bae55835c9cb3c0"
+    },
+    {
+      "path": "docs/SECTION_BY_SECTION_REVIEW.txt",
+      "bytes": 6328,
+      "sha256": "7f05ddc262f3ffb456e3a8bebe05a7520d1960b1dd399b7e4dbee408de5c7310"
+    },
+    {
+      "path": "docs/SehatAman_PCC26_Concept_Note.docx",
+      "bytes": 44500,
+      "sha256": "faa7cfc6fef2643d729ea89f2dd496ffd4a04c32c7dfe3d7b2e458a23ea42245"
+    },
+    {
+      "path": "docs/STEP5_VALIDATION_REPORT.txt",
+      "bytes": 6066,
+      "sha256": "cb44cdbe3d02c0038346ae268c13e0f70dbc3a5346c644135eb98e811a4ef0cd"
+    },
+    {
+      "path": "docs/STEP6_REVIEWER_HANDOVER.txt",
+      "bytes": 9023,
+      "sha256": "77170e93ef2f3b855765eb9727a663273e0cfb465a5d7d7a796a1b59a0dac64c"
+    },
+    {
+      "path": "docs/UI_REVIEW_UPDATE.txt",
+      "bytes": 2463,
+      "sha256": "e8b121bd07b6944ba7354613ca7db522cbefea15280ac0fa6eea9b13bb8991af"
+    },
+    {
+      "path": "manage.py",
+      "bytes": 6788,
+      "sha256": "e122094aa69868d4f14bbebff0e95a8c1284b8019ce89e123508ad1d426388a2"
+    },
+    {
+      "path": "planning/application_team_details.json",
+      "bytes": 3040,
+      "sha256": "27f0fd6637baf62a2486f695734ab5ddc0e8ce09c9fb06a9762045b42e3da0ad"
+    },
+    {
+      "path": "planning/encode_demo_recordings.py",
+      "bytes": 4914,
+      "sha256": "d8e9a90c6e06eef3303e4d84533210d086d80474b58f6ae030295c577fb41234"
+    },
+    {
+      "path": "planning/fill_concept_note.py",
+      "bytes": 16268,
+      "sha256": "030952d976e51e5ea267fea7bcd8b9266a70d2d6008c916a231079f2b7526576"
+    },
+    {
+      "path": "planning/finalize_validation.py",
+      "bytes": 7226,
+      "sha256": "cf68bdc5bcf43996c44224e80294e7e061a5836b832975de2517ec992580801a"
+    },
+    {
+      "path": "planning/pakistan_web_validation_evidence.json",
+      "bytes": 17325,
+      "sha256": "d2f9afa734d4dc981eaa2d23413ae8a07b6bf1202c376ea50d963c193638159d"
+    },
+    {
+      "path": "planning/prepare_public_review.py",
+      "bytes": 15531,
+      "sha256": "46ca466423ef7683d6add19a62ea90e0a3f7e3d96cb46408bb0a0f1a031d10b4"
+    },
+    {
+      "path": "planning/release_project.py",
+      "bytes": 5585,
+      "sha256": "d33f6c2622ab357f4bc5b8a593f75e609087f43d045ec6e2f24f1c9e46dadb77"
+    },
+    {
+      "path": "planning/render_concept_template.py",
+      "bytes": 1104,
+      "sha256": "a366a77d74ce994bb6e1ad78de128d00917b74840df047f7a672c56afe4f7314"
+    },
+    {
+      "path": "planning/reviewer_publication.json",
+      "bytes": 1835,
+      "sha256": "770188c9dfdc62522107b58aff74b5e2cdaadfea65c1e042d9ff6807fd971e69"
+    },
+    {
+      "path": "planning/step1_scope_and_validation.json",
+      "bytes": 22507,
+      "sha256": "14b34aa05c346b52f0a65c6f6b0c30dcc67ae1ec7439fd0f47e8b0fe2fd39479"
+    },
+    {
+      "path": "planning/step2_research_security_protocol.json",
+      "bytes": 32681,
+      "sha256": "65429df210b220b58b2afebccf430c5897a6465a67e7482a00b6aac9b9033931"
+    },
+    {
+      "path": "planning/step3_design_only.html",
+      "bytes": 37988,
+      "sha256": "8af128b102d0eb2971891e59fe198a84cdcf959797e0e5d89e4f4623bb4be308"
+    },
+    {
+      "path": "planning/step3_design_review.txt",
+      "bytes": 11084,
+      "sha256": "5a47a618ab11629daf41cdcaac958bb0357188e3817d763242b5b91e8cf79639"
+    },
+    {
+      "path": "planning/step3_preview_checks/inspection.json",
+      "bytes": 1056,
+      "sha256": "a568b9f5872d01b9ad7e7d58d06a3bfd88298e8fa787ea9c16067a514e08c8d7"
+    },
+    {
+      "path": "planning/step3_preview_checks/preview-script.js",
+      "bytes": 27031,
+      "sha256": "e247c5a25b54fca52c32107e7c2eb4a524b2eaf2b7691aa8fa449ee3b893d771"
+    },
+    {
+      "path": "planning/step3_preview_checks/preview.html",
+      "bytes": 128707,
+      "sha256": "ef2618860fc7a64cb7327a02fe6316e7e52eb8905531067f4750368b5bbe431f"
+    },
+    {
+      "path": "planning/step3_screen_flow_access_design.json",
+      "bytes": 63434,
+      "sha256": "46028915ad32f7c519f9cb6e5701a38aac136c724ac0ac4a908c09ff96d1d3a7"
+    },
+    {
+      "path": "planning/step4_browser_checks/explicit-consent.jpg",
+      "bytes": 85301,
+      "sha256": "f8908c6dc186222ffe7341c667cfbf22b4c5b40328f1ae37bbcb2fa5ff48100c"
+    },
+    {
+      "path": "planning/step4_browser_checks/hospital-profiles.jpg",
+      "bytes": 129295,
+      "sha256": "76b0f033160d35d2214dbee771d38ae7a5c42e357b413465cbfe3378d4577c5a"
+    },
+    {
+      "path": "planning/step4_browser_checks/laboratory-workspace.jpg",
+      "bytes": 104688,
+      "sha256": "6e042960c2144a3db0a3d7705f901c97f5a02893ad0467ea65b4bd358d884d5a"
+    },
+    {
+      "path": "planning/step4_browser_checks/login-desktop.jpg",
+      "bytes": 70050,
+      "sha256": "403c056aad5334721e93bd39f0dee684a2e4034119176f623d7d3f64ab87b23a"
+    },
+    {
+      "path": "planning/step4_browser_checks/mobile-320.jpg",
+      "bytes": 100402,
+      "sha256": "ec2ecc0d7250435764868420a5a8beaf2d69ced4f5d17ccbdc7aaf25a8cb2f85"
+    },
+    {
+      "path": "planning/step4_browser_checks/patient-history.jpg",
+      "bytes": 55261,
+      "sha256": "4a48db8cbee027fe97d0a8b84c496d9f446420b56cb066a56700122cbd620610"
+    },
+    {
+      "path": "planning/step4_browser_checks/patient-sharing-audit.jpg",
+      "bytes": 118550,
+      "sha256": "b18a02b1b46a5d9043445c1a3ee155c7b180300930031b5e2a642da2d14876f7"
+    },
+    {
+      "path": "planning/step4_browser_checks/physician-authorized-report.jpg",
+      "bytes": 91016,
+      "sha256": "3c67fb9108959fdcb61de8bfe0d7a8bc1da5da94f2a538ba3bfb081c64cd2b89"
+    },
+    {
+      "path": "planning/step4_browser_checks/physician-no-consent.jpg",
+      "bytes": 52054,
+      "sha256": "b079f6db58125b464a6088a39238ad84224f49c1bf412602f8e7c3fcbc1d2a58"
+    },
+    {
+      "path": "planning/step4_browser_checks/sehataman-desktop.jpg",
+      "bytes": 64816,
+      "sha256": "ed510788676d87b5b4c4cb45005039987a3061e826196b2c2ccd63cde9155b55"
+    },
+    {
+      "path": "planning/step4_browser_checks/verification.json",
+      "bytes": 2205,
+      "sha256": "a67771d9a90fbf605360c74ed4487e610bc4d6fe390af4ddb517013e6094a7e4"
+    },
+    {
+      "path": "planning/step4_build_status.json",
+      "bytes": 2949,
+      "sha256": "af7187fefa316c56822115a157cae791fbd0432948848f1e040ea80575ab9809"
+    },
+    {
+      "path": "planning/step4_frozen_scenario_manifest.json",
+      "bytes": 138398,
+      "sha256": "d7191bdd7ec753004da9bc48869f2e140481cf43b7a441947bceeff1fafd9890"
+    },
+    {
+      "path": "planning/step4_implementation_checks.json",
+      "bytes": 457,
+      "sha256": "625eb155a85bbdb0b3abd41b5be8d33f77ff6cc1f8e4b23e163e0d966bada7b0"
+    },
+    {
+      "path": "planning/step4_implementation_checks_25_pass.json",
+      "bytes": 457,
+      "sha256": "15ed22aa608175db9db6a04f63f22c9fb695cca180818a02be147b0baa41e752"
+    },
+    {
+      "path": "planning/step4_implementation_checks_initial_run.json",
+      "bytes": 457,
+      "sha256": "a4770c722f2567804399181a60466831109e1c1ad39b4efe0efa309b67116f95"
+    },
+    {
+      "path": "planning/step4_implementation_checks_socket_restricted_run.json",
+      "bytes": 457,
+      "sha256": "2bda88e9ed205bdb73006df9c6e0e33e3be23f96796a4e25de9af3c5ad526ce4"
+    },
+    {
+      "path": "planning/step4_manifest_freeze.json",
+      "bytes": 291,
+      "sha256": "50cca0cc80e742bd25f97167552e629bbe5b541f1fcce6fc0926da417d444502"
+    },
+    {
+      "path": "planning/step5_completion.json",
+      "bytes": 2987,
+      "sha256": "e01888d8c5ce274e0456218c2ccef57670b69ebf6dc05033aab9205de9b28323"
+    },
+    {
+      "path": "planning/step5_reference_specification.json",
+      "bytes": 1071,
+      "sha256": "a2d18e9577877a9f4f6f2f8f5d578dba8f9ac5361dce611d7a01369de6464dfe"
+    },
+    {
+      "path": "planning/step5_results/benchmarks-20261021T201525-a6e329.json",
+      "bytes": 354110,
+      "sha256": "d908080e1139d0902e208095b074f0404e266f0143b9fbe0a06bbfb660b4a9c0"
+    },
+    {
+      "path": "planning/step5_results/benchmarks-20261021T202642-6561bb.json",
+      "bytes": 353998,
+      "sha256": "0649069406ea3e42f78216e14d18081431881bca8b862a5061625f821c9f6cef"
+    },
+    {
+      "path": "planning/step5_results/cases-20261021T200635-16da40.json",
+      "bytes": 126398,
+      "sha256": "0ef442e8cbaebd1d1e240ddd0ba547343e1913bbc8ccc1d1cb9d45eb4d45a03f"
+    },
+    {
+      "path": "planning/step5_results/cases-20261021T201120-ff3913.json",
+      "bytes": 119396,
+      "sha256": "7aedd22761572ae86494609c2d5f05a83dc9a5fe4b33755e8a94a575bca2a432"
+    },
+    {
+      "path": "planning/step5_results/cases-20261021T202323-7a0c91.json",
+      "bytes": 119405,
+      "sha256": "4d59e8a136a38c19f38b86414ccefea12b462477f490a7dec2391f420d901ad0"
+    },
+    {
+      "path": "planning/step5_results/cases-20261021T203242-0137ad.json",
+      "bytes": 144802,
+      "sha256": "d0911f224545d6d2af6107762f77b1dcef634f757128a1e1f413601174252fe7"
+    },
+    {
+      "path": "planning/step5_results/latest-benchmarks.json",
+      "bytes": 153,
+      "sha256": "83c5d46d7afaa6053d04293f24e5de24642e5297c4fb5e84c88c18fa891b4125"
+    },
+    {
+      "path": "planning/step5_results/latest-cases.json",
+      "bytes": 120,
+      "sha256": "37bf6fec856124d3fb421021db4cb3378620d4286b46fdedd69f01e0aecae3cd"
+    },
+    {
+      "path": "planning/step5_results/routes-20261021T202005-454027.json",
+      "bytes": 5530,
+      "sha256": "652658fe7701cdf27ee554b9d88f3a09acac03a3d8e41564d3c0fbfa62656ab5"
+    },
+    {
+      "path": "planning/step5_results/routes-20261021T202255-e22e4b.json",
+      "bytes": 5378,
+      "sha256": "a95148d66908bc86a3eca1ca710ea416313f4c4d9f8fbf7d5069fa994619d652"
+    },
+    {
+      "path": "planning/step5_results/routes-20261021T203247-a6e325.json",
+      "bytes": 5378,
+      "sha256": "a95148d66908bc86a3eca1ca710ea416313f4c4d9f8fbf7d5069fa994619d652"
+    },
+    {
+      "path": "planning/step6_handover.json",
+      "bytes": 2108,
+      "sha256": "0d19a937f5cc0370dc0b1ddbfeef163ea222cf4b12582c2c81bcddacef7527e7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7332,
+      "sha256": "abab6b17695bbf066d209f83b665f00ef6b8c5c56118ae268b3232aed4534607"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 12891,
+      "sha256": "f1dc36d915d40880ac446a1b0013adf90959b5b117298e7b5e6b15624bb92c47"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 41,
+      "sha256": "883a0d4696de53b0879148c622aa0f2a82f2a14cd077ec1ba11f29f61f10c874"
+    },
+    {
+      "path": "Run-SehatAman.cmd",
+      "bytes": 262,
+      "sha256": "31e20125c4b60e1a9a249bed1d197afd70eb4a794dbd29bb90562d6a32247fec"
+    },
+    {
+      "path": "sehataman/__init__.py",
+      "bytes": 101,
+      "sha256": "ed0eb0ae0c8e0849d18bc7a25ee21ea4f0b962e47d9e80f09e51391f6c08b669"
+    },
+    {
+      "path": "sehataman/bootstrap.py",
+      "bytes": 753,
+      "sha256": "623dd9c553af9265331085e2425143bc007e3e1de8e5744e49e57f1e9d40ba4f"
+    },
+    {
+      "path": "sehataman/crypto.py",
+      "bytes": 2359,
+      "sha256": "6293d6cc3f654b3be3766480ec80620f5376f3d0b2414b7dccecb9e759a5bd17"
+    },
+    {
+      "path": "sehataman/domain.py",
+      "bytes": 59322,
+      "sha256": "a0f46bef3a7c8cbf57367940e31d181d28f87421832cce7ed5c6f246a88c3d49"
+    },
+    {
+      "path": "sehataman/issuer.py",
+      "bytes": 2971,
+      "sha256": "017801ec1c4888a0b46801b7b146d2b644ca59bd52e01cf522491acf74143f05"
+    },
+    {
+      "path": "sehataman/seed.py",
+      "bytes": 8395,
+      "sha256": "761bcf05007eb6994322db3ea5ccf85e56ade21f2b75bedf66011c29a6ec75e9"
+    },
+    {
+      "path": "sehataman/server.py",
+      "bytes": 8452,
+      "sha256": "523bc49713f9ef60103b3067fdcaf4359299989b3b7c67ce97491303fd4adf4d"
+    },
+    {
+      "path": "sehataman/static/app.js",
+      "bytes": 48319,
+      "sha256": "6ae54fc3374a01cc9e1bb3be070064ec8a3c7a426c5d13a73ca0944609785078"
+    },
+    {
+      "path": "sehataman/static/brand.svg",
+      "bytes": 270,
+      "sha256": "b9cfba5b9390d3e231feb0a1400cb2b6b038dd7a217d8b07f94815c5a0d86089"
+    },
+    {
+      "path": "sehataman/static/index.html",
+      "bytes": 2126,
+      "sha256": "506f1d74a328933d2da2a8a57402f94271c4c6f8e9a3404d378a44abe628df21"
+    },
+    {
+      "path": "sehataman/static/reviewer.html",
+      "bytes": 4484,
+      "sha256": "c973c7c0d11e7a5e073df6833b9c754e11033aa65e082b71e97430c5a93f3194"
+    },
+    {
+      "path": "sehataman/static/style.css",
+      "bytes": 18225,
+      "sha256": "0ddef111754ddd6ecb28d8ac20509aa82db32830087dab9121ad34249a588037"
+    },
+    {
+      "path": "sehataman/storage.py",
+      "bytes": 13972,
+      "sha256": "03b5c8e6c64109af296c2c8050a6f5227fae820d499488e2585491d7acc7cb0c"
+    },
+    {
+      "path": "Show-DemoAccounts.cmd",
+      "bytes": 253,
+      "sha256": "d3baaac35675e25ae79393b281f865dc32032b077c9a304938c3a7f4f60da228"
+    },
+    {
+      "path": "Stop-SehatAman.ps1",
+      "bytes": 1051,
+      "sha256": "e04aa0c8f9daf9f4444ca263d6af1957e06f8d61b5d37a884a7e3059d76ff89b"
+    },
+    {
+      "path": "tests/reference_policy.py",
+      "bytes": 7761,
+      "sha256": "0385777b585bb5e49118946c03f19537ba8c998c3982baa5aca589771234cadb"
+    },
+    {
+      "path": "tests/step5_benchmarks.py",
+      "bytes": 10304,
+      "sha256": "34fa996124bdd12d4271868a0bbcfd8c8024b2c544aa526c9c6e19bb75397e79"
+    },
+    {
+      "path": "tests/step5_route_checks.py",
+      "bytes": 4101,
+      "sha256": "36204946c8c1a4aa8b86c4ddabdd40621b7301b37b41715cdbc91648814f3dc8"
+    },
+    {
+      "path": "tests/step5_validate.py",
+      "bytes": 29502,
+      "sha256": "fafe6830df983f2b31d2e93b046644864f9c58a54f630057c51e07231012bc8d"
+    },
+    {
+      "path": "tests/test_mvp.py",
+      "bytes": 23043,
+      "sha256": "901c793404fde0144d923dfffac6bb5208ab230634434dbe55d866cf5a1a8e34"
+    },
+    {
+      "path": "tests/test_release.py",
+      "bytes": 4559,
+      "sha256": "e342ec4d1a864b8b664d09fe9946d876ce4840fb2663ec0acd1de831b2db0fdd"
+    }
+  ]
+}

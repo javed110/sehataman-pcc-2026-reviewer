@@ -1,0 +1,1631 @@
+{
+  "document_type": "Step 3 screen, data-flow and access-rule design",
+  "project": "Tehreem PCC 2026 ViroHandoff Guard",
+  "date": "2026-10-21",
+  "timezone": "Asia/Karachi",
+  "version": "3.0-for-review",
+  "status": "approved_by_user",
+  "authorization": {
+    "step_2_approved": true,
+    "step_3_authorized": true,
+    "step_3_completed": "Design only: screens, state transitions, proposed data contracts and access policy.",
+    "step_4_authorized": true,
+    "user_instruction": "Approved, proceed with Step 3 only. Design screens, data flows and access rules with all entities and data synthetic. Keep cybersecurity explicit, local stakeholder validation pending, and seek my approval before Step 4."
+  },
+  "scope": {
+    "business_entities": [
+      "Patient",
+      "Molecular diagnostic laboratory",
+      "Physician",
+      "Hospital"
+    ],
+    "synthetic_scale": {
+      "laboratories": 2,
+      "hospitals": 1,
+      "physicians": 3,
+      "adult_patients": 5
+    },
+    "first_report_type": "Invented adult respiratory PCR report; no diagnostic advice or real clinical reference ranges.",
+    "history": "Only accepted diagnostic reports supplied by the synthetic laboratories; no claim of a complete medical history.",
+    "all_synthetic": "Every entity, account, identifier, report, order, specimen, appointment, credential, identity response and audit event is invented. No anonymized or renamed real records.",
+    "external_integrations": "None. No live PMDC, NADRA, hospital, laboratory, email, SMS or payment calls.",
+    "profile_discovery": "Explicit specialty, location, language, fee and availability filters; transparent matching, no diagnostic ranking.",
+    "local_validation": {
+      "pakistan_public_evidence": "Desk-based contextual review already recorded in pakistan_web_validation_evidence.json.",
+      "direct_stakeholder_validation": "Pending: no new interviews, usability studies, institutional confirmation or purchasing validation.",
+      "design_status": "Proposed requirements and workflows, not stakeholder-validated conclusions."
+    },
+    "limits": [
+      "Adults only",
+      "No guardian or proxy access",
+      "No emergency bypass",
+      "No full EHR",
+      "No AI diagnosis",
+      "No payments or teleconsultation"
+    ]
+  },
+  "research_position": {
+    "candidate_contribution": "A Pakistan-informed conformance profile and reproducible all-synthetic state-transition benchmark for version-specific, patient-authorized report release.",
+    "narrow_testable_focus": "Prevent unauthorized release and preserve issuer-bound report lineage when consent, appointment, independent registration, hospital affiliation or report version changes.",
+    "comparison": "Retain the fair, properly configured reference arm and measurable criteria approved in Step 2. This screen design does not establish superiority or novelty by itself.",
+    "not_claimed": [
+      "First Pakistani platform",
+      "New cryptography or consent mechanism",
+      "Proven local market demand",
+      "Clinical efficacy",
+      "Production certification"
+    ]
+  },
+  "fixtures": {
+    "organizations": [
+      {
+        "id": "L01",
+        "name": "Demo Molecular Lab L01",
+        "kind": "laboratory",
+        "status": "simulated-approved"
+      },
+      {
+        "id": "L02",
+        "name": "Demo Molecular Lab L02",
+        "kind": "laboratory",
+        "status": "simulated-approved"
+      },
+      {
+        "id": "H01",
+        "name": "Demo Hospital H01",
+        "kind": "hospital",
+        "status": "simulated-approved"
+      }
+    ],
+    "patients": [
+      {
+        "id": "P01",
+        "label": "Demo Patient P01",
+        "cnic_alias": "TEST-CNIC-P01",
+        "format_fixture": "00000-0000001-0",
+        "display": "Test CNIC ending 0010",
+        "identity_outcome": "simulated-verified",
+        "adult": true
+      },
+      {
+        "id": "P02",
+        "label": "Demo Patient P02",
+        "cnic_alias": "TEST-CNIC-P02",
+        "format_fixture": "00000-0000002-0",
+        "display": "Test CNIC ending 0020",
+        "identity_outcome": "simulated-verified",
+        "adult": true
+      },
+      {
+        "id": "P03",
+        "label": "Demo Patient P03",
+        "cnic_alias": "TEST-CNIC-P03",
+        "format_fixture": "00000-0000003-0",
+        "display": "Test CNIC ending 0030",
+        "identity_outcome": "simulated-verified",
+        "adult": true
+      },
+      {
+        "id": "P04",
+        "label": "Demo Patient P04",
+        "cnic_alias": "TEST-CNIC-P04",
+        "format_fixture": "00000-0000004-0",
+        "display": "Test CNIC ending 0040",
+        "identity_outcome": "simulated-verified",
+        "adult": true
+      },
+      {
+        "id": "P05",
+        "label": "Demo Patient P05",
+        "cnic_alias": "TEST-CNIC-P05",
+        "format_fixture": "00000-0000005-0",
+        "display": "Test CNIC ending 0050",
+        "identity_outcome": "simulated-verified",
+        "adult": true
+      }
+    ],
+    "physicians": [
+      {
+        "id": "D01",
+        "label": "Demo Physician D01",
+        "specialty": "Internal medicine",
+        "language": [
+          "Urdu",
+          "English"
+        ],
+        "location": "Demo City",
+        "fee_pkr": 1500,
+        "registration_ref": "SIM-PMDC-D01",
+        "registration": "simulated-valid",
+        "affiliation": "simulated-valid",
+        "hospital_id": "H01",
+        "bookable": true
+      },
+      {
+        "id": "D02",
+        "label": "Demo Physician D02",
+        "specialty": "Pulmonology",
+        "language": [
+          "Urdu"
+        ],
+        "location": "Demo City",
+        "fee_pkr": 1800,
+        "registration_ref": "SIM-PMDC-D02",
+        "registration": "simulated-valid",
+        "affiliation": "pending",
+        "hospital_id": "H01",
+        "bookable": false
+      },
+      {
+        "id": "D03",
+        "label": "Demo Physician D03",
+        "specialty": "Internal medicine",
+        "language": [
+          "English"
+        ],
+        "location": "Demo City",
+        "fee_pkr": 1600,
+        "registration_ref": "SIM-PMDC-D03",
+        "registration": "pending",
+        "affiliation": "simulated-valid",
+        "hospital_id": "H01",
+        "bookable": false
+      }
+    ],
+    "identifiers": "Short IDs above are display aliases only. Planned stored IDs and route identifiers are opaque UUIDs. Numeric CNIC-format fixtures are deliberate test values, never asserted issued or NADRA-valid; routine displays remain masked.",
+    "clinical_examples": [
+      {
+        "report": "R01",
+        "patient": "P01",
+        "lab": "L01",
+        "order": "O01",
+        "specimen": "S01",
+        "version": 1,
+        "result": "Invented target X: not detected",
+        "status": "accepted"
+      },
+      {
+        "report": "R01",
+        "patient": "P01",
+        "lab": "L01",
+        "order": "O01",
+        "specimen": "S01",
+        "version": 2,
+        "result": "Invented target X: detected",
+        "status": "proposed-amendment",
+        "reason": "Synthetic correction scenario; no clinical interpretation"
+      },
+      {
+        "report": "R02",
+        "patient": "P01",
+        "lab": "L02",
+        "order": "O02",
+        "specimen": "S02",
+        "version": 1,
+        "result": "Invented target Y: not detected",
+        "status": "accepted"
+      }
+    ],
+    "credentials": "Step 4 will generate local-only seeded accounts and separate test second-factor secrets; no secrets belong in this design or browser source.",
+    "clock": "A server-controlled synthetic test clock and explicit validity intervals, visibly labelled in demo mode. No browser client may set authoritative time or fixture status."
+  },
+  "screen_inventory": [
+    {
+      "id": "S01",
+      "role": "All",
+      "name": "Sign in and identity status",
+      "content": [
+        "Account identifier, password and second factor; no CNIC-as-password",
+        "Masked patient CNIC linkage and simulated identity verification status after authentication",
+        "Generic sign-in/recovery errors and locally simulated recovery"
+      ],
+      "actions": [
+        "Sign in",
+        "Verify second factor",
+        "Request recovery"
+      ],
+      "cybersecurity": [
+        "Role and organization assigned by server",
+        "Throttled generic failures",
+        "Secure session; no credential display or browser role escalation"
+      ],
+      "states": [
+        "Signed out",
+        "Second factor required",
+        "Identity pending",
+        "Verified session",
+        "Recovery held"
+      ]
+    },
+    {
+      "id": "P00",
+      "role": "Patient",
+      "name": "Identity status",
+      "content": [
+        "Masked synthetic CNIC alias",
+        "Independent simulated enrolment evidence, account binding and validity interval",
+        "Separate CNIC format, identity proof, authentication and specimen linkage"
+      ],
+      "actions": [
+        "View own identity summary",
+        "Request local review if unresolved"
+      ],
+      "cybersecurity": [
+        "No full CNIC in routine display",
+        "No self-service verified flag or automatic record merge",
+        "Pending linkage does not release clinical records"
+      ],
+      "states": [
+        "Simulated verified",
+        "Pending review",
+        "Expired/stale"
+      ]
+    },
+    {
+      "id": "P01",
+      "role": "Patient",
+      "name": "Diagnostic history",
+      "content": [
+        "Only own accepted reports grouped by lab and date",
+        "Latest accepted version, correction badge, issuer and specimen context",
+        "Clear scope: supplied diagnostic reports"
+      ],
+      "actions": [
+        "Open report",
+        "Open version history",
+        "Find physician"
+      ],
+      "cybersecurity": [
+        "Patient ownership checked for list, search, item and file",
+        "Quarantined or other-patient reports absent"
+      ],
+      "states": [
+        "Empty",
+        "Accepted",
+        "Correction available",
+        "Integrity hold"
+      ]
+    },
+    {
+      "id": "P02",
+      "role": "Patient",
+      "name": "Report and provenance",
+      "content": [
+        "Synthetic result with specimen/order context",
+        "Issuer, source report ID, issue/receive time and source verification label",
+        "Current and historical versions, predecessor, correction reason and approver",
+        "Exact version selected for sharing"
+      ],
+      "actions": [
+        "View protected report file",
+        "Choose version to share"
+      ],
+      "cybersecurity": [
+        "No silent overwrite",
+        "Superseded label persists",
+        "No public file URL",
+        "Integrity hold blocks clinical payload"
+      ],
+      "states": [
+        "Current",
+        "Superseded historical",
+        "Held"
+      ]
+    },
+    {
+      "id": "P03",
+      "role": "Patient",
+      "name": "Physician directory and appointment",
+      "content": [
+        "Hospital-supplied profile",
+        "Separate simulated professional registration and hospital-affiliation badges",
+        "Specialty/location/language/fee/availability filters",
+        "Verification timing and nonbookable pending profiles"
+      ],
+      "actions": [
+        "Filter profiles",
+        "View profile",
+        "Book eligible physician"
+      ],
+      "cybersecurity": [
+        "Profile listing and booking give no medical-record access",
+        "Credential documents and CNIC excluded",
+        "Pending, stale or invalid credentials block new booking in this MVP"
+      ],
+      "states": [
+        "Eligible",
+        "Registration pending",
+        "Affiliation pending",
+        "Slot conflict",
+        "Appointment booked; no records shared"
+      ]
+    },
+    {
+      "id": "P04",
+      "role": "Patient",
+      "name": "Review and confirm sharing",
+      "content": [
+        "Named physician and hospital context",
+        "Appointment, purpose and exact report-version list",
+        "Start and exclusive expiry in Pakistan time plus clear timezone",
+        "No records selected by default; no bundled future-version permission",
+        "Plain-language acknowledgement"
+      ],
+      "actions": [
+        "Confirm selected sharing",
+        "Cancel"
+      ],
+      "cybersecurity": [
+        "Patient ownership and all recipient predicates rechecked on submission",
+        "Grant is separate from appointment",
+        "Mismatched version or manipulated recipient rejected"
+      ],
+      "states": [
+        "No selection",
+        "Ready to confirm",
+        "Grant created",
+        "Recipient eligibility changed; review required"
+      ]
+    },
+    {
+      "id": "P05",
+      "role": "Patient",
+      "name": "My sharing and access history",
+      "content": [
+        "Active/expired/revoked grants and exact scope",
+        "Withdraw action",
+        "Readable clinical access decision/delivery history with role, report-version and time",
+        "Correction prompts renewed sharing"
+      ],
+      "actions": [
+        "Withdraw sharing",
+        "Share corrected version separately",
+        "View event detail"
+      ],
+      "cybersecurity": [
+        "Revocation affects next server request after durable commit",
+        "Already delivered copies cannot be recalled",
+        "Patient summaries omit raw security logs and other people’s data"
+      ],
+      "states": [
+        "Active",
+        "Withdrawn",
+        "Expired",
+        "Appointment cancelled",
+        "Credential issue",
+        "New version not shared"
+      ]
+    },
+    {
+      "id": "L01",
+      "role": "Laboratory submitter",
+      "name": "Submission workspace",
+      "content": [
+        "Own laboratory submissions and assigned synthetic orders",
+        "Masked CNIC and secondary demographic/order/specimen confirmation",
+        "Structured respiratory PCR fields and document preview",
+        "Source report/message/version identifiers"
+      ],
+      "actions": [
+        "Prepare submission",
+        "Submit for review"
+      ],
+      "cybersecurity": [
+        "CNIC sent in protected request body only",
+        "No global patient/CNIC search",
+        "Server binds lab identity to authenticated organization",
+        "Untrusted content safely rendered and bounded"
+      ],
+      "states": [
+        "Draft",
+        "Under validation",
+        "Held with scoped reason",
+        "Awaiting approval"
+      ]
+    },
+    {
+      "id": "L02",
+      "role": "Laboratory approver",
+      "name": "Validation and source approval",
+      "content": [
+        "Same-lab held/pending queue",
+        "Identity/order/specimen concordance",
+        "Issuer evidence and digest check",
+        "Submitter and independent approver identities"
+      ],
+      "actions": [
+        "Approve valid submission",
+        "Return for correction",
+        "Reject"
+      ],
+      "cybersecurity": [
+        "Separate submitter and approver accounts",
+        "No self-approval or cross-lab approval",
+        "No invalid evidence override button"
+      ],
+      "states": [
+        "Valid",
+        "Mismatch",
+        "Signature failure",
+        "Replay",
+        "Approved"
+      ]
+    },
+    {
+      "id": "L03",
+      "role": "Laboratory approver/submitter",
+      "name": "Amendment and version chain",
+      "content": [
+        "Own report and preserved predecessor",
+        "Reason, amended fields, source version and approver",
+        "Concurrent amendment conflict"
+      ],
+      "actions": [
+        "Propose amendment",
+        "Approve amendment with distinct account",
+        "Review lineage"
+      ],
+      "cybersecurity": [
+        "Insert new immutable version",
+        "Compare expected predecessor atomically",
+        "Duplicate replay has no second effect",
+        "Corrected version receives no inherited patient grant"
+      ],
+      "states": [
+        "Proposed",
+        "Awaiting approval",
+        "Accepted successor",
+        "Conflict",
+        "Superseded predecessor"
+      ]
+    },
+    {
+      "id": "H01",
+      "role": "Hospital profile manager",
+      "name": "Profile submission and publication",
+      "content": [
+        "Only own hospital profiles",
+        "Hospital-submitted identity/account mapping and professional reference",
+        "Public profile fields and authorized hospital submitter evidence",
+        "Separate professional-registration result, read-only to hospital"
+      ],
+      "actions": [
+        "Submit profile",
+        "Edit permitted public fields",
+        "Request independent registration review"
+      ],
+      "cybersecurity": [
+        "No patient history, report search or clinical download",
+        "Hospital cannot self-mark PMDC verified",
+        "Profile edits cannot replace physician account identity silently"
+      ],
+      "states": [
+        "Draft",
+        "Pending verification",
+        "Published eligible",
+        "Published not bookable",
+        "Suspended"
+      ]
+    },
+    {
+      "id": "H02",
+      "role": "Hospital affiliation manager",
+      "name": "Affiliation status and evidence",
+      "content": [
+        "Hospital-specific role/privileges, effective dates, evidence reference, approver and last check",
+        "Independent registration shown as a separate read-only state",
+        "Revocation confirmation naming affected hospital context"
+      ],
+      "actions": [
+        "Attest affiliation",
+        "Renew evidence",
+        "Suspend or revoke affiliation"
+      ],
+      "cybersecurity": [
+        "Own hospital only",
+        "Affiliation change does not alter professional registration",
+        "Committed revocation blocks affected future clinical requests",
+        "No clinical payload in impact view"
+      ],
+      "states": [
+        "Pending",
+        "Valid within synthetic interval",
+        "Expired",
+        "Stale",
+        "Revoked"
+      ]
+    },
+    {
+      "id": "D01",
+      "role": "Physician",
+      "name": "Appointments and authorized records",
+      "content": [
+        "Only own appointments and minimum booking identity",
+        "Only exact versions with current permission",
+        "Independent credential status strip",
+        "Unshared/cancelled/expired state with action guidance"
+      ],
+      "actions": [
+        "Open permitted version",
+        "View own access history",
+        "Request patient to update sharing through local in-app status"
+      ],
+      "cybersecurity": [
+        "No general patient/CNIC search",
+        "No full CNIC",
+        "Booking alone yields no report list or result counts",
+        "Every item and download checks current state"
+      ],
+      "states": [
+        "Appointment only; no records shared",
+        "Access allowed",
+        "Consent withdrawn",
+        "Affiliation invalid",
+        "Registration stale",
+        "Appointment cancelled"
+      ]
+    },
+    {
+      "id": "D02",
+      "role": "Physician",
+      "name": "Report reader",
+      "content": [
+        "Authorized version result and provenance",
+        "Historical/superseded warning without revealing unshared successor content",
+        "Access expiry and appointment context"
+      ],
+      "actions": [
+        "View protected file",
+        "Return to appointments"
+      ],
+      "cybersecurity": [
+        "File streamed through same server gate",
+        "Private/no-store response",
+        "No persistent browser report cache",
+        "Changed eligibility removes record on next request"
+      ],
+      "states": [
+        "Allowed exact version",
+        "Denied without clinical payload",
+        "Audit unavailable; release held"
+      ]
+    }
+  ],
+  "screen_design_conventions": {
+    "language": "Plain English prototype; Urdu localization and comprehension testing remain pending direct stakeholder validation.",
+    "status_text": "Simulated verification only. Badges never imply real PMDC/NADRA approval.",
+    "preview_navigation": "Persona selector is design-review chrome only. It is not an MVP role-switch control.",
+    "accessibility": "Keyboard-accessible native controls, labelled fields, readable contrast, status text in addition to color, responsive single-column fallback.",
+    "privacy": "No CNIC in directory, physician screens, URLs, access summaries, notifications or routine logs.",
+    "visible_approval_boundary": "Step 3 screen preview is local interaction design, not authentication, a security implementation or completed MVP."
+  },
+  "data_model": [
+    {
+      "entity": "Organization",
+      "key": "organization_id",
+      "fields": [
+        "kind",
+        "synthetic_label",
+        "verification_evidence_id",
+        "status",
+        "authorized_staff_ids"
+      ],
+      "authority": "Local synthetic organization verifier; hospital/lab cannot self-approve organization."
+    },
+    {
+      "entity": "Principal / Session",
+      "key": "principal_id / session_id",
+      "fields": [
+        "business_role",
+        "organization_id",
+        "subject_account_binding",
+        "password_hash",
+        "second_factor_ref",
+        "active",
+        "session_epoch",
+        "expires_at"
+      ],
+      "authority": "Server-side account/session service; never from browser role fields."
+    },
+    {
+      "entity": "PatientIdentity",
+      "key": "patient_id",
+      "fields": [
+        "principal_id",
+        "encrypted_cnic",
+        "keyed_cnic_lookup",
+        "masked_cnic",
+        "secondary_demographic_ref",
+        "identity_evidence_id",
+        "link_status"
+      ],
+      "authority": "Separate local identity verification fixture. CNIC formatting alone never establishes ownership."
+    },
+    {
+      "entity": "VerificationEvidence",
+      "key": "evidence_id",
+      "fields": [
+        "subject_id",
+        "evidence_type",
+        "source_type",
+        "source_ref",
+        "verifier_id",
+        "outcome",
+        "checked_at",
+        "valid_from",
+        "valid_until",
+        "status",
+        "synthetic"
+      ],
+      "authority": "Type-specific verifier; PMDC-style professional registration and hospital affiliation stay separate."
+    },
+    {
+      "entity": "PhysicianProfile",
+      "key": "physician_id",
+      "fields": [
+        "principal_binding_id",
+        "public_profile_fields",
+        "registration_evidence_id",
+        "publication_status",
+        "profile_version"
+      ],
+      "authority": "Hospital supplies public fields; independent professional verifier controls registration evidence."
+    },
+    {
+      "entity": "HospitalAffiliation",
+      "key": "affiliation_id",
+      "fields": [
+        "hospital_id",
+        "physician_id",
+        "role_or_privileges",
+        "evidence_id",
+        "effective_from",
+        "effective_until",
+        "status"
+      ],
+      "authority": "Authorized manager of that hospital; independent of registration."
+    },
+    {
+      "entity": "LabOrderSpecimenLink",
+      "key": "order_id / specimen_id",
+      "fields": [
+        "lab_id",
+        "lab_patient_id",
+        "patient_id",
+        "enrolment_match_ref",
+        "secondary_demographic_match",
+        "specimen_type",
+        "collection_time",
+        "test_context"
+      ],
+      "authority": "Authorized synthetic source order plus independently enrolled patient mapping; conflicts held."
+    },
+    {
+      "entity": "ReportSeries",
+      "key": "report_id",
+      "fields": [
+        "lab_id",
+        "source_report_id",
+        "patient_id",
+        "order_id",
+        "specimen_id",
+        "current_accepted_version_id"
+      ],
+      "authority": "Validated ingest; identity/lab immutable after acceptance. Wrong-patient correction requires hold and new validated association, never silent reassignment."
+    },
+    {
+      "entity": "ReportVersion",
+      "key": "version_id",
+      "fields": [
+        "report_id",
+        "version_number",
+        "predecessor_id",
+        "status",
+        "test_target",
+        "method_context",
+        "result_payload_ref",
+        "issued_at",
+        "received_at",
+        "content_digest",
+        "signed_manifest_ref",
+        "issuer_key_id",
+        "submitter_id",
+        "approver_id",
+        "correction_reason",
+        "accepted_at"
+      ],
+      "authority": "Authenticated issuer with separate approval; accepted content and provenance immutable; status changes separately audited."
+    },
+    {
+      "entity": "Submission",
+      "key": "submission_id",
+      "fields": [
+        "lab_id",
+        "message_id",
+        "idempotency_key",
+        "payload_digest",
+        "validation_findings",
+        "queue_status",
+        "version_candidate_id"
+      ],
+      "authority": "Ingest service; quarantine separate from accepted report store."
+    },
+    {
+      "entity": "Appointment",
+      "key": "appointment_id",
+      "fields": [
+        "patient_id",
+        "physician_id",
+        "hospital_id",
+        "affiliation_id",
+        "slot_id",
+        "start_at",
+        "end_at",
+        "status",
+        "state_revision"
+      ],
+      "authority": "Patient books eligible physician; physician can confirm/cancel own appointment; slot conflicts resolved atomically."
+    },
+    {
+      "entity": "ConsentGrant",
+      "key": "grant_id",
+      "fields": [
+        "patient_id",
+        "physician_id",
+        "hospital_id",
+        "affiliation_id",
+        "appointment_id",
+        "purpose",
+        "version_ids",
+        "starts_at",
+        "expires_at",
+        "status",
+        "created_at",
+        "revoked_at",
+        "state_revision"
+      ],
+      "authority": "Patient only; exact versions immutable after grant. Scope expansion creates a new grant; withdrawal retained."
+    },
+    {
+      "entity": "AuditEvent",
+      "key": "event_id",
+      "fields": [
+        "sequence",
+        "actor_id",
+        "role",
+        "action",
+        "object_ref",
+        "version_id",
+        "decision",
+        "reason_code",
+        "request_id",
+        "server_time",
+        "policy_revision",
+        "previous_digest",
+        "event_digest"
+      ],
+      "authority": "Server-side append-only writer; patient summary is a redacted projection, not raw audit access."
+    },
+    {
+      "entity": "ProtectedAuditCheckpoint",
+      "key": "checkpoint_id",
+      "fields": [
+        "last_sequence",
+        "last_event_digest",
+        "protected_signature_or_mac",
+        "created_at"
+      ],
+      "authority": "Protected location/key outside the writable clinical/audit store attack surface."
+    }
+  ],
+  "data_flows": [
+    {
+      "id": "DF01",
+      "from": "Synthetic fixture operator",
+      "to": "Server-side verifier",
+      "payload": "Invented organizations, account bindings, CNIC and registration evidence",
+      "checks": "Local-only, privileged test configuration; no browser-set verified flags or clinical bypass",
+      "result": "Verified/pending fixture states; no real external queries"
+    },
+    {
+      "id": "DF02",
+      "from": "Hospital manager",
+      "to": "Profile / affiliation service",
+      "payload": "Synthetic physician profile and separate affiliation evidence",
+      "checks": "Authenticated hospital scope and authorized attester; independent registration result read-only",
+      "result": "Profile states and affiliation events; no patient-record permission"
+    },
+    {
+      "id": "DF03",
+      "from": "Laboratory source simulator",
+      "to": "Ingest quarantine",
+      "payload": "Synthetic report manifest, file, CNIC/order/specimen linkage and issuer signature",
+      "checks": "Organization, submitter, message replay, schema/size/type, identity, order/specimen, file digest, signed metadata, predecessor",
+      "result": "Held/rejected/awaiting separate lab approval"
+    },
+    {
+      "id": "DF04",
+      "from": "Lab approver",
+      "to": "Accepted report/version store",
+      "payload": "Approval and expected predecessor",
+      "checks": "Distinct approver; same lab; all validation still passes in transaction",
+      "result": "New immutable accepted version, preserved lineage and durable audit"
+    },
+    {
+      "id": "DF05",
+      "from": "Patient",
+      "to": "Own history / directory",
+      "payload": "Authenticated own-record queries or nonclinical physician filters",
+      "checks": "Patient ownership for reports; minimal public fields for discovery",
+      "result": "Own accepted diagnostic history and separate registration/affiliation badges"
+    },
+    {
+      "id": "DF06",
+      "from": "Patient",
+      "to": "Appointment service",
+      "payload": "Selected eligible physician, hospital and available slot",
+      "checks": "Current independent credentials and atomic slot allocation",
+      "result": "Appointment only; no clinical access grant"
+    },
+    {
+      "id": "DF07",
+      "from": "Patient",
+      "to": "Consent service",
+      "payload": "Appointment, exact versions, recipient, purpose and validity interval",
+      "checks": "Patient ownership, record status and recipient eligibility rechecked; explicit confirmation",
+      "result": "Durable version-scoped grant; no future version inclusion"
+    },
+    {
+      "id": "DF08",
+      "from": "Physician",
+      "to": "Central release gate",
+      "payload": "Authenticated request for one version or protected file",
+      "checks": "All release predicates evaluated against current committed state and authoritative time",
+      "result": "Audit-bound permitted delivery, or generic/redacted denial with zero clinical payload"
+    },
+    {
+      "id": "DF09",
+      "from": "Patient / issuer / authorized credential manager",
+      "to": "State-change transaction",
+      "payload": "Withdrawal, cancellation, amendment, expiry or status change",
+      "checks": "Actor authority and expected state revision; append audit atomically",
+      "result": "Next ordered release request reevaluates changed state; no stale session or cache privilege"
+    },
+    {
+      "id": "DF10",
+      "from": "Audit store",
+      "to": "Patient summary / restricted operational view",
+      "payload": "Role-scoped events",
+      "checks": "Ownership filtering, CNIC and sensitive security-detail redaction, chain and checkpoint validation",
+      "result": "Who/what/when summaries; no claim that delivery proves human reading"
+    }
+  ],
+  "state_machines": {
+    "submission": [
+      "draft -> submitted -> validation",
+      "validation -> held | rejected | awaiting_approval",
+      "awaiting_approval -> accepted after distinct authorized approval and full recheck",
+      "held -> new validated resubmission; original evidence retained"
+    ],
+    "accepted_report": [
+      "accepted V1 -> accepted V2 + V1 superseded in same transaction",
+      "accepted/superseded -> integrity_hold through authorized security event",
+      "No accepted-content overwrite, rollback or destructive delete"
+    ],
+    "grant": [
+      "patient review -> active within [starts_at, expires_at)",
+      "active -> revoked by patient",
+      "active -> expired by server clock",
+      "Credential/appointment blocks are evaluated dynamically; they do not rewrite historical consent",
+      "New report version -> new grant required"
+    ],
+    "credentials": [
+      "pending -> valid with independently authorized evidence",
+      "valid -> expired | stale | suspended | revoked",
+      "Renewal creates new evidence; old evidence retained",
+      "Registration changes never silently change hospital affiliation, and vice versa"
+    ],
+    "appointment": [
+      "booked -> confirmed | cancelled | completed",
+      "Record release eligible only for booked/confirmed appointment inside explicit grant time",
+      "Cancellation, completion or recipient/context change blocks old scope",
+      "Rescheduling or context change requires new patient review and grant; previous appointment/grant retained"
+    ]
+  },
+  "access_matrix": [
+    {
+      "role": "Patient",
+      "reports": "Own accepted/intact versions and history",
+      "sharing": "Create/withdraw own grants",
+      "profiles": "Read permitted directory",
+      "appointments": "Book/cancel own",
+      "credentials": "Own identity summary only",
+      "audit": "Own redacted summary",
+      "prohibited": "Other patients, raw security logs, lab approval and credential self-verification"
+    },
+    {
+      "role": "Laboratory submitter",
+      "reports": "Own lab's scoped submissions and source reports",
+      "sharing": "None",
+      "profiles": "None required",
+      "appointments": "None",
+      "credentials": "Own staff/source status only",
+      "audit": "Own lab submission provenance",
+      "prohibited": "Other lab reports, whole patient history, self-approval, patient sharing"
+    },
+    {
+      "role": "Laboratory approver",
+      "reports": "Review/approve own lab candidates with distinct submitter",
+      "sharing": "None",
+      "profiles": "None required",
+      "appointments": "None",
+      "credentials": "Own lab approval scope only",
+      "audit": "Own lab provenance",
+      "prohibited": "Self-approval, cross-lab access, editing accepted content"
+    },
+    {
+      "role": "Hospital manager",
+      "reports": "None",
+      "sharing": "None",
+      "profiles": "Submit/update own hospital profiles",
+      "appointments": "No patient appointment list required",
+      "credentials": "Own hospital affiliation only; professional registration read-only",
+      "audit": "Own profile/affiliation actions only",
+      "prohibited": "Clinical metadata/files, global patient search, self-marking PMDC-valid"
+    },
+    {
+      "role": "Physician",
+      "reports": "Only exact versions passing full current release gate",
+      "sharing": "Read own recipient grant scope; cannot grant/expand",
+      "profiles": "Own professional/affiliation status and permitted directory fields",
+      "appointments": "Own minimum booking details; confirm/cancel own",
+      "credentials": "Own status, no self-verification",
+      "audit": "Own clinical access decisions, scoped",
+      "prohibited": "CNIC search, unshared versions, other physicians' appointments, affiliation-based blanket access"
+    },
+    {
+      "role": "Local fixture verifier / technical service",
+      "reports": "No routine clinical UI or release bypass",
+      "sharing": "Cannot create patient consent",
+      "profiles": "Only assigned simulated verification duties",
+      "appointments": "No impersonation",
+      "credentials": "Type-specific synthetic evidence updates via privileged local harness",
+      "audit": "Operational redacted security diagnostics only",
+      "prohibited": "Browser role-switch, universal clinical admin route, live identity calls"
+    }
+  ],
+  "physician_release_policy": {
+    "combine": "All conditions AND; missing, unknown, stale or contradictory evidence denies.",
+    "conditions": [
+      "Authenticated active physician account, second factor satisfied, active nonexpired server session",
+      "Server-bound physician identity matches requested recipient; supplied role or organization cannot override it",
+      "Target patient has verified synthetic enrolment and unambiguous CNIC/order/specimen linkage",
+      "Requested report version is accepted or explicitly historical/superseded, not held; stored payload and issuer-bound provenance intact",
+      "Active explicit patient grant includes exact immutable version_id and matches physician, patient, appointment, hospital, affiliation and purpose",
+      "Server time >= starts_at and server time < expires_at",
+      "Appointment belongs to same patient and physician/context and is booked or confirmed, not cancelled or completed",
+      "Independent simulated professional registration is valid and within its evidence interval",
+      "Separate hospital affiliation is valid for that physician and hospital within its evidence interval",
+      "Required durable audit and protected-checkpoint status permits release"
+    ],
+    "patient_read": "Patient uses authenticated ownership plus accepted/intact report checks; physician credential/appointment/grant predicates are not applied to the patient's own record.",
+    "lab_read": "Source laboratory staff use authenticated lab scope, order assignment and role; this does not create access to other labs or the patient's complete history.",
+    "deny_output": "Never include result, filename, report count, CNIC, another patient's existence or unshared correction contents. Known own appointment may show a minimal actionable status; cross-owner and nonexistent object responses are indistinguishable.",
+    "historical_versions": "A V1 grant can permit V1 after it is superseded if every other predicate still holds. A generic superseded warning can appear without revealing unshared V2 content or provenance. V2 always requires its own selected version grant.",
+    "no_blanket_permission": "Hospital listing, affiliation, registration, appointment booking and account login each provide zero patient-record permission by themselves."
+  },
+  "proposed_request_contracts": [
+    {
+      "id": "A01",
+      "method": "POST",
+      "path": "/sessions",
+      "rule": "Account authentication plus local test second factor; server assigned roles",
+      "output": "Session or generic error; no CNIC lookup",
+      "audit": "Authentication attempt; no passwords/tokens"
+    },
+    {
+      "id": "A02",
+      "method": "DELETE",
+      "path": "/sessions/current",
+      "rule": "Current authenticated session",
+      "output": "Server revocation and browser cookie cleared",
+      "audit": "Session revocation"
+    },
+    {
+      "id": "P01",
+      "method": "GET",
+      "path": "/me/reports",
+      "rule": "Patient ownership; accepted/intact records only",
+      "output": "Own diagnostic metadata only",
+      "audit": "Scoped list access"
+    },
+    {
+      "id": "P02",
+      "method": "GET",
+      "path": "/me/reports/{report_id}/versions",
+      "rule": "Patient owns series",
+      "output": "Own lineage; held content withheld",
+      "audit": "Version-history access"
+    },
+    {
+      "id": "R01",
+      "method": "GET",
+      "path": "/report-versions/{version_id}",
+      "rule": "Patient ownership OR authorized own-lab and assigned source scope OR full physician gate; hospital always denied",
+      "output": "Scoped version plus allowed provenance",
+      "audit": "Decision and permitted metadata delivery"
+    },
+    {
+      "id": "R02",
+      "method": "GET",
+      "path": "/report-versions/{version_id}/file",
+      "rule": "Same rule as R01, independently reevaluated",
+      "output": "Protected streamed file; no public/signed bearer URL",
+      "audit": "Decision and file-delivery attempt/result"
+    },
+    {
+      "id": "P03",
+      "method": "GET",
+      "path": "/directory/physicians",
+      "rule": "Authenticated patient; public profile field allowlist",
+      "output": "Independent simulated status labels and profile fields",
+      "audit": "Operational access without sensitive filter values"
+    },
+    {
+      "id": "P04",
+      "method": "POST",
+      "path": "/appointments",
+      "rule": "Patient; eligible verified recipient/context; atomic slot check",
+      "output": "Appointment only; no implicit grant",
+      "audit": "Appointment created"
+    },
+    {
+      "id": "P05",
+      "method": "PATCH",
+      "path": "/appointments/{appointment_id}/status",
+      "rule": "Owning patient cancellation or assigned physician confirmation/cancellation; state revision required",
+      "output": "Current state; no record permission added",
+      "audit": "Status transition"
+    },
+    {
+      "id": "P06",
+      "method": "POST",
+      "path": "/grants",
+      "rule": "Owning patient; exact versions, context and interval verified",
+      "output": "Immutable grant scope",
+      "audit": "Grant created with policy revision"
+    },
+    {
+      "id": "P07",
+      "method": "POST",
+      "path": "/grants/{grant_id}/withdraw",
+      "rule": "Owning patient; idempotent; durable before response",
+      "output": "Withdrawal status",
+      "audit": "Grant revoked or already revoked"
+    },
+    {
+      "id": "P08",
+      "method": "GET",
+      "path": "/me/sharing",
+      "rule": "Patient owner",
+      "output": "Own grants and summaries",
+      "audit": "Scoped access"
+    },
+    {
+      "id": "P09",
+      "method": "GET",
+      "path": "/me/access-history",
+      "rule": "Patient owner; redacted projection",
+      "output": "Own clinical decision/delivery events",
+      "audit": "Summary access"
+    },
+    {
+      "id": "L01",
+      "method": "POST",
+      "path": "/lab/submissions",
+      "rule": "Active own-lab submitter; server fixes issuer; signed source package and idempotency",
+      "output": "Submission receipt/held findings scoped to issuer",
+      "audit": "Received, validation and replay events"
+    },
+    {
+      "id": "L02",
+      "method": "GET",
+      "path": "/lab/submissions",
+      "rule": "Own lab plus assigned scope",
+      "output": "Submission queue; masked identifiers",
+      "audit": "Scoped queue access"
+    },
+    {
+      "id": "L03",
+      "method": "POST",
+      "path": "/lab/submissions/{submission_id}/approve",
+      "rule": "Distinct authorized own-lab approver; full recheck and expected predecessor",
+      "output": "Accepted version or conflict; no override invalid",
+      "audit": "Approval or rejection"
+    },
+    {
+      "id": "L04",
+      "method": "POST",
+      "path": "/lab/reports/{report_id}/amendments",
+      "rule": "Own-lab authorized submitter; predecessor, reason and new signed package",
+      "output": "New pending submission; never edits original",
+      "audit": "Amendment proposed"
+    },
+    {
+      "id": "H01",
+      "method": "POST",
+      "path": "/hospital/profiles",
+      "rule": "Verified own-hospital manager; fields allowlisted",
+      "output": "Profile pending independent registration verification",
+      "audit": "Profile submitted"
+    },
+    {
+      "id": "H02",
+      "method": "PATCH",
+      "path": "/hospital/profiles/{profile_id}",
+      "rule": "Own-hospital public fields only; version check",
+      "output": "Updated profile version; no identity replacement",
+      "audit": "Profile changed"
+    },
+    {
+      "id": "H03",
+      "method": "POST",
+      "path": "/hospital/affiliations",
+      "rule": "Own-hospital authorized attester with synthetic evidence",
+      "output": "Independent affiliation evidence",
+      "audit": "Affiliation attested"
+    },
+    {
+      "id": "H04",
+      "method": "POST",
+      "path": "/hospital/affiliations/{affiliation_id}/status",
+      "rule": "Authorized own-hospital manager; reason and state revision",
+      "output": "Durable status change",
+      "audit": "Affiliation renewed/suspended/revoked"
+    },
+    {
+      "id": "D01",
+      "method": "GET",
+      "path": "/physician/appointments",
+      "rule": "Server-bound assigned physician",
+      "output": "Minimum booking details; no unshared clinical counts",
+      "audit": "Scoped appointment access"
+    },
+    {
+      "id": "D02",
+      "method": "GET",
+      "path": "/physician/appointments/{appointment_id}/records",
+      "rule": "Own appointment; full release gate per included version",
+      "output": "Only currently authorized versions; no existence leakage",
+      "audit": "Per-scope list decision"
+    },
+    {
+      "id": "D03",
+      "method": "GET",
+      "path": "/physician/status",
+      "rule": "Own physician account",
+      "output": "Separate registration/affiliation summaries",
+      "audit": "Status access"
+    },
+    {
+      "id": "V01",
+      "method": "LOCAL-ONLY",
+      "path": "fixture-harness/verification-events",
+      "rule": "Privileged local test harness, no ordinary HTTP browser route; type-scoped authority",
+      "output": "Synthetic identity/registration/source state transitions",
+      "audit": "Fixture event with source SIMULATED"
+    },
+    {
+      "id": "A03",
+      "method": "POST",
+      "path": "/recovery-requests",
+      "rule": "Rate-limited generic request; separate local synthetic identity review, no CNIC-only reset",
+      "output": "Generic receipt; no account-existence disclosure",
+      "audit": "Recovery attempt without secrets"
+    },
+    {
+      "id": "P00",
+      "method": "GET",
+      "path": "/me/identity",
+      "rule": "Authenticated patient owner",
+      "output": "Masked enrolment and simulated verification summary",
+      "audit": "Own identity summary access"
+    },
+    {
+      "id": "P10",
+      "method": "GET",
+      "path": "/me/appointments",
+      "rule": "Authenticated patient owner",
+      "output": "Own appointments and nonclinical status only",
+      "audit": "Own appointment list access"
+    },
+    {
+      "id": "H00",
+      "method": "GET",
+      "path": "/hospital/profiles",
+      "rule": "Authorized manager of own hospital",
+      "output": "Own supplied profiles with separate read-only professional-status summaries",
+      "audit": "Scoped profile access"
+    },
+    {
+      "id": "H05",
+      "method": "GET",
+      "path": "/hospital/affiliations",
+      "rule": "Authorized manager of own hospital",
+      "output": "Own affiliation evidence and status only; no clinical impact list",
+      "audit": "Scoped affiliation access"
+    },
+    {
+      "id": "L05",
+      "method": "GET",
+      "path": "/lab/reports/{report_id}/versions",
+      "rule": "Authorized own-lab staff and assigned source scope",
+      "output": "Own laboratory lineage only; no whole-patient history",
+      "audit": "Scoped source lineage access"
+    },
+    {
+      "id": "L06",
+      "method": "POST",
+      "path": "/lab/submissions/{submission_id}/return",
+      "rule": "Authorized own-lab approver; reason required",
+      "output": "Return/reject status; original receipt retained; no publication",
+      "audit": "Submission returned or rejected"
+    }
+  ],
+  "cybersecurity_design": {
+    "identity": "CNIC is an identity-matching attribute, never an authenticator, public username, authorization token or recovery secret. Normalize server-side; protect with encrypted storage and secret-keyed lookup; use opaque internal IDs and masked output.",
+    "authentication": "Proposed password hashing with a maintained library, separate local test second factor, rate limits, server-side sessions, logout invalidation, short inactivity and absolute expiry. No password/OTP secrets in browser bundle, URL or logs.",
+    "browser_boundary": "Session cookies HttpOnly, SameSite and Secure in the intended HTTPS setup; CSRF protection and origin checks for state changes. A documented isolated loopback-only development setup must not be represented as a production TLS deployment.",
+    "transport_storage": "TLS for any non-loopback access, encrypted sensitive store/backup, file storage outside public web root, restricted runtime account and separate fixture issuer/audit keys. No claim of protection from a fully compromised runtime/OS/key holder.",
+    "issuer_integrity": "Proposed per-lab asymmetric signing keys in local source simulators; ingest has trusted public keys only. A versioned canonical manifest binds issuer, source report/message IDs, patient mapping reference, order/specimen, exact content digest, version, predecessor, issue time and approver reference. Verify manifest signature AND actual file digest; a recomputed bare hash is insufficient.",
+    "source_limits": "A correctly signed report can still be clinically false. Source approval verifies synthetic origin/consistency, not collection truth or analytical validity. Key rotation retains historical verification evidence; compromise triggers explicit review/hold events rather than erasing provenance.",
+    "submission_controls": "Schema and field allowlists, exact allowed document types, bounded size/count, no active HTML rendering, safe text escaping, server-controlled paths, idempotency keys plus immutable source identity. Same key+same payload returns same receipt; same key+different payload conflicts.",
+    "corrections": "Unique report/version and one accepted successor per predecessor. Transaction checks expected head and distinct approver. A competing successor is held/conflicted, never silently wins. Original and evidence persist; never reassign accepted patient identity in place.",
+    "current_state_release": "One central authorization path covers lists, metadata and files. Browser visibility, role dropdowns, cached JWT claims, knowledge of IDs or a prior successful view cannot authorize a request.",
+    "concurrency": "Release decisions and relevant state changes use a single authoritative transaction/ordering mechanism with state revisions. An earlier in-flight authorized request may complete; requests ordered after committed withdrawal/cancellation/credential change must observe it. No claim to recall bytes already delivered.",
+    "caching": "Clinical HTTP responses private and no-store; no service-worker clinical cache or localStorage reports. File routes are independently gated, with no long-lived bearer download links. Clearing the display after denial does not erase external copies.",
+    "audit": "State-changing clinical/permission/credential operations and their audit events commit atomically in the primary durable store. Clinical release requires a durable decision event. Record delivery attempts/outcomes separately; no claim of proof of reading.",
+    "tamper_evidence": "Audit chain plus protected latest-head checkpoint outside the attacker-writable store detects the defined alteration/deletion/truncation tests. An unkeyed chain alone is insufficient. Protected key/checkpoint trust is an explicit assumption.",
+    "audit_failure_recovery": "Audit-write failure rolls back its coupled state change and blocks release. If advancing a protected checkpoint fails after primary commit, retain the committed state and enter recovery-required; release stays blocked. Verify against trusted recovery evidence/checkpoint before resuming; never silently re-anchor an untrusted store.",
+    "minimization": "Hospital has zero clinical access. Labs see own source work only. Physicians see granted exact versions only. Routine notifications contain only generic in-app status, no results/CNIC. Patient audit view is redacted and ownership-filtered.",
+    "fail_closed": "Unknown identity, missing credential evidence, stale status, invalid integrity, missing required audit or inconsistent recovery status prevents clinical release.",
+    "explicit_non_guarantees": [
+      "No detection of every false but authorized clinical statement",
+      "No recall of screenshots/downloaded copies",
+      "No security certification",
+      "No nationwide deployment claim",
+      "No protection against a fully compromised OS plus protected keys",
+      "No evidence of stakeholder acceptance from synthetic demonstrations"
+    ],
+    "approval_binding": "The authenticated distinct approver must match the issuer-bound source approval reference. Final approval rechecks the exact signed manifest and bytes; changing an approval or signed field requires a new valid package before acceptance."
+  },
+  "proposed_indexes_and_transactions": [
+    "Unique normalized keyed CNIC lookup for enrolled patients; no automatic duplicate-account merge.",
+    "Unique lab_id + source_report_id and lab_id + message_id; immutable receipt digest.",
+    "Unique report_id + version_number; at most one accepted successor for a predecessor; compare expected head.",
+    "Unique active physician/hospital/slot allocation with atomic conflict handling.",
+    "Grant version join table uses exact immutable version IDs; no wildcard/future versions.",
+    "Grant, appointment, credential and report status revisions are read with the release decision in the authoritative ordering transaction.",
+    "Clinical state mutation and audit append succeed or roll back together; protected checkpoint failure causes recovery hold.",
+    "All wall-clock comparisons use server/test clock; explicit inclusive start and exclusive end."
+  ],
+  "error_and_status_contract": {
+    "unauthenticated": "401 generic authentication required",
+    "cross_owner_or_missing": "404 generic unavailable; same body/shape for absent and forbidden foreign objects",
+    "own_known_context_ineligible": "403 minimal access unavailable with safe next action; no report contents or sensitive credential evidence",
+    "invalid_input": "422 safe field-level validation with no matched other-person data",
+    "replay_same_payload": "Original receipt and no second clinical effect",
+    "replay_changed_payload_or_conflicting_successor": "409 conflict; preserve both attempted evidence and accepted head",
+    "audit_or_integrity_unavailable": "503 release unavailable/review required; no clinical payload",
+    "logging": "Correlation ID and minimal internal reason codes; no full CNIC, result, password, second factor or bearer token"
+  },
+  "demonstration_walkthrough": [
+    {
+      "id": "W01",
+      "screens": [
+        "S01",
+        "P01"
+      ],
+      "action": "Sign into P01; compare separate P02 session",
+      "expected": "Distinct synthetic histories; CNIC alone cannot authenticate",
+      "evidence": "Ownership result and masked CNIC"
+    },
+    {
+      "id": "W02",
+      "screens": [
+        "L01",
+        "L02"
+      ],
+      "action": "Submit mismatched synthetic CNIC/order/specimen package",
+      "expected": "Held; absent from patient accepted history",
+      "evidence": "Scoped validation finding; no foreign-patient leak"
+    },
+    {
+      "id": "W03",
+      "screens": [
+        "L01",
+        "L02",
+        "P02"
+      ],
+      "action": "Submit and independently approve intact R01 V1",
+      "expected": "Accepted with issuer-bound provenance",
+      "evidence": "Submitter/approver, signature check, timestamps and lineage"
+    },
+    {
+      "id": "W04",
+      "screens": [
+        "H01",
+        "H02",
+        "P03"
+      ],
+      "action": "Display D01 valid/valid, D02 registration-only and D03 affiliation-only",
+      "expected": "Separate statuses; only D01 bookable; no clinical access",
+      "evidence": "Independent attestation references"
+    },
+    {
+      "id": "W05",
+      "screens": [
+        "P03",
+        "D01"
+      ],
+      "action": "Book D01 without sharing",
+      "expected": "Physician sees minimum appointment details and zero clinical records",
+      "evidence": "No implicit grant"
+    },
+    {
+      "id": "W06",
+      "screens": [
+        "P04",
+        "D02"
+      ],
+      "action": "Grant D01 R01 V1 only for appointment and time",
+      "expected": "R01 V1 allowed; R02, D02 and direct foreign IDs denied",
+      "evidence": "Version-specific scope and current decision audit"
+    },
+    {
+      "id": "W07",
+      "screens": [
+        "L03",
+        "P02",
+        "P05",
+        "D02"
+      ],
+      "action": "Approve R01 V2; attempt changed file, replay and competing successor",
+      "expected": "V1 preserved/superseded; V2 needs new grant; invalid attempts held/conflicted",
+      "evidence": "Immutable lineage and no duplicate clinical effect"
+    },
+    {
+      "id": "W08",
+      "screens": [
+        "P05",
+        "H02",
+        "D02"
+      ],
+      "action": "From a reset fixture, independently withdraw, expire, cancel, revoke affiliation and stale registration",
+      "expected": "Each next ordered metadata/file request denied despite same logged-in session",
+      "evidence": "Commit order, decision and no clinical payload"
+    },
+    {
+      "id": "W09",
+      "screens": [
+        "P01",
+        "P05"
+      ],
+      "action": "Restart and verify audit chain/checkpoint; exercise defined tamper/audit-failure cases",
+      "expected": "Committed state persists; failures cause explicit recovery hold without release",
+      "evidence": "Persisted versions/grants/events; tamper result"
+    },
+    {
+      "id": "W10",
+      "screens": [
+        "P05"
+      ],
+      "action": "Present the Step 2 benchmark outputs after implementation",
+      "expected": "Not executed in Step 3; no fabricated performance or pass claims",
+      "evidence": "Future frozen manifest, fair reference comparison and results"
+    }
+  ],
+  "step_2_traceability": [
+    {
+      "families": [
+        "F01",
+        "F02"
+      ],
+      "design": [
+        "S01",
+        "L01",
+        "L02"
+      ],
+      "mechanisms": [
+        "Independent identity proof",
+        "CNIC/order/specimen linkage",
+        "Scoped hold"
+      ]
+    },
+    {
+      "families": [
+        "F03",
+        "F04",
+        "F12"
+      ],
+      "design": [
+        "P03",
+        "P04",
+        "P05",
+        "H01",
+        "H02",
+        "D01",
+        "D02"
+      ],
+      "mechanisms": [
+        "Independent credentials",
+        "Explicit consent",
+        "Authoritative time",
+        "Current state recheck"
+      ]
+    },
+    {
+      "families": [
+        "F05"
+      ],
+      "design": [
+        "P01",
+        "P02",
+        "D01",
+        "D02"
+      ],
+      "mechanisms": [
+        "Role/object/function checks",
+        "Direct file parity",
+        "No clinical hospital route"
+      ]
+    },
+    {
+      "families": [
+        "F06",
+        "F07",
+        "F08"
+      ],
+      "design": [
+        "L01",
+        "L02",
+        "L03",
+        "P02"
+      ],
+      "mechanisms": [
+        "Issuer signature",
+        "Immutable versions",
+        "Replay/conflict transactions"
+      ]
+    },
+    {
+      "families": [
+        "F09",
+        "F10"
+      ],
+      "design": [
+        "P05",
+        "D02"
+      ],
+      "mechanisms": [
+        "Durable events",
+        "Protected checkpoint",
+        "Restart and recovery hold"
+      ]
+    },
+    {
+      "families": [
+        "F11"
+      ],
+      "design": [
+        "S01",
+        "L01",
+        "H01",
+        "P04"
+      ],
+      "mechanisms": [
+        "Schema allowlists",
+        "Safe rendering",
+        "CSRF/rate/size controls"
+      ]
+    },
+    {
+      "families": [
+        "500 concurrency traces"
+      ],
+      "design": [
+        "P05",
+        "H02",
+        "L03",
+        "D02"
+      ],
+      "mechanisms": [
+        "Serializable decision/transition order",
+        "No stale session/file authorization"
+      ]
+    }
+  ],
+  "step_3_review_checks": {
+    "business_entities_covered": 4,
+    "prototype_is": "Clickable design review with illustrative synthetic local states only; no backend, database or security enforcement.",
+    "performed": "Static source checks passed: JavaScript syntax, literal fragment structure, declared queried IDs, no network API, unique screen/contract IDs, all four entities and Step 4 approval boundary. No browser behavior or rendered responsive layout has been verified.",
+    "not_performed": [
+      "MVP construction",
+      "120-case benchmark",
+      "500 concurrency traces",
+      "Security certification",
+      "Live verification",
+      "Direct local stakeholder validation"
+    ],
+    "browser_verification": "Pending. User authorized Chrome; browser connector reported Chrome unavailable. In-app localhost timed out and local-file URL was blocked by browser policy. No bypass attempted.",
+    "inspection_record": "planning/step3_preview_checks/inspection.json"
+  },
+  "approval_gate": {
+    "current": "Step 3 approved; Step 4 implementation explicitly authorized 2026-10-21. Step 5 not authorized.",
+    "next_step": "Step 4: implement a local, persisted, all-synthetic demonstrable MVP and materialize the approved test manifest.",
+    "step_4_authorized": true,
+    "stage_boundary": "No Step 4 application/backend/database implementation or benchmark execution until explicit user approval.",
+    "local_stakeholder_validation": "Pending; design approval is not stakeholder validation."
+  },
+  "references": [
+    {
+      "purpose": "Approved scope",
+      "path": "planning/step1_scope_and_validation.json"
+    },
+    {
+      "purpose": "Approved research comparison, threats and measurable criteria",
+      "path": "planning/step2_research_security_protocol.json"
+    },
+    {
+      "purpose": "Pakistan contextual evidence and limitations",
+      "path": "planning/pakistan_web_validation_evidence.json"
+    },
+    {
+      "purpose": "Professional registration source for future authorized verification; demo remains simulated",
+      "url": "https://www.pmdc.pk/Home/"
+    },
+    {
+      "purpose": "Object-level access control background",
+      "url": "https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/"
+    },
+    {
+      "purpose": "Consent representation background; enforcement is designed separately",
+      "url": "https://hl7.org/fhir/R4/consent.html"
+    },
+    {
+      "purpose": "Provenance background",
+      "url": "https://hl7.org/fhir/provenance.html"
+    },
+    {
+      "purpose": "Audit event background",
+      "url": "https://hl7.org/fhir/auditevent.html"
+    }
+  ],
+  "verification_subtypes": {
+    "hospital_affiliation": [
+      "hospital-specific person/account match",
+      "position or privileges",
+      "authorized hospital attester",
+      "effective interval and revocation state"
+    ],
+    "professional_registration": [
+      "SIM-PMDC reference",
+      "independent person/account match",
+      "registration status and licence interval",
+      "registered qualifications checked separately from hospital-supplied specialty"
+    ],
+    "identity": [
+      "patient/account binding",
+      "CNIC match outcome",
+      "secondary demographic match",
+      "verification method and simulated evidence"
+    ],
+    "issuer": [
+      "organization status",
+      "authorized submitter",
+      "distinct approver",
+      "trusted public key and signing-key interval"
+    ]
+  },
+  "screen_preview": "C:/Users/HP/.codex/visualizations/2026/10/21/01a15e5e-1792-7602-888d-edda54176b47/virohandoff-screen-design.html"
+}

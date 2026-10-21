@@ -1,0 +1,47 @@
+{
+  "stage": "Step 4 implementation preview",
+  "application": "SehatAman",
+  "url": "http://127.0.0.1:8787/",
+  "data": "All entities, identifiers, records, credentials and verification outcomes are synthetic.",
+  "browser": "ChatGPT in-app browser",
+  "chrome_status": "Chrome was authorized but unavailable in the available browser inventory; preview checks used the in-app browser.",
+  "workflows_observed": [
+    "Patient sign-in using password and current local TOTP, masked CNIC and own diagnostic history.",
+    "Physician directory distinguishes professional registration and hospital affiliation.",
+    "Appointment booking alone leaves physician with no patient reports.",
+    "Patient explicitly selects an exact report version and time interval; no report checkbox is preselected.",
+    "Physician sees only the explicitly authorized version and its provenance.",
+    "Lab submitter sees assigned source work; a mismatched specimen produces a held submission.",
+    "Distinct lab approver sees the held submission without an approval action.",
+    "Hospital manages profiles/affiliation separately from registration, without clinical navigation.",
+    "Patient withdraws the grant; revoked state persists.",
+    "After final server restart, the existing patient session and diagnostic history load successfully."
+  ],
+  "layout_checks": [
+    {
+      "viewport_width": 320,
+      "document_width": 305,
+      "page": "Hospital profiles",
+      "horizontal_overflow": false
+    },
+    {
+      "viewport_width": 1280,
+      "document_width": 1265,
+      "page": "Patient diagnostic history",
+      "horizontal_overflow": false
+    }
+  ],
+  "console_warning_or_error_entries": [],
+  "screenshots": [
+    "sehataman-desktop.jpg",
+    "explicit-consent.jpg",
+    "physician-no-consent.jpg",
+    "physician-authorized-report.jpg",
+    "laboratory-workspace.jpg",
+    "hospital-profiles.jpg",
+    "mobile-320.jpg",
+    "patient-sharing-audit.jpg"
+  ],
+  "live_demo_state": "Synthetic browser actions and their audit history are retained; data is not silently reset.",
+  "limits": "Implementation preview only. Not a formal benchmark, independent security audit, or direct stakeholder validation."
+}

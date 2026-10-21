@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-21",
+  "scope": "Step 3 static design inspection only",
+  "checks": {
+    "fragment_only": true,
+    "literal_markup": true,
+    "unique_literal_ids": true,
+    "queried_ids_declared": true,
+    "no_network_api": true,
+    "under_one_megabyte": true,
+    "four_business_entities": true,
+    "unique_screen_ids": true,
+    "unique_contract_ids": true,
+    "hospital_no_clinical_access": true,
+    "step4_unapproved": true,
+    "javascript_syntax": true
+  },
+  "counts": {
+    "screens": 14,
+    "data_flows": 10,
+    "request_contracts": 32,
+    "fragment_bytes": 37988
+  },
+  "browser_rendering": "Pending. In-app localhost preview timed out; local-file URL was blocked by browser policy. User-authorized Chrome attempt reported Browser is not available: chrome. No browser policy bypass attempted.",
+  "interactive_behavior": "Specified and inspected in source; not browser-verified.",
+  "security_benchmark": "Not executed; no implemented security claims.",
+  "direct_stakeholder_validation": "Pending"
+}

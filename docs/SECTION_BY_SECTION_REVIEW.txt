@@ -1,0 +1,98 @@
+SEHATAMAN CONCEPT NOTE REVIEW IN ORDER
+21 October 2026. Local synthetic MVP 0.5.0.
+
+Use this guide alongside the Word note, README.txt and
+CLAIM_EVIDENCE_CHECKLIST.txt. Inspect the current app for visible behavior and the
+retained test reports for adverse, concurrent and failure-injection cases. No
+single screen proves every security claim. All application identities, records
+and verification outcomes are synthetic; applicant team facts are user supplied.
+
+1. EXECUTIVE SUMMARY
+The claim is a persisted local demonstrator of patient-controlled, exact-version
+report sharing and preserved correction provenance. As p01, open Diagnostic
+history, R01 and Preserved version history. In the owner's reviewed demo, R01 is
+version 3 with earlier versions retained; a new empty store starts with version 1.
+The 120 frozen cases, 500 coordinated traces per arm and 668.130 ms p95 are retained
+synthetic engineering results, not real patients, clinical outcomes or a response
+time guarantee. The reference also passes and was faster at p95 in that run.
+
+2. APPLICANT AND TEAM INFORMATION
+Compare the four names, role designations and confirmed academic details against
+the team table and planning/application_team_details.json. The private application
+copy retains supplied contacts. The public reviewer copy redacts personal contacts
+while retaining names, roles and academic details. Humaira's contact is supplied,
+not pending. Tehreem's, Haris's and Majid's contacts and Tehreem's exact official MS
+program title remain pending. Enrollment and mentors are user confirmed, not
+independently verified by the MVP.
+
+3. CYBERSECURITY FOCUS AREA
+Open Privacy & security. The implemented focus is current-state authorization,
+signed source provenance, preserved versions, encrypted storage and required audit
+evidence. There is no AI model or automated diagnosis. Established cryptography
+is used; no new primitive, production TLS deployment or security certification is
+claimed. The local test-code helper is not an independent-device factor.
+
+4. PROBLEM STATEMENT AND EXISTING GAPS
+The tested threats include withdrawal, registration/affiliation invalidation,
+appointment cancellation, identity/specimen mismatch and conflicting corrections.
+The Pakistan evidence register establishes contextual relevance and records
+existing portals, sharing, consent and prior research. It does not prove absent
+competitors, buyer demand, national attack incidence or stakeholder acceptance.
+Direct Pakistani stakeholder, independent/domain and buyer validation stay pending.
+
+5. PROPOSED SOLUTION AND EMERGING TECHNOLOGY
+Four entity types use five access roles because the laboratory submitter and
+approver are distinct. Patient: select a named physician/appointment, exact report
+versions and an expiry. Physician: view only currently authorized versions.
+Laboratory: submit concordant synthetic CNIC, demographic/order/specimen context,
+then approve with the distinct account. Hospital: inspect profiles and affiliation;
+professional registration stays separate and there is no clinical workspace.
+No profile, booking or affiliation attestation itself grants report access.
+
+6. TECHNICAL APPROACH AND READINESS
+The path is browser -> authenticated loopback HTTP API -> current-state policy
+and source checks -> encrypted SQLite state/audit -> protected checkpoint.
+Inspect a report's issuing lab, source reference, submitter, distinct approver,
+fingerprint and lineage. Inspect My sharing for recorded access decisions.
+Source, tests and Step 5 reports support the less visible tamper, replay,
+concurrency, durable-audit and recovery-hold behavior. CNIC is synthetic linkage,
+not authentication or a live NADRA result. PMDC and hospital evidence are simulated.
+The operating system and protected keys are trusted. This is a functional local
+MVP; the repository and recordings do not constitute a hosted clinical service.
+
+7. INNOVATION AND PRACTICAL USE CASE
+The bounded contribution is integration/conformance testing across state changes.
+Inspect a correction: the older version remains historical and its grant does not
+open the successor. A separate patient grant is required. Inspect a revoked grant:
+new affected physician metadata/file requests are denied. In the owner's guided
+review, G03 for R01 version 2 was revoked; version 3 and earlier history remain.
+Use a new empty home for another clean demonstration rather than resetting that
+audit trail. For a same-session withdrawal check, use separate browser profiles
+for patient and physician; two tabs in one profile share the cookie. Keep the
+appointment, credential states and synthetic clock unchanged. Already delivered
+copies cannot be recalled. First-in-Pakistan status, superiority and IP are not proven.
+
+8. BUSINESS POTENTIAL, FEASIBILITY AND SECURITY READINESS
+The current one-laptop demonstration works without cloud or specialized hardware.
+The 3/6/12-month roadmap is proposed and subject to confirmation. Budget, business
+model, IP, buyer validation and any institution-approved pilot remain pending.
+The app's security controls do not establish legal compliance or certification.
+No real-data pilot or app deployment is currently approved.
+
+9. SUPPORTING MATERIAL AND DECLARATION
+The intended public, contact-redacted reviewer destination is
+https://github.com/javed110/sehataman-pcc-2026-reviewer . Check
+planning/reviewer_publication.json for publication and verification status before
+claiming this destination is available. The original application repository stays
+private. Review the five actual MP4 recordings and the technical guide/results.
+The recordings precede the latest interface polish and may show older labels and
+spacing; core workflow and access rules are unchanged. Localhost URLs are
+run-locally instructions for the computer running the server, not remote demos.
+No research publication or pitch deck has been supplied. Keep the declaration
+unsigned for applicant review and retain every unresolved field as pending.
+
+REVIEW GATE
+Readily inspectable engineering evidence is distinct from a complete application.
+Only the applicant can confirm missing facts and sign the declaration. Public
+reviewer-material delivery does not authorize deployment, submission, reviewer
+invitations or email. Obtain explicit approval before deployment or submission.

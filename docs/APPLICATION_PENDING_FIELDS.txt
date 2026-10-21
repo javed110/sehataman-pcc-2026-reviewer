@@ -1,0 +1,21 @@
+Required before submission
+
+Tehreem Hamid: email address and contact number.
+Muhammad Haris: email address and contact number.
+Muhammad Majid: email address and contact number.
+Humaira Zubair: email address and contact number supplied by the user; retained in
+the private application copy and redacted from the separate public reviewer copy.
+This redaction is not a missing application fact.
+Tehreem Hamid: exact official MS program title, separate from department.
+
+Applicant to confirm budget/business/IP details if applicable; these are presently
+marked pending rather than invented. Confirm the proposed 3/6/12-month roadmap.
+Supply any actual stakeholder/domain review evidence or supporting paper/pitch
+links; otherwise the current pending/none descriptions stand.
+Applicant to review and sign/date the declaration; confirm stamp applicability.
+The intended public reviewer destination is
+https://github.com/javed110/sehataman-pcc-2026-reviewer . Confirm its publication
+and link verification in planning/reviewer_publication.json before relying on it.
+Private application materials remain private and require owner-arranged access
+if reviewers need them. No public app deployment is claimed. The loopback app
+address works only on the computer where the local server is running.

@@ -1,0 +1,8 @@
+.local/
+.local-*/
+deliverables/
+planning/concept-note-qa/
+__pycache__/
+*.pyc
+.venv/
+test-artifacts/

@@ -1,0 +1,68 @@
+SEHATAMAN PCC 2026 STEP 5 ENGINEERING VALIDATION
+
+All application/test entities and data are synthetic. No external clinical or verification services and no app deployment.
+The 120-case manifest SHA-256 remains d7191bdd7ec753004da9bc48869f2e140481cf43b7a441947bceeff1fafd9890.
+This is an executed synthetic engineering protocol, not an independent security certification or stakeholder-validated clinical study.
+
+RESULTS
+M = the MVP; R = constructed conventional ABAC reference on the same stack.
+M: 120/120 cases; 48 predeclared valid and 72 adverse/failure cases; 36 reserved variants were not blinded.
+M: 31 denied direct clinical read/file requests across the case workflows; no prohibited payload in these responses.
+M: 354 accepted-version provenance assertions across independent case homes, with original-package and predecessor retention checks. These are repeated fixture assertions, not distinct patients.
+M: 500/500 coordinated traces: 100 withdrawal, 100 affiliation, 100 registration, 100 appointment and 100 competing-correction traces.
+R: 120/120 cases; 48 predeclared valid and 72 adverse/failure cases; 36 reserved variants were not blinded.
+R: 31 denied direct clinical read/file requests across the case workflows; no prohibited payload in these responses.
+R: 354 accepted-version provenance assertions across independent case homes, with original-package and predecessor retention checks. These are repeated fixture assertions, not distinct patients.
+R: 500/500 coordinated traces: 100 withdrawal, 100 affiliation, 100 registration, 100 appointment and 100 competing-correction traces.
+M: 1000 HTTP metadata requests, 500 permitted/500 denied, concurrency 10, after 100 separate warm-up requests.
+p50 265.700 ms; p95 668.130 ms; max 1414.741 ms; errors 0; denied payload leaks 0; proposed p95 <=1000 ms target met: True.
+R: 1000 HTTP metadata requests, 500 permitted/500 denied, concurrency 10, after 100 separate warm-up requests.
+p50 295.613 ms; p95 421.799 ms; max 483.283 ms; errors 0; denied payload leaks 0; proposed p95 <=1000 ms target met: True.
+
+27/27 implementation regressions pass. 46/46 supplementary check groups pass across both arms, covering 22 positive/unauthorized route pairs per arm plus pending-identity sharing/withdrawal.
+
+ORDERING AND FAILURE CHECKS
+Race decisions are compared with committed audit sequence order. Every post-commit read in the four invalidation families is denied in the existing session. Conflicting corrections permit one successor and preserve the original.
+Injected audit failures roll back pending changes and prevent clinical release. A post-commit checkpoint failure retains the committed withdrawal and enters a recovery hold. Tampering, truncation, rollback, missing checkpoint and corrupted state are detected. Fresh-process verification checks committed state after restart.
+Every new manifest security event is checked for actor/action/time/outcome/decision basis/correlation. Original accepted versions and required source/context/timestamps/approver/predecessor/reason fields are asserted. The protected checkpoint binds every encrypted audit row; plaintext chain MACs are additionally checked when the full audit is requested.
+
+FIXES AND RETAINED FAILURES
+Audit events now include a decision basis and correlation identifier.
+Incomplete source approval packages receive a held receipt and cannot publish.
+Pending-identity sharing/withdrawal responses no longer disclose report metadata.
+Protected encrypted-audit row verification removes redundant decoding while preserving tamper/truncation/rollback checks.
+The initial case run passed 89/120 per arm because of incomplete audit basis fields and the held-receipt contract mismatch. A supplemental route run exposed pending-identity metadata. The first MVP performance run p95 was 1232.631 ms; all failed run files are retained. Existing historical live-demo audit entries were not rewritten to fabricate fields.
+
+REFERENCE FAIRNESS AND LIMITS
+Agent-authored expectations and reference; reserved cases not blinded.
+Reference shares workflow, session, storage, audit, cryptographic and HTTP components; shared defects are possible.
+Single laptop, sequential M then R, no randomized hardware crossover.
+Configuration person-hours were not prospectively timed; no cost/setup-effort advantage is claimed.
+Historical key-retirement case retains the verification public key; no live key-rotation service is implemented.
+Performance measured before addition of public synthetic reviewer-media routes, which do not participate in the metadata workload.
+Both arms receive the same evidence, fixtures, workload and shared infrastructure. R independently specifies attribute rules for eligibility, grant scope, source validation and record access. Equal correctness supports conformance; the measured R p95 is lower in this run. No security, speed, cost, accuracy or usability superiority is claimed.
+The report does not measure real NADRA/PMDC accuracy, real-world credential notification delay, clinical diagnostic accuracy, human comprehension, adoption or national demand.
+
+HARDWARE AND CAPTURED NETWORK
+{
+  "logical_cpus": 8,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "sqlite": "3.53.1"
+}
+Captured benchmark socket destinations: 127.0.0.1. Non-loopback connections were blocked by the benchmark audit hook. This excludes separate development tools used for GitHub and document/media preparation.
+
+ARTIFACTS
+cases-20261021T203242-0137ad.json
+benchmarks-20261021T202642-6561bb.json
+routes-20261021T203247-a6e325.json
+planning/step5_completion.json
+
+PENDING
+Independent/domain review of the expected-outcome table
+Direct Pakistani stakeholder validation
+Commercial gap and buyer validation
+Student email addresses and phone numbers
+Applicant signature and review
+Owner-approved reviewer access to private GitHub materials

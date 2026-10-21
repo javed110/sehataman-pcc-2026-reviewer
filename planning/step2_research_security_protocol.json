@@ -1,0 +1,570 @@
+{
+  "document_type": "research_comparison_threat_and_acceptance_protocol",
+  "project": "Tehreem PCC 2026 ViroHandoff Guard",
+  "date": "2026-10-21",
+  "step": 2,
+  "version": "2.0-approved",
+  "status": "approved_by_user",
+  "authorization": {
+    "step_2_authorized": true,
+    "step_3_authorized": true,
+    "execution_results": "No MVP implementation, endpoint design, benchmark execution or human validation performed in this step.",
+    "step_3_approval": "Explicit user approval received 2026-10-21; Step 3 only; all entities/data synthetic; local direct stakeholder validation pending."
+  },
+  "all_synthetic_requirement": {
+    "applies_to": [
+      "Hospitals",
+      "Laboratories",
+      "Physicians",
+      "Patients",
+      "Staff and administrator identities",
+      "CNIC test values",
+      "Professional registration numbers and qualifications",
+      "Hospital affiliations and evidence",
+      "Accounts and authentication test credentials",
+      "Reports and specimen/order histories",
+      "Appointments",
+      "Consent grants",
+      "Verification responses",
+      "Audit events and clinical scenarios"
+    ],
+    "source": "User instruction: All data synthetic including all entities.",
+    "rule": "Invent fixtures from scratch in a clearly marked demo namespace. Do not import actual records and rename people. Use invented organizations and non-deliverable contact addresses.",
+    "verification": "NADRA and PMDC outcomes are local simulated fixtures only. State changes are controlled in the test environment and labelled simulated.",
+    "enforcement": "Authentication, authorization, persistence, provenance checking and negative-case blocking must actually execute in the MVP; synthetic data does not mean simulated security behaviour.",
+    "network": "The MVP demonstration must function with outbound service access disabled, apart from its own local application traffic. No live NADRA/PMDC, email, SMS, appointment or hospital/laboratory calls.",
+    "research_context": "Public literature and real-provider documentation are cited only as background evidence and are not demonstration entities/data."
+  },
+  "research": {
+    "question": "Does a reproducible molecular-report handoff protocol enforce correct access and preserve correction lineage across changes in patient consent, appointment state and separately evidenced professional registration/hospital affiliation, without blocking valid workflows?",
+    "candidate_contribution": "A Pakistan-informed conformance profile and reproducible synthetic state-transition benchmark for version-specific patient-authorized report release.",
+    "novelty_limits": "Established RBAC/ABAC, consent, CNIC-supported enrolment, credential verification, version history and multi-entity exchange are not claimed as new. Originality and a Pakistan commercial gap are unconfirmed.",
+    "close_prior_art": "SMDEE (2025) already describes multi-entity privacy-rule checking and patient preferences. KP hospital standards already describe credential verification and hospital incumbency documentation.",
+    "comparison_arms": [
+      {
+        "id": "R",
+        "name": "Properly configured conventional reference",
+        "purpose": "Primary fair comparison",
+        "requirements": "Use established role/attribute access controls, explicit per-report-version consent, appointment/time restrictions, independently represented registration and affiliation, current-state checks and ordinary report versioning/audit capabilities. Configure every feature the reference supports rather than artificially disabling it.",
+        "independence": "Use a separately specified policy table/evaluator and disclose whether the reference is a constructed prototype or an actual incumbent. A shared-stack reference is an internal comparison, not an independent commercial security audit."
+      },
+      {
+        "id": "M",
+        "name": "Proposed integrated handoff workflow",
+        "purpose": "Primary fair comparison",
+        "requirements": "Same agreed authorization semantics, data, available evidence and infrastructure, with explicit transition handling, issuer-bound provenance and decision explanations.",
+        "interpretation": "The system is not assumed superior. Equal correctness means no security advantage was demonstrated."
+      },
+      {
+        "id": "A",
+        "name": "Optional isolated ablations",
+        "purpose": "Mechanism checks only",
+        "requirements": "Individually remove version binding, independent affiliation checking or current-state revalidation in the isolated synthetic evaluation harness.",
+        "interpretation": "These intentionally incomplete variants are not the primary baseline and do not represent Pakistani products."
+      }
+    ],
+    "fairness": [
+      "Same fixture states, inputs, expected outcomes, request order, workload and documented hardware.",
+      "Do not give the proposed system credential/source evidence that the reference does not receive.",
+      "Freeze policy, cases and expected outcomes before implementation/evaluation; version any later amendments and retain failures.",
+      "Report configuration effort and limitations for each arm; a locally built reference cannot establish the capabilities of a real competitor.",
+      "Use a domain-reviewed expected-outcome table independent of production code; do not use the MVP's own decisions as ground truth.",
+      "Review missing reference capabilities explicitly rather than treating an unimplemented feature as proof of insecurity."
+    ],
+    "analysis": "Report raw numerators/denominators separately for authorization, submission admission and provenance/state assertions, plus paired case differences between arms. Synthetic purposive cases are not population samples; do not claim population risk, clinical effectiveness or statistical superiority from repeated scripted requests.",
+    "decision_rule": "If both arms satisfy all requirements, describe conformance and measured operational differences. If a claimed advantage disappears with a normal reference configuration, withdraw that superiority claim. If the proposed system fails any mandatory release gate, fix and re-evaluate before demonstrating readiness.",
+    "not_measured_here": [
+      "Clinical diagnostic accuracy",
+      "Actual NADRA or PMDC identity-verification accuracy",
+      "Real credential-change notification delays",
+      "Patient comprehension or clinician acceptance",
+      "National demand, willingness to pay or clinical outcomes"
+    ]
+  },
+  "policy_semantics": {
+    "physician_release_requires": [
+      "Authenticated active physician session",
+      "Correct linkage of the requested report to the enrolled synthetic CNIC patient",
+      "Accepted issuer-approved report version and intact content",
+      "Explicit active patient grant for this physician, appointment, hospital context, purpose and exact report version",
+      "Eligible non-cancelled appointment",
+      "Grant time interval is active",
+      "Professional registration evidence independently valid within its declared interval",
+      "Hospital affiliation evidence independently valid for the same context within its declared interval"
+    ],
+    "other_roles": "Patient access is restricted to the patient's own linked records. A lab sees/submits only its authorized work. Hospital profile management gives no clinical-record access. Technical roles do not gain unrestricted report access through public role flags.",
+    "time": "Use authoritative server/test-clock time and half-open validity intervals [start, validUntil). Test immediately before, exactly at and immediately after every boundary. The production freshness policy is not determined by this synthetic benchmark.",
+    "credential_snapshots": "Registration and affiliation are separate dated attestations. Unknown, pending, stale, revoked or expired evidence does not satisfy the corresponding release condition. No live real-world validity guarantee is implied.",
+    "version": "A grant for version 1 cannot fetch version 2. An authorized old version may remain accessible only as explicitly historical/superseded. The current corrected version requires a fresh matching grant.",
+    "submission": "A held report is not visible as an accepted clinical report. Replay has no additional clinical effect, and no version is destructively overwritten.",
+    "revocation_order": "Let t_commit be the durable local commit of a consent/appointment/credential change. Every new request whose authorization decision is ordered after t_commit must use the changed state. Already delivered or already authorized in-flight data cannot be recalled; new requests from the same session remain subject to rechecking.",
+    "evidence_outage": "Clinical access is denied when required identity/credential evidence is unavailable or a required access audit cannot be durably recorded. Public physician-profile browsing may continue without exposing clinical data.",
+    "privacy": "Retain only necessary identity evidence. Keep full CNIC test values out of routine URLs, logs, patient-facing audit summaries and public physician profiles. Do not display credentials or verification documents publicly.",
+    "audit_meaning": "An authorization/access event records the server's decision and delivery outcome where known; it does not prove that a human read or understood a report."
+  },
+  "threat_model": {
+    "assessment_type": "Prospective application threat model, not a repository scan or validated vulnerability report.",
+    "assets": [
+      "CNIC-to-patient linkage",
+      "Clinical report bytes and metadata",
+      "Report source and correction lineage",
+      "Identity and credential attestations",
+      "Appointment and consent state",
+      "Authenticated sessions and keys",
+      "Audit trail and patient disclosure summaries"
+    ],
+    "trust_boundaries": [
+      "Client input to authenticated server operations",
+      "Lab submission to accepted patient record",
+      "Hospital profile attestation to independent professional-registration evidence",
+      "Consent/credential state to every report/file release",
+      "Application storage to protected signing/integrity evidence",
+      "Raw administrative audit to a restricted patient-readable access summary"
+    ],
+    "assumptions": [
+      "The local OS/runtime and protected key/checkpoint material remain trusted.",
+      "Authorized institutional issuers may still make clinical mistakes; source authentication cannot certify analytical truth.",
+      "Adversaries may possess their own legitimate role accounts and may reuse an earlier valid physician session.",
+      "Only the isolated synthetic MVP and evaluation harness are tested; external services/products are not attack targets."
+    ],
+    "threats": [
+      {
+        "id": "T01",
+        "priority": "release_blocker",
+        "actor": "Outsider or patient using another person's identifier",
+        "failure": "CNIC guessing, enumeration or recovery is used to obtain a different patient's account or history.",
+        "required_response": "Separate identity proof, authentication and authorization; protect recovery and generic error handling; no CNIC-only login/reset.",
+        "families": [
+          "F01",
+          "F02",
+          "F05",
+          "F09"
+        ]
+      },
+      {
+        "id": "T02",
+        "priority": "release_blocker",
+        "actor": "Authenticated laboratory or accidental entry error",
+        "failure": "A genuine report is attached to the wrong patient/order/specimen.",
+        "required_response": "Check against independently enrolled patient and expected order/specimen context; quarantine inconsistencies.",
+        "families": [
+          "F02",
+          "F07"
+        ]
+      },
+      {
+        "id": "T03",
+        "priority": "release_blocker",
+        "actor": "Patient, physician or hospital user",
+        "failure": "Direct IDs, downloads, alternate routes or role fields bypass object/function authorization.",
+        "required_response": "Apply server-side role and per-record checks to every clinical path; never trust posted roles or verification flags.",
+        "families": [
+          "F03",
+          "F05",
+          "F11"
+        ]
+      },
+      {
+        "id": "T04",
+        "priority": "release_blocker",
+        "actor": "Registered physician or hospital profile submitter",
+        "failure": "Valid PMDC registration is treated as hospital affiliation, affiliation as registration, or listing as record permission.",
+        "required_response": "Check independent evidence and validity for both credential states; neither grants access without explicit patient consent.",
+        "families": [
+          "F03",
+          "F04",
+          "F12"
+        ]
+      },
+      {
+        "id": "T05",
+        "priority": "release_blocker",
+        "actor": "Previously authorized physician",
+        "failure": "Old session, grant or cached file link continues to disclose records after an applicable state change.",
+        "required_response": "Re-evaluate the committed local state for each new request, including file paths; appointment and identity context cannot drift.",
+        "families": [
+          "F04",
+          "F05",
+          "F12"
+        ]
+      },
+      {
+        "id": "T06",
+        "priority": "release_blocker",
+        "actor": "Unapproved submitter or content-modifying intermediary",
+        "failure": "An altered report or metadata with a recomputed hash is accepted as laboratory approved.",
+        "required_response": "Bind authorized issuer evidence to metadata and actual content; a bare hash alone is insufficient.",
+        "families": [
+          "F07",
+          "F08"
+        ]
+      },
+      {
+        "id": "T07",
+        "priority": "release_blocker",
+        "actor": "Submitter or intermediary",
+        "failure": "Replay or rollback makes an obsolete report current; concurrent corrections destroy lineage.",
+        "required_response": "Persist unique submission identity and predecessor checks; reject/quarantine conflicts and preserve original versions.",
+        "families": [
+          "F06",
+          "F08",
+          "F10"
+        ]
+      },
+      {
+        "id": "T08",
+        "priority": "release_blocker",
+        "actor": "Concurrent valid request and state mutation",
+        "failure": "A check/use race releases data using permission already invalid at the request's agreed ordering point.",
+        "required_response": "Define atomic ordering between permission decisions and committed state changes; capture ordering evidence.",
+        "families": [
+          "F10",
+          "F12"
+        ]
+      },
+      {
+        "id": "T09",
+        "priority": "release_blocker",
+        "actor": "Ordinary role or damaged storage",
+        "failure": "Audit/history can be edited or truncated without evidence, or sensitive data is returned with no durable access event.",
+        "required_response": "Restrict modification and bind integrity checks to protected evidence/checkpoints; fail closed for clinical release if the required audit write fails.",
+        "families": [
+          "F09",
+          "F10"
+        ]
+      },
+      {
+        "id": "T10",
+        "priority": "release_blocker",
+        "actor": "Unprivileged user or unintended recipient",
+        "failure": "CNIC, credentials, clinical metadata or report bodies leak through lists, errors, logs, notifications or shared browser cache.",
+        "required_response": "Minimize fields, mask identifiers, isolate sessions and protect clinical responses from inappropriate caching; test each relevant response surface.",
+        "families": [
+          "F01",
+          "F05",
+          "F09"
+        ]
+      },
+      {
+        "id": "T11",
+        "priority": "release_blocker_if_disclosure_or_state_change_otherwise_operational",
+        "actor": "Anonymous or authenticated abusive client",
+        "failure": "Malicious uploads, stored HTML, injection, oversized requests or request floods cause unauthorized actions, crashes or unbounded processing.",
+        "required_response": "Validate input, escape presentation, limit resource use, protect state-changing requests and enforce documented abuse controls.",
+        "families": [
+          "F01",
+          "F11"
+        ]
+      },
+      {
+        "id": "T12",
+        "priority": "release_blocker_for_bypass",
+        "actor": "Session thief or user on a shared device",
+        "failure": "Logout/revoked sessions remain usable or authorization is broader than the compromised account's current grant.",
+        "required_response": "Enforce server-side session revocation and role/grant limits; no claim that the MVP detects all theft of an otherwise valid session.",
+        "families": [
+          "F01",
+          "F05",
+          "F12"
+        ]
+      }
+    ],
+    "residual_limits": [
+      "A fully compromised application host plus signing keys/checkpoints is outside this MVP assurance boundary.",
+      "A deliberately dishonest trusted lab/hospital issuer can assert false facts; tests check digital authorization and consistency, not truth.",
+      "A valid session can be stolen and used within its current rights before detection; no universal phishing resistance claim.",
+      "Screenshots or copies previously obtained by an authorized person cannot be revoked.",
+      "No high-volume DDoS resilience, national interoperability deployment, compliance certification or clinical safety claim."
+    ]
+  },
+  "benchmark": {
+    "target_unique_scenarios": 120,
+    "valid_scenarios": 48,
+    "adversarial_or_failure_scenarios": 72,
+    "families": [
+      {
+        "id": "F01",
+        "name": "CNIC identity, authentication and recovery",
+        "focus": "A formatted or known CNIC never authenticates a user or proves identity; unverified enrolment, expired session and invalid additional verification are rejected.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F02",
+        "name": "CNIC to order and specimen matching",
+        "focus": "Bind independently enrolled patient, lab patient ID, order and specimen. Hold mismatches without an automatic patient merge.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F03",
+        "name": "Separate registration and affiliation",
+        "focus": "Registration-only, affiliation-only, client-asserted verification and unauthorized profile approval do not satisfy both checks.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F04",
+        "name": "Appointment and explicit consent",
+        "focus": "Booking alone grants nothing. Consent is bound to the named physician, appointment, hospital context, purpose, report version and time interval.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F05",
+        "name": "Record ownership and role boundaries",
+        "focus": "Test another patient, physician, laboratory, hospital role and direct object/file identifiers. A role or unpredictable ID is not sufficient authorization.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F06",
+        "name": "Report correction and version scope",
+        "focus": "Authorized correction creates a linked successor; original stays historical; permission for one version does not broaden silently.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F07",
+        "name": "Issuer evidence and content integrity",
+        "focus": "Reject unapproved issuer, changed metadata or file bytes, missing clinical/specimen context and recomputed bare hashes without valid issuer evidence.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F08",
+        "name": "Replay, rollback and conflicting submissions",
+        "focus": "Duplicate messages have no additional effect; stale versions cannot become current; conflicting corrections cannot silently overwrite one another.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F09",
+        "name": "Audit, provenance and privacy",
+        "focus": "Record expected events and version-specific origins; deny ordinary-role audit alteration and avoid full CNIC/secret disclosure.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F10",
+        "name": "Persistence and transaction failures",
+        "focus": "Committed records survive restart. Interrupted writes do not create half-grants, orphan successors or unlogged clinical releases.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F11",
+        "name": "Untrusted input and abuse",
+        "focus": "Reject disallowed types, excessive sizes and invalid structures; safely handle injection/HTML/path inputs and unauthorized cross-origin writes; enforce documented throttling.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      },
+      {
+        "id": "F12",
+        "name": "Credential freshness and local revocation",
+        "focus": "Exercise before/at/after expiry, unknown or stale verification, consent withdrawal, cancelled appointment, invalidated registration and revoked affiliation with an already logged-in physician.",
+        "cases": 10,
+        "valid": 4,
+        "adversarial_or_failure": 6,
+        "initial_development": 7,
+        "reserved_variants": 3
+      }
+    ],
+    "development_and_reserved": "Per family: 7 development cases (3 valid, 4 adverse) and 3 reserved variants (1 valid, 2 adverse), giving 84 development and 36 reserved cases. Reserved does not mean independently blinded unless a separate reviewer actually creates/controls them.",
+    "case_manifest_required": [
+      "Case ID and family",
+      "Initial users/roles and verification state",
+      "Initial report/order/specimen/version and permission state",
+      "Action and authoritative time",
+      "Expected allow/deny/hold/no-op/verification-failure outcome",
+      "Expected disclosure and state effects",
+      "Expected audit/provenance events",
+      "Rationale and reviewer",
+      "Development/reserved designation"
+    ],
+    "prerequisites": "Materialize and freeze concrete fixtures and expected outcomes before building the implementation under later authorized steps. The present step defines the protocol only.",
+    "endpoint_coverage": "Every later clinical read/file route and privileged mutation route must map to at least one positive and one unauthorized case. Add cases if route coverage requires more than 120; never delete failures to fit the budget.",
+    "concurrency": {
+      "traces_per_transition": 100,
+      "transitions": [
+        "Consent withdrawal versus report read",
+        "Hospital affiliation revocation versus report read",
+        "Recorded professional-registration invalidation versus report read",
+        "Appointment cancellation versus report read",
+        "Two corrections competing for the same predecessor"
+      ],
+      "total_traces": 500,
+      "oracle": "No read decision ordered after a committed invalidation may release data. At most one conflicting successor becomes current unless both are explicitly serialized as valid successive corrections; no silent lost update."
+    },
+    "repetitions": "Run each primary arm from the same clean initial fixture state. Use fresh-process reruns for persistence/order-sensitive cases; do not count repeated requests as independent subjects.",
+    "boundary_and_failure_coverage": [
+      "Expiry before/at/after boundary",
+      "Unknown or stale credential evidence",
+      "Audit write failure",
+      "Restart after committed permission and correction",
+      "Interrupted transaction",
+      "Already logged-in session after invalidation",
+      "Direct report file/API path",
+      "Changed client-supplied role/verified flags",
+      "Changed report bytes with recomputed unkeyed hash"
+    ],
+    "expected_results_status": "Not run; no performance, accuracy or security results yet."
+  },
+  "acceptance": [
+    {
+      "id": "M01",
+      "name": "Complete protocol conformance",
+      "target": "All 120 planned unique cases pass their predeclared outcomes, including all 48 valid workflows and all 72 adverse/failure cases; any added route-coverage cases must also pass.",
+      "denominator": "Unique cases in the frozen manifest",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M02",
+      "name": "Unauthorized clinical release",
+      "target": "0 report bodies, file bytes or prohibited clinical fields released for expected-deny read requests.",
+      "denominator": "All expected-deny clinical requests, separately reported for each family and route",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M03",
+      "name": "Valid workflow rejection",
+      "target": "0 unexpected denials or holds in predeclared healthy valid cases. Legitimate amendments and renewed sharing must complete.",
+      "denominator": "All expected-valid workflow actions; report exact count",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M04",
+      "name": "Submission admission and integrity",
+      "target": "0 mismatched, unapproved, tampered or rollback submissions admitted as accepted clinical reports; every valid submission/correction remains traceable.",
+      "denominator": "Expected-invalid and expected-valid submission actions, reported separately",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M05",
+      "name": "Concurrent ordering",
+      "target": "0 ordering or lost-update violations in 500 coordinated traces. The first new request after a committed invalidation is denied without requiring logout.",
+      "denominator": "100 traces for each of the five transitions",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M06",
+      "name": "Provenance and version retention",
+      "target": "100% of accepted report versions contain their required issuer, approver, source/report/order/specimen IDs, relevant test context, timestamps, integrity evidence and status. All amendments retain predecessor, reason and authorizer; originals are retrievable as historical records.",
+      "denominator": "Accepted report versions and amendments, not all test requests",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M07",
+      "name": "Audit completeness and integrity",
+      "target": "100% of manifest-required security events are durably represented with actor, action, relevant object/version, time, outcome, decision basis and correlation ID. Ordinary-role edits/deletions fail; injected alteration/truncation is detected against protected integrity evidence within the stated trust boundary.",
+      "denominator": "Expected logical security events from the case manifest; multiple low-level entries may map to one logical event",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M08",
+      "name": "Privacy and all-synthetic isolation",
+      "target": "0 real entity/record fixtures, 0 live verification/messaging calls, 0 full test-CNIC or authentication-secret leaks outside explicitly permitted restricted identity input/storage. Simulated verification labels remain visible.",
+      "denominator": "Fixture inventory, responses/logs/exports and captured runtime network destinations",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M09",
+      "name": "Recovery",
+      "target": "After a controlled restart, 100% of committed reports, grants, credential states, version links and audit events remain consistent; interrupted operations produce no half-applied clinical release or correction.",
+      "denominator": "Committed state assertions and interrupted transaction cases",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M10",
+      "name": "Local performance",
+      "target": "Proposed engineering budget: p95 server authorization/metadata response <= 1000 ms over 1000 mixed requests (500 permitted, 500 denied), at concurrency 10, after a separate warm-up, on the documented demo laptop. Return no protected body on denied responses; report timeouts/errors rather than excluding them.",
+      "denominator": "All 1000 benchmark requests, including errors; file transfer, login and human verification durations measured separately",
+      "gate": "proposed_operational_target_not_literature_estimate"
+    },
+    {
+      "id": "M11",
+      "name": "Fair comparative reporting",
+      "target": "Report R and M per-case correctness, error counts, p50/p95/max latency, setup/configuration time, constraints and unresolved issues under the same workload. No mandatory superiority claim.",
+      "denominator": "Identical frozen cases and workload for both primary arms",
+      "gate": "mandatory"
+    },
+    {
+      "id": "M12",
+      "name": "Usability and local adoption evidence",
+      "target": "Keep status pending. Later real reviewers may use only synthetic records, but scripted role agents cannot establish patient comprehension, clinician acceptance, institutional feasibility or willingness to pay.",
+      "denominator": "No new participants in this step",
+      "gate": "separate_future_validation_not_claimed_for_MVP"
+    }
+  ],
+  "deliverable_gate": "A working MVP must demonstrate real access enforcement, persisted synthetic data and all mandatory engineering gates. A successful synthetic demo is not a clinically deployed or stakeholder-validated product.",
+  "evidence_register": "pakistan_web_validation_evidence.json",
+  "references": [
+    {
+      "title": "OWASP API1 Broken Object Level Authorization",
+      "url": "https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/"
+    },
+    {
+      "title": "OWASP API5 Broken Function Level Authorization",
+      "url": "https://api-security.owasp.org/editions/2023/en/0xa5-broken-function-level-authorization/"
+    },
+    {
+      "title": "NIST SP 800-63B-4 final July 2025",
+      "url": "https://csrc.nist.gov/pubs/sp/800/63/b/4/final",
+      "use": "Authentication and session guidance; not a claim of NIST certification."
+    },
+    {
+      "title": "HL7 FHIR Consent R4",
+      "url": "https://hl7.org/fhir/R4/consent.html",
+      "use": "Consent representation is separate from enforcement."
+    },
+    {
+      "title": "HL7 FHIR Provenance",
+      "url": "https://hl7.org/fhir/provenance.html",
+      "use": "Origin and revision context."
+    },
+    {
+      "title": "HL7 FHIR AuditEvent",
+      "url": "https://hl7.org/fhir/auditevent.html",
+      "use": "Security/access events; patient access summary must not expose the raw administrative log."
+    }
+  ],
+  "approval_gate": {
+    "current": "Step 2 approved; Step 3 design separately authorized by user.",
+    "next": "Step 3 screens, data flows and access-rule design explicitly authorized. Step 4 remains subject to separate approval.",
+    "step_3_authorized": true,
+    "local_stakeholder_interviews": "Pending; web-based contextual validation has been performed and is separately labelled."
+  }
+}

@@ -1,0 +1,3117 @@
+{
+  "schema_version": 1,
+  "project": "Tehreem PCC 2026",
+  "app_working_name": "SehatAman",
+  "created_on": "2026-10-21",
+  "stage": "Step 4 preimplementation freeze",
+  "status": "Frozen design cases; not an executed benchmark",
+  "reviewer": "Agent-authored expected outcomes; independent/domain stakeholder review pending",
+  "reference": "step2_research_security_protocol.json",
+  "base_fixture": {
+    "name": "all-synthetic-base-v1",
+    "clock": "2026-10-21T10:00:00+05:00",
+    "roles": "5 patients; 3 physicians; 2 labs each with distinct submitter/approver; 1 hospital manager",
+    "identities": "P01..P05 verified; CNIC fixtures 00000-0000001-0 through 00000-0000005-0",
+    "dates_of_birth": {
+      "P01": "1990-01-01",
+      "P02": "1991-01-01",
+      "P03": "1992-01-01",
+      "P04": "1993-01-01",
+      "P05": "1994-01-01"
+    },
+    "source_links": {
+      "O01": "L01/P01/S01",
+      "O02": "L02/P01/S02",
+      "O03": "L01/P02/S03"
+    },
+    "reports": "R01-V1 L01/P01 accepted; R02-V1 L02/P01 accepted; R01-V2 materialized by scenario setup when named",
+    "physician_states": {
+      "D01": "registration valid, H01 affiliation valid",
+      "D02": "registration valid, affiliation pending",
+      "D03": "registration pending, affiliation valid"
+    },
+    "appointment": "A01 P01/D01/H01 booked",
+    "grant": "Exact R01-V1, P01/D01/A01/H01, consultation, [10:00,11:30) PKT unless case overrides",
+    "evidence_interval": "[2026-10-21T00:00:00+05:00,2026-10-22T00:00:00+05:00)",
+    "sessions": "Active authenticated account, CSRF valid, same-origin and current second factor unless overridden",
+    "overrides": "Each case starts independently from its declared base plus only its listed overrides. Submission-specific cases use fresh source IDs unless replay is the case. UUIDs resolve via seeded display aliases; none are real identifiers."
+  },
+  "counts": {
+    "total": 120,
+    "valid": 48,
+    "adverse": 72,
+    "development": 84,
+    "reserved": 36
+  },
+  "cases": [
+    {
+      "id": "F01-01",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Patient signs in with password and current second factor",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "correct",
+          "totp": "current"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "session created; role assigned server-side",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; session created; role assigned server-side.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-02",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Lab submitter signs in",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "correct",
+          "totp": "current"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "own laboratory role only",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; own laboratory role only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-03",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Hospital manager signs in",
+      "category": "valid",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "correct",
+          "totp": "current"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "no clinical privilege",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no clinical privilege.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-04",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Physician signs in",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "correct",
+          "totp": "current"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "no implicit report privilege",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no implicit report privilege.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-05",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "CNIC entered as sole credential",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "anonymous",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "username": "00000-0000001-0",
+          "password": "",
+          "totp": ""
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "generic failure; no session",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; generic failure; no session.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-06",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Wrong password with correct factor",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "wrong",
+          "totp": "current"
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "no session or account-existence leak",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no session or account-existence leak.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-07",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Wrong second factor",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login",
+        "parameters_and_state_overrides": {
+          "password": "correct",
+          "totp": "000000-invalid"
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "no session",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no session.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-08",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Pending identity attempts own clinical read",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "identity": "pending",
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-09",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "Expired session attempts read",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "session": "expired",
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F01-10",
+      "family": "F01",
+      "family_name": "CNIC, authentication and recovery",
+      "title": "CNIC-only recovery attempts immediate access",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "anonymous",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "recover_then_read",
+        "parameters_and_state_overrides": {
+          "cnic": "00000-0000001-0"
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "generic recovery receipt; no password reset/session",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F01 focus; generic recovery receipt; no password reset/session.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-01",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Concordant L01 P01 initial report",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01",
+          "cnic": "00000-0000001-0",
+          "specimen": "S01",
+          "dob": "1990-01-01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "awaiting distinct approval",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; awaiting distinct approval.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-02",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Concordant L02 source work",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L02-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O02",
+          "cnic": "00000-0000001-0",
+          "specimen": "S02",
+          "dob": "1990-01-01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "L02 receipt only",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; L02 receipt only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-03",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "CNIC normalization with separators",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01",
+          "cnic": "0000000000010",
+          "specimen": "S01",
+          "dob": "1990-01-01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "same enrolled patient",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; same enrolled patient.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-04",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "P02 concordant distinct record",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O03",
+          "cnic": "00000-0000002-0",
+          "specimen": "S03",
+          "dob": "1991-01-01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "no merge with P01",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; no merge with P01.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-05",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Another patient's CNIC",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01",
+          "cnic": "00000-0000002-0",
+          "specimen": "S01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no accepted version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; held; no accepted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-06",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Wrong specimen",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01",
+          "cnic": "00000-0000001-0",
+          "specimen": "S99"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no accepted version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; held; no accepted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-07",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Wrong secondary demographic",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01",
+          "dob": "1980-01-01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no accepted version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; held; no accepted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-08",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Foreign laboratory order",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L02-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "order": "O01"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no foreign patient detail or receipt",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; no foreign patient detail or receipt.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-09",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Malformed CNIC",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "cnic": "not-a-cnic"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "assertion": "no accepted version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; no accepted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F02-10",
+      "family": "F02",
+      "family_name": "CNIC, order and specimen linkage",
+      "title": "Unverified identity linkage",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "identity": "pending",
+          "order": "O01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no accepted version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F02 focus; held; no accepted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-01",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Both independent attestations valid",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "exact granted version",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; exact granted version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-02",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Independent renewal accepted",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "registration": "renewed_valid"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "renewed evidence retained",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; renewed evidence retained.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-03",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Hospital renews own affiliation",
+      "category": "valid",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "affiliation_status",
+        "parameters_and_state_overrides": {
+          "physician": "D01",
+          "status": "valid",
+          "reason": "Synthetic renewal"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "registration unchanged",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; registration unchanged.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-04",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Hospital submits permitted profile revision",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "profile_update",
+        "parameters_and_state_overrides": {
+          "physician": "D01",
+          "language": [
+            "Urdu",
+            "English"
+          ]
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "no clinical privilege",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no clinical privilege.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-05",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Registration only",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "registration": "valid",
+          "affiliation": "pending",
+          "grant": "V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-06",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Affiliation only",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D03",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "registration": "pending",
+          "affiliation": "valid",
+          "grant": "V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-07",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Browser asserts registration verified",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "profile_update",
+        "parameters_and_state_overrides": {
+          "registration": "valid"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "assertion": "no professional-status change",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no professional-status change.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-08",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Physician self-verifies",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "affiliation_status",
+        "parameters_and_state_overrides": {
+          "status": "valid"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no credential change",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no credential change.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-09",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Hospital attempts independent registration endpoint",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "registration_update",
+        "parameters_and_state_overrides": {
+          "status": "valid"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no web verification capability",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no web verification capability.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F03-10",
+      "family": "F03",
+      "family_name": "Independent registration and affiliation",
+      "title": "Wrong hospital context",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant_hospital": "H99"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F03 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-01",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Explicit exact-version grant",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": [
+            "R01-V1"
+          ],
+          "purpose": "consultation",
+          "duration_minutes": 90
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "only selected immutable version",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; only selected immutable version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-02",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Separate corrected-version grant",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": [
+            "R01-V2"
+          ],
+          "purpose": "consultation",
+          "duration_minutes": 90
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "new grant; V1 grant unchanged",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; new grant; V1 grant unchanged.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-03",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Own confirmed appointment permits matching version",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "appointment": "confirmed"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "matching exact version",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; matching exact version.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-04",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Two own selected versions",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": [
+            "R01-V1",
+            "R02-V1"
+          ],
+          "duration_minutes": 30
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "only these two versions",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; only these two versions.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-05",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Booking without sharing",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant": "absent"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-06",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Wrong recipient",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant_recipient": "D01"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-07",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Wrong appointment",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant_appointment": "A99"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-08",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Other patient creates grant",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": [
+            "R01-V1"
+          ]
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no grant created",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no grant created.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-09",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Empty selected versions",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": []
+        }
+      },
+      "expected": {
+        "status": 422,
+        "assertion": "no implicit all-record permission",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no implicit all-record permission.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F04-10",
+      "family": "F04",
+      "family_name": "Appointment and explicit consent",
+      "title": "Wrong purpose or context",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant_purpose": "other"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F04 focus; no clinical payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-01",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Patient reads own version",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "own intact version only",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; own intact version only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-02",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Patient reads own protected file",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "authorized text file; no-store",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; authorized text file; no-store.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-03",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Lab reads own assigned source version",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "own source lineage only",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; own source lineage only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-04",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Physician reads granted protected file",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "same gate as metadata",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; same gate as metadata.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-05",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Other patient guesses version ID",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "same shape as missing object",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; same shape as missing object.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-06",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Other physician requests file",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no file bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; no file bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-07",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Other lab requests source",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L02-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no source content",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; no source content.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-08",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Hospital requests clinical file",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no clinical bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; no clinical bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-09",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Anonymous requests direct file",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "anonymous",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1"
+        }
+      },
+      "expected": {
+        "status": 401,
+        "assertion": "no clinical bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; no clinical bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F05-10",
+      "family": "F05",
+      "family_name": "Ownership and role boundaries",
+      "title": "Client role flag attempts elevation",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1",
+          "role": "patient",
+          "patient_id": "P01",
+          "verified": true
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "server ownership unchanged",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F05 focus; server ownership unchanged.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-01",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Distinct approved successor",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_amendment",
+        "parameters_and_state_overrides": {
+          "predecessor": "R01-V1",
+          "version": 2,
+          "submitter": "L01-S01"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "V1 retained; V2 current",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; V1 retained; V2 current.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-02",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Still-valid V1 grant after correction",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1",
+          "successor": "R01-V2"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "historical warning; no V2 contents",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; historical warning; no V2 contents.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-03",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Own patient views complete lineage",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "version_history",
+        "parameters_and_state_overrides": {
+          "report": "R01"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "both versions and correction reason",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; both versions and correction reason.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-04",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Patient explicitly shares V2",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "versions": [
+            "R01-V2"
+          ]
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "new version-specific grant",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; new version-specific grant.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-05",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "V1 grant requests V2",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V2",
+          "grant": "V1_only"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no V2 payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; no V2 payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-06",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Blank amendment reason",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit_amendment",
+        "parameters_and_state_overrides": {
+          "reason": ""
+        }
+      },
+      "expected": {
+        "status": 422,
+        "assertion": "no accepted successor",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; no accepted successor.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-07",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Submitter approves own version",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_amendment",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no publication",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; no publication.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-08",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Wrong approver reference",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_amendment",
+        "parameters_and_state_overrides": {
+          "signed_approver": "L02-A02"
+        }
+      },
+      "expected": {
+        "status": 409,
+        "assertion": "no publication",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; no publication.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-09",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Cross-lab correction",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L02-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit_amendment",
+        "parameters_and_state_overrides": {
+          "report": "R01"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no successor",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; no successor.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F06-10",
+      "family": "F06",
+      "family_name": "Corrections and exact version scope",
+      "title": "Historical content overwrite",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "patch_version",
+        "parameters_and_state_overrides": {
+          "version": "R01-V1",
+          "result": "changed"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "original unchanged",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F06 focus; original unchanged.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-01",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Valid signed source package",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "signature": "valid",
+          "digest": "matching"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "awaiting approval",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; awaiting approval.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-02",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Valid L02 issuer package",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L02-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "signature": "L02_valid",
+          "digest": "matching"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "own L02 candidate",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; own L02 candidate.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-03",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Intact accepted content read",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "integrity": "intact"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "issuer evidence present",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; issuer evidence present.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-04",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Preserved prior signing key verifies history",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "key_state": "retired_not_compromised"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "historical signature verified",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; historical signature verified.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-05",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Unknown issuer",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "issuer": "L99"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held or rejected, never accepted",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; held or rejected, never accepted.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-06",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Changed content with old signature",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "content": "altered"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no publication",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; held; no publication.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-07",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Recomputed bare hash",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "content": "altered",
+          "digest": "recomputed",
+          "signature": "old"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; issuer signature invalid",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; held; issuer signature invalid.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-08",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Changed signed metadata",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "specimen": "changed_after_signing"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no publication",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; held; no publication.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-09",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Missing source approval reference",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "approver_ref": null
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no publication",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; held; no publication.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F07-10",
+      "family": "F07",
+      "family_name": "Issuer evidence and content integrity",
+      "title": "Corrupted stored clinical ciphertext",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "storage": "corrupted_ciphertext"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "fail closed; no bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F07 focus; fail closed; no bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-01",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Initial unique message admitted",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "message": "MSG-NEW"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "one pending receipt",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; one pending receipt.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-02",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Identical replay returns same receipt",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "replay",
+        "parameters_and_state_overrides": {
+          "message": "MSG-NEW",
+          "same_bytes": true
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "no second clinical effect",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; no second clinical effect.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-03",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Serialized subsequent amendments",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_two_successive",
+        "parameters_and_state_overrides": {
+          "versions": [
+            2,
+            3
+          ]
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "preserved ordered chain",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; preserved ordered chain.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-04",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Repeat withdrawal is idempotent",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "withdraw_twice",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "no reactivation or duplicate grant",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; no reactivation or duplicate grant.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-05",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Same message different payload",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "replay",
+        "parameters_and_state_overrides": {
+          "message": "MSG-NEW",
+          "same_bytes": false
+        }
+      },
+      "expected": {
+        "status": 409,
+        "assertion": "original receipt retained",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; original receipt retained.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-06",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Stale predecessor",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_amendment",
+        "parameters_and_state_overrides": {
+          "expected": "R01-V1",
+          "current": "R01-V2"
+        }
+      },
+      "expected": {
+        "status": 409,
+        "assertion": "no rollback",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; no rollback.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-07",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Two successors same predecessor",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "conflicting_corrections",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 409,
+        "assertion": "at most one accepted head",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; at most one accepted head.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-08",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Duplicate source/version with new message",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_duplicate_version",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 409,
+        "assertion": "no destructive overwrite",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; no destructive overwrite.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-09",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Restored old database against protected head",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "storage": "rolled_back_db"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "rollback detected",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; rollback detected.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F08-10",
+      "family": "F08",
+      "family_name": "Replay, rollback and conflicts",
+      "title": "Other lab replays source ID",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "L02-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ingest",
+        "parameters_and_state_overrides": {
+          "issuer": "L01"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "held; no L01 impersonation",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F08 focus; held; no L01 impersonation.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-01",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Own patient access summary",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "access_history",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "redacted own events only",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; redacted own events only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-02",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Allowed read has durable prepared-release event",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "version/actor/time/request correlation persisted",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; version/actor/time/request correlation persisted.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-03",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Accepted correction complete provenance",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "version_history",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "issuer, source, order, specimen, times, approver, predecessor and reason",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; issuer, source, order, specimen, times, approver, predecessor and reason.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-04",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Protected head verifies after normal writes",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "verify_store",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 0,
+        "assertion": "chain and state match protected checkpoint",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; chain and state match protected checkpoint.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-05",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Ordinary role edits audit",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "edit_audit",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no modification",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; no modification.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-06",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Ordinary role deletes audit",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "delete_audit",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no deletion",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; no deletion.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-07",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Alter audit event in writable store",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "local-injector",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "verify_store",
+        "parameters_and_state_overrides": {
+          "attack": "alter_event"
+        }
+      },
+      "expected": {
+        "status": 1,
+        "assertion": "tamper detected",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; tamper detected.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-08",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Truncate audit tail",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "local-injector",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "verify_store",
+        "parameters_and_state_overrides": {
+          "attack": "truncate_tail"
+        }
+      },
+      "expected": {
+        "status": 1,
+        "assertion": "protected checkpoint mismatch detected",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; protected checkpoint mismatch detected.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-09",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Leak check across responses and routine logs",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "local-inspector",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "privacy_scan",
+        "parameters_and_state_overrides": {}
+      },
+      "expected": {
+        "status": 0,
+        "assertion": "zero full CNIC or auth-secret leaks outside permitted restricted inputs/storage",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; zero full CNIC or auth-secret leaks outside permitted restricted inputs/storage.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F09-10",
+      "family": "F09",
+      "family_name": "Audit, provenance and privacy",
+      "title": "Other patient access-history query",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "P02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "access_history",
+        "parameters_and_state_overrides": {
+          "requested_patient": "P01"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "only P02 data; P01 not disclosed",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F09 focus; only P02 data; P01 not disclosed.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-01",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Report state survives restart",
+      "category": "valid",
+      "designation": "development",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "restart",
+        "parameters_and_state_overrides": {
+          "committed": "report"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "exact accepted versions persist",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; exact accepted versions persist.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-02",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Grant state survives restart",
+      "category": "valid",
+      "designation": "development",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "restart",
+        "parameters_and_state_overrides": {
+          "committed": "grant"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "scope/status persist",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; scope/status persist.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-03",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Affiliation state survives restart",
+      "category": "valid",
+      "designation": "development",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "restart",
+        "parameters_and_state_overrides": {
+          "committed": "revocation"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "next physician read denied",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; next physician read denied.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-04",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Audit and head survive restart",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "restart",
+        "parameters_and_state_overrides": {
+          "committed": "audit"
+        }
+      },
+      "expected": {
+        "status": 0,
+        "assertion": "all committed events verify",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; all committed events verify.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-05",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Audit append failure during grant",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "fault": "audit_write_failure"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "no half-grant",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; no half-grant.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-06",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Audit failure during clinical read",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "fault": "audit_write_failure"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "no clinical bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; no clinical bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-07",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Interrupted correction before commit",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-A02",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "approve_amendment",
+        "parameters_and_state_overrides": {
+          "fault": "precommit"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "old head unchanged",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; old head unchanged.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-08",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Checkpoint failure after commit",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "withdraw",
+        "parameters_and_state_overrides": {
+          "fault": "checkpoint_write_failure"
+        }
+      },
+      "expected": {
+        "status": 503,
+        "assertion": "committed withdrawal retained; recovery hold",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; committed withdrawal retained; recovery hold.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-09",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Lost protected checkpoint",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "local-verifier",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "verify_store",
+        "parameters_and_state_overrides": {
+          "fault": "checkpoint_missing"
+        }
+      },
+      "expected": {
+        "status": 1,
+        "assertion": "no automatic re-anchoring",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; no automatic re-anchoring.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F10-10",
+      "family": "F10",
+      "family_name": "Persistence and transactional failure",
+      "title": "Competing state transition and read",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "ordered_read",
+        "parameters_and_state_overrides": {
+          "transition": "withdrawal_committed_first"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no stale release",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F10 focus; no stale release.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-01",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Bounded valid structured report",
+      "category": "valid",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "size_bytes": 2048,
+          "type": "structured_text"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "accepted into validation",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; accepted into validation.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-02",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Text containing markup rendered as text",
+      "category": "valid",
+      "designation": "development",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "profile_update",
+        "parameters_and_state_overrides": {
+          "specialty": "<script>demo</script>"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "escaped/no script execution",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; escaped/no script execution.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-03",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Same-origin valid state mutation",
+      "category": "valid",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "origin": "same",
+          "csrf": "valid"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "normal explicit sharing",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; normal explicit sharing.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-04",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Safe bounded directory filters",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "directory",
+        "parameters_and_state_overrides": {
+          "specialty": "Internal medicine",
+          "language": "Urdu"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "matching public fields only",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; matching public fields only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-05",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Cross-origin mutation",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "origin": "https://untrusted.invalid",
+          "csrf": "valid"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "assertion": "no state change",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; no state change.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-06",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Missing CSRF token",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "csrf": "missing"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "assertion": "no state change",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; no state change.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-07",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Oversized request",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "L01-S01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "submit",
+        "parameters_and_state_overrides": {
+          "size_bytes": 70000
+        }
+      },
+      "expected": {
+        "status": 413,
+        "assertion": "bounded rejection",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; bounded rejection.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-08",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Path traversal file request",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "path": "../../protected/keys.json"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no local file contents",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; no local file contents.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-09",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Unknown role/verified fields in privileged mutation",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "H01-M01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "profile_update",
+        "parameters_and_state_overrides": {
+          "role": "admin",
+          "verified": true
+        }
+      },
+      "expected": {
+        "status": 422,
+        "assertion": "no elevation",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; no elevation.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F11-10",
+      "family": "F11",
+      "family_name": "Input validation and abuse",
+      "title": "Repeated invalid login",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "anonymous",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "login_burst",
+        "parameters_and_state_overrides": {
+          "attempts": 12
+        }
+      },
+      "expected": {
+        "status": 429,
+        "assertion": "throttled generic response",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F11 focus; throttled generic response.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-01",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Immediately before expiry",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "clock": "grant_end_minus_1_second"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "exact version allowed",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; exact version allowed.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-02",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Exactly at inclusive start",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "clock": "grant_start"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "allowed",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; allowed.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-03",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Fresh independent evidence",
+      "category": "valid",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "registration": "fresh",
+          "affiliation": "fresh"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "assertion": "allowed",
+        "clinical_disclosure": "Only explicitly authorized scope",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; allowed.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-04",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Renewed explicit grant after prior expiry",
+      "category": "valid",
+      "designation": "reserved",
+      "actor": "P01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "grant",
+        "parameters_and_state_overrides": {
+          "prior_grant": "expired",
+          "new_interval": "active"
+        }
+      },
+      "expected": {
+        "status": 201,
+        "assertion": "new grant only",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; new grant only.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-05",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Exactly at exclusive expiry",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "clock": "grant_end"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-06",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "After expiry",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "clock": "grant_end_plus_1_second"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-07",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Withdraw then same-session request",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "grant": "revoked"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-08",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Cancel appointment then same-session request",
+      "category": "adverse_or_failure",
+      "designation": "development",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "appointment": "cancelled"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-09",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Revoke affiliation then same-session request",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_version",
+        "parameters_and_state_overrides": {
+          "affiliation": "revoked"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no payload",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no payload.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    },
+    {
+      "id": "F12-10",
+      "family": "F12",
+      "family_name": "Freshness, boundaries and local revocation",
+      "title": "Stale registration then same-session request",
+      "category": "adverse_or_failure",
+      "designation": "reserved",
+      "actor": "D01",
+      "initial_context": "all-synthetic-base-v1 with action parameters/overrides below",
+      "action": {
+        "operation": "read_file",
+        "parameters_and_state_overrides": {
+          "registration": "stale"
+        }
+      },
+      "expected": {
+        "status": 404,
+        "assertion": "no bytes",
+        "clinical_disclosure": "As specified; no out-of-scope clinical data",
+        "audit": "Durable actor/action/object/version/time/outcome/correlation for security-relevant operations; audit failure has no unauthorized release"
+      },
+      "rationale": "Approved F12 focus; no bytes.",
+      "expected_provenance": "Existing accepted versions and original source evidence never overwritten; successful new versions retain required lineage.",
+      "reviewer": "Agent specification; domain review pending"
+    }
+  ],
+  "concurrency_plan": {
+    "status": "Step 5 approval required before formal execution",
+    "total_traces": 500,
+    "traces_each": 100,
+    "transitions": [
+      "consent withdrawal/read",
+      "affiliation revocation/read",
+      "registration invalidation/read",
+      "appointment cancellation/read",
+      "competing corrections"
+    ],
+    "oracle": "No read ordered after durable invalidation releases data; no silent competing-successor overwrite"
+  },
+  "execution_boundary": "Step 4 builds and runs implementation-focused checks. Formal 120-case/500-trace evaluation, fair reference comparison, performance study and stakeholder validation are not represented as completed."
+}

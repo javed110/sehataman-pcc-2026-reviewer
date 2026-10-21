@@ -1,0 +1,10 @@
+{
+  "frozen_before_execution": true,
+  "reference_type": "Constructed conventional ABAC reference on shared stack",
+  "policy_source": "Approved Step 2 semantics and frozen Step 4 expected outcomes",
+  "independent_part": "Separately written attribute rules for eligibility, grant matching, record access, source binding and submission findings in tests/reference_policy.py",
+  "shared_parts": ["HTTP adapter", "authentication", "cryptographic libraries and issuer adapter", "encrypted store and audit", "workflow orchestration", "response serialization"],
+  "fair_configuration": "All safeguards supported by the MVP are configured in the reference. Same fixtures, inputs, evidence, case order, persistence, hardware and workload.",
+  "interpretation": "Agreement is internal conformance evidence. Shared-code failures can affect both arms. This does not compare a commercial Pakistani product or prove superiority.",
+  "review": "Agent-authored policy and expected outcomes. Independent/domain review remains pending; reserved cases are predeclared but not blinded."
+}

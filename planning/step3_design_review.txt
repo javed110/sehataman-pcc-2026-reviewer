@@ -1,0 +1,85 @@
+TEHREEM — PCC 2026 — VIROHANDOFF GUARD
+STEP 3: SCREENS, DATA FLOWS AND ACCESS RULES
+Design for review | 21 October 2026 | All entities and data synthetic
+
+APPROVAL BOUNDARY
+Step 2 was approved and Step 3 alone was authorized. This is a proposed design and clickable screen preview. Authentication, databases, integrations, file delivery and security enforcement have not been implemented. Step 4 requires separate explicit approval. Direct local stakeholder validation remains pending.
+
+1. DEMONSTRATION SCOPE
+Two invented molecular diagnostic laboratories, one invented hospital, three invented physicians and five invented adult patients. Start with one invented respiratory PCR report format. The history contains reports actually supplied by the demo laboratories; it is not a complete medical history.
+
+Every account, CNIC fixture, identity response, professional-registration response, affiliation, specimen, order, report, appointment, permission and audit event is invented. No renamed or anonymized real records are used. There are no live NADRA, PMDC, hospital, laboratory, email or SMS calls. Public research and provider documentation inform the requirements only.
+
+2. SCREEN MAP
+Shared sign-in: account identifier, password, separate test second factor, generic errors and separate recovery review. CNIC knowledge alone never signs a user in or resets an account. The screen-review persona selector is outside the proposed product; it is not an application role-switch feature.
+
+Patient:
+- Identity status: masked test CNIC, simulated evidence, account binding and validity interval. Formatting, identity proof, sign-in and specimen linkage are separate.
+- Diagnostic history: own accepted reports, source laboratory, date, version and correction status.
+- Report detail: synthetic result, specimen/order context, issuer evidence, issue/receive times and preserved version chain.
+- Physician directory: explicit specialty, language, location, fee and availability information. Professional registration and hospital affiliation appear as separate simulated statuses. In this MVP, incomplete or invalid credential checks block new booking.
+- Appointment and sharing: booking creates an appointment only. A separate review names the physician, hospital, appointment, purpose, exact report versions, start and exclusive expiry. No record is selected by default.
+- My sharing and access history: active/expired/withdrawn permissions, withdrawal, renewed sharing for corrected versions, and a redacted who/what/when summary. Delivery is not proof of human reading.
+
+Laboratory:
+- Submission: own authorized orders, CNIC linkage, secondary demographic confirmation, specimen, test context, source IDs and source package.
+- Review queue: validation findings and a distinct authorized approver. A submitter cannot approve their own submission; no button overrides failed identity or integrity checks.
+- Amendment history: preserved predecessor, correction reason and approver. A new version is inserted; accepted content is never overwritten. Competing successors create a conflict.
+
+Hospital:
+- Physician profiles: own hospital submissions, account binding, public fields and a read-only independent professional-registration result.
+- Affiliation evidence: hospital-specific attester, role/privileges, effective interval, last check and status. Revocation requires a named-context confirmation. It changes affiliation only, not professional registration.
+- No clinical record, patient-search or report-download screen.
+
+Physician:
+- Own appointments with minimum booking details. An appointment without a valid patient grant exposes no clinical report list or result count.
+- Authorized report reader with only the exact permitted version, provenance and expiry. A historical version remains visibly superseded; an unshared correction is not revealed.
+- Safe blocked-access states for missing permission, cancelled appointment, invalid affiliation, stale registration, integrity hold or required audit failure.
+
+3. DATA FLOW
+A. Local synthetic setup establishes organizations, account bindings and simulated identity/registration evidence. Privileged fixture controls are separate from ordinary browser roles and provide no clinical bypass.
+B. Hospital submits a profile and separately attests hospital affiliation. Independent simulated registration checking verifies the professional reference, person/account match, licence validity and registered qualifications. Neither check creates patient permission.
+C. Laboratory sends a synthetic source package into validation/quarantine. Check issuer, submitter, CNIC enrolment, secondary demographics, lab patient/order/specimen mapping, schema, replay, signed metadata, content digest and predecessor.
+D. Failed checks hold/reject the package. A valid package requires a distinct authorized lab approver and a final transactional recheck before becoming an accepted immutable version.
+E. Patient views their own accepted history, discovers an eligible physician and books an appointment. Then the patient explicitly authorizes selected immutable versions for that recipient, hospital context, purpose and time.
+F. Every physician list/item/file request enters the same current-state server release gate. Allowed delivery requires durable audit evidence. A denial contains no clinical payload.
+G. Corrections create linked versions and require new version-specific permission. Withdrawal, cancellation, credential changes and expiry affect the next request ordered after the relevant durable change. An earlier authorized in-flight request may complete; delivered copies cannot be recalled.
+
+4. ACCESS RULES
+Patient: own accepted, intact records and own redacted access history; create or withdraw own sharing permissions. No other-patient access.
+Laboratory: own organization and assigned source work only. No other laboratory's reports, whole-patient history or patient-consent creation.
+Hospital: own profiles and affiliation evidence only. Zero clinical metadata/file access; cannot self-mark professional registration verified.
+Physician: exact authorized report versions only. No general patient/CNIC search, future-version inheritance or affiliation-based blanket access.
+Technical verifier: type-specific local simulated evidence updates. No universal clinical administrator route and no ability to create patient consent.
+
+PHYSICIAN RELEASE REQUIRES ALL OF:
+Active authenticated physician session; correct verified patient linkage; accepted/intact report version; explicit active grant for that exact version and matching recipient/appointment/hospital/affiliation/purpose; server time inside the grant interval; eligible noncancelled appointment; independently valid professional registration; separately valid hospital affiliation; and required durable audit/checkpoint availability.
+
+The patient's own report access uses ownership and report checks. It does not require a physician's appointment or credentials. Laboratory source access follows the laboratory's own authorized scope.
+
+5. EXPLICIT CYBERSECURITY DESIGN
+Use opaque internal identifiers, encrypted CNIC storage and secret-keyed lookup. Mask routine displays. Full CNIC, results and credentials do not belong in URLs, public profiles, notifications or routine logs.
+
+Proposed controls include maintained password hashing, a separate local test second factor, server-side revocable sessions, rate limits, secure cookie settings, CSRF/origin protection, private/no-store clinical responses, bounded inputs, safe text rendering and file storage outside public web roots. Intended network access uses TLS; an isolated loopback development setup must be labelled accurately.
+
+Issuer-bound evidence signs report metadata and the actual content digest with a per-lab synthetic source key; the ingest verifier receives trusted public keys. A bare hash cannot establish issuer provenance. The authenticated distinct approver must match the source approval reference. Digital checks do not establish clinical truth.
+
+Clinical state changes and audit appends commit together. Required audit-write failure blocks release and rolls back the coupled mutation. A protected checkpoint outside the attacker-writable store supports the defined audit alteration/deletion/truncation tests. Checkpoint inconsistency creates a recovery hold; never silently re-anchor an untrusted store. A fully compromised runtime and protected keys are outside the approved assurance claim.
+
+All record and file routes recheck current committed state. A prior view, cached role claim, known URL or hidden button never establishes permission. Version 1 consent cannot authorize version 2. A still-valid version 1 grant can permit that clearly historical version after correction.
+
+6. REVIEW SCENARIO
+View P01's separate history. Submit a mismatched lab package and observe a hold. Accept intact R01 V1 using distinct lab accounts. Compare the three physicians' independent credential states. Book D01 without sharing, then explicitly share V1 only. Issue V2 while preserving V1; V2 stays unshared until separately selected. Independently exercise withdrawal, expiry, cancellation, affiliation revocation and stale registration. The implemented MVP must deny each affected next metadata/file request. Restart and audit/persistence demonstrations follow implementation.
+
+7. RESEARCH AND VALIDATION STATUS
+The candidate contribution remains a Pakistan-informed conformance profile and reproducible all-synthetic state-transition benchmark for version-specific patient-authorized report release. It is not a claim of new cryptography, new consent, first-in-Pakistan status, clinical benefit or proven market demand.
+
+Retain the approved fair reference comparison and Step 2 measurable criteria. The planned 120 scenarios and 500 concurrency traces have not run. New interviews, institutional confirmation, usability testing, acceptance and purchasing validation remain pending. Prior web research is contextual evidence only.
+
+The technical companion, step3_screen_flow_access_design.json, contains 14 screen specifications, entity fields and authorities, ten data flows, state machines, an access matrix, proposed request contracts, threat-to-design traceability and the Step 4 approval gate.
+
+DESIGN CHECKS
+Static checks passed for JavaScript syntax, literal screen fragment structure, declared queried IDs, no network API, unique screen/contract IDs, four-entity scope and the Step 4 approval boundary. These checks do not establish security or working authentication. Browser rendering, responsive layout and interactive behavior remain unverified: the user-authorized Chrome connector reported Chrome unavailable; the in-app localhost preview timed out; local-file navigation was blocked by browser policy. No browser policy bypass was attempted.
+
+NEXT APPROVAL
+Approve or revise Step 3. Only after explicit approval, Step 4 may build the local persisted synthetic MVP and materialize the approved evaluation manifest. The final project deliverable remains a functioning demonstrable MVP.

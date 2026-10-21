@@ -1,0 +1,44 @@
+{
+  "application": "SehatAman",
+  "version": "0.5.0",
+  "stage": "Step 6 reviewer handover",
+  "date": "2026-10-21",
+  "status": "handover_prepared",
+  "step5_approved_by_user": true,
+  "step6_authorized": true,
+  "authorization": "Approved Step 5. Proceed with the next step, keep missing details pending, and do not deploy or submit the application without my explicit approval.",
+  "scope": [
+    "Reviewer handover and separate fresh-demo instructions",
+    "Form claim-to-evidence mapping",
+    "Current package and private repository consistency checks"
+  ],
+  "checks": {
+    "cited_local_paths": "verified",
+    "frozen_manifest_digest": "unchanged",
+    "reported_case_counts": "120/120 per arm verified from retained summary",
+    "reported_supplementary_counts": "46/46 verified from retained report",
+    "historical_latency_ms": 668.13,
+    "word_note": "unchanged; existing six-page render review retained",
+    "code_changes_in_step6": false
+  },
+  "artifacts": [
+    "docs/STEP6_REVIEWER_HANDOVER.txt",
+    "docs/CLAIM_EVIDENCE_CHECKLIST.txt",
+    "docs/REVIEWER_GUIDE.txt"
+  ],
+  "all_demo_entities_synthetic": true,
+  "research_and_technical_claim_limits_retained": true,
+  "missing_details_status": "pending; see docs/APPLICATION_PENDING_FIELDS.txt",
+  "application_ready_for_submission": false,
+  "independent_domain_review": "pending",
+  "direct_pakistani_stakeholder_validation": "pending",
+  "commercial_market_validation": "pending",
+  "repository_visibility": "private; no access expansion",
+  "deployment_authorized": false,
+  "submission_authorized": false,
+  "reviewer_invitations_authorized": false,
+  "deployment_performed": false,
+  "submission_performed": false,
+  "delivery_verification": "Archive extraction and repository identity are recorded externally in deliverables/ZIP_VERIFICATION.json and deliverables/GITHUB_VERIFICATION.json for the exact delivered package.",
+  "next_gate": "Applicant supplies missing details and reviews the final form; obtain separate explicit approval before deployment or application submission."
+}

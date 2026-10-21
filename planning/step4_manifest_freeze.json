@@ -1,0 +1,8 @@
+{
+  "algorithm": "SHA-256",
+  "file": "step4_frozen_scenario_manifest.json",
+  "digest": "d7191bdd7ec753004da9bc48869f2e140481cf43b7a441947bceeff1fafd9890",
+  "frozen_before_implementation": true,
+  "human_domain_review": "pending",
+  "formal_execution": "pending Step 5 approval"
+}

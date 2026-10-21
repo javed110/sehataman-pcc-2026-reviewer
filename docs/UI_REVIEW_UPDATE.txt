@@ -1,0 +1,39 @@
+SEHATAMAN REVIEWER INTERFACE UPDATE
+
+Scope: local synthetic demonstration, version 0.5.0.
+
+Presentation changes
+- Consistent typography, spacing, cards, navigation, form controls and status chips.
+- Responsive navigation and single-column fields on narrow screens.
+- Keyboard skip link, named controls and heading focus on page/report changes.
+- Expandable local sign-in code instructions, including expiry and replay limits.
+- Consistent report-access denial with a return to appointments and access recheck.
+- Lab submission receipts display Accepted; only the current clinical version is
+  labelled Current. An older accepted receipt does not become a current report.
+- Approval wording describes entry into local patient history; hospital profile
+  edits do not claim independent professional verification.
+- Removed the requested explanatory historical-version banner. Version numbers,
+  preserved lineage and exact-version server authorization remain intact.
+
+Verification performed
+- JavaScript syntax check passed.
+- Browser review of patient history, report detail and preserved version history.
+- Desktop and narrow-screen review; no horizontal page overflow in the inspected
+  320-pixel access state, 665-pixel patient view and 1280-pixel patient dashboard.
+- Isolated physician read followed by patient withdrawal: the next refresh
+  displayed Report access unavailable with no clinical content.
+- The working G03 grant for R01 version 2 was withdrawn separately during the
+  guided review. Metadata and file requests were denied and audited while the
+  physician session, appointment, verification state and test clock were held
+  unchanged. That grant remains revoked; version 3 and earlier history remain.
+- The ZIP verification report accompanies the archive outside the source tree;
+  it records extraction, file hashes and regression/release check results.
+
+Accuracy and boundaries
+All demonstration entities, identifiers, records and verification outcomes remain
+synthetic. No access policy, server authorization, integrity or audit safeguard
+was removed. The local test-code helper is not an independent-device factor.
+The existing recordings precede this interface polish and show older labels and
+spacing; their core workflow is unchanged. Direct stakeholder/domain review and
+commercial market-gap validation remain pending. Missing application fields stay
+pending. No deployment, application submission or reviewer invitation is approved.

@@ -1,0 +1,83 @@
+{
+  "team_name": "SehatAman Team",
+  "applicant_category": "Student Team",
+  "source": "Explicit user responses in this chat",
+  "members": [
+    {
+      "name": "Tehreem Hamid",
+      "role": "Team Lead / Primary Contact",
+      "qualification": "MS student",
+      "semester": "3rd semester",
+      "department": "Department of BioMedicine",
+      "school": "Atta-ur-Rahman School of Applied Biosciences (ASAB)",
+      "university": "National University of Sciences and Technology (NUST)",
+      "email": null,
+      "phone": null
+    },
+    {
+      "name": "Muhammad Haris",
+      "role": "Tech Lead",
+      "qualification": "BS Computer Science student",
+      "semester": "5th semester",
+      "department": "Department of Computer Science",
+      "faculty": "Faculty of Computing",
+      "school": "School of Electrical Engineering and Computer Science (SEECS)",
+      "university": "National University of Sciences and Technology (NUST)",
+      "email": null,
+      "phone": null
+    },
+    {
+      "name": "Muhammad Majid",
+      "role": "Technical Member",
+      "qualification": "BS Computer Science student",
+      "semester": "5th semester",
+      "department": "Department of Computer Science",
+      "faculty": "Faculty of Computing",
+      "school": "School of Electrical Engineering and Computer Science (SEECS)",
+      "university": "National University of Sciences and Technology (NUST)",
+      "email": null,
+      "phone": null
+    },
+    {
+      "name": "Humaira Zubair",
+      "role": "Health Domain Expert",
+      "qualification": "BS Molecular Biology and Genetics student",
+      "semester": "2nd semester",
+      "department": "Department of Molecular Biology and Genetics",
+      "faculty": "Faculty of Multidisciplinary Sciences",
+      "university": "National University of Medical Sciences (NUMS)",
+      "email": "Withheld from public copy",
+      "phone": "Withheld from public copy",
+      "public_contact_note": "Supplied privately; withheld from public copy"
+    }
+  ],
+  "mentors": [
+    {
+      "name": "Dr. Javed Ashraf",
+      "designation": "Professor of Public Health",
+      "institution": "NUMS"
+    },
+    {
+      "name": "Dr. Hira Anwar",
+      "designation": "Assistant Professor",
+      "department": "Department of Computer Sciences",
+      "institution": "SEECS, NUST"
+    }
+  ],
+  "business_details": "Pending confirmation",
+  "ip_status": "Pending confirmation",
+  "signature": "Unsigned; applicant to review and sign",
+  "remaining_required_details": [
+    "Tehreem Hamid email and phone",
+    "Muhammad Haris email and phone",
+    "Muhammad Majid email and phone",
+    "Tehreem exact official MS program title",
+    "Business/budget/IP confirmation if applicable",
+    "Applicant review and own signature/date/stamp if applicable",
+    "Owner-arranged reviewer access to private repository"
+  ],
+  "official_school_name_sources": [
+    "https://asab.nust.edu.pk/",
+    "https://seecs.nust.edu.pk/"
+  ]
+}

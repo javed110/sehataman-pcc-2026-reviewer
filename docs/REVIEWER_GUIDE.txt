@@ -1,0 +1,45 @@
+SEHATAMAN PCC 2026 REVIEWER GUIDE
+
+Step 5 has been approved. Step 6 prepares the reviewer handover. Start with
+STEP6_REVIEWER_HANDOVER.txt for clean-run setup and CLAIM_EVIDENCE_CHECKLIST.txt
+for traceability. Deployment and application submission are not approved.
+
+Intended public reviewer destination:
+https://github.com/javed110/sehataman-pcc-2026-reviewer
+Check planning/reviewer_publication.json for publication and verification status.
+The original application repository remains private. The public reviewer copy of
+the Word note redacts personal contacts; the private application copy retains the
+supplied contact. Missing details stay pending. This delivery is not a hosted app.
+
+Run the single local app with Run-SehatAman.cmd or python manage.py serve.
+Open http://127.0.0.1:8787/reviewer for the recorded role demonstrations.
+These loopback URLs work on the computer running the server only.
+Use Show-DemoAccounts.cmd for locally generated credentials and current TOTP codes.
+The supplied archive and repository contain no active credentials or demo database.
+
+Review the Word concept note, then watch demos/sehataman-complete-walkthrough.mp4.
+Use SECTION_BY_SECTION_REVIEW.txt to check each section against the MVP/evidence.
+The four shorter role clips isolate patient permission, physician release,
+laboratory source/version handling, and separate hospital affiliation.
+These are actual sampled browser screen captures with role sign-ins omitted.
+The recordings precede the latest interface polish and may show older labels
+and spacing. The current app keeps the same workflow and access rules.
+
+Interactive route: patient history -> physician directory -> book -> physician
+has no records -> explicit patient version grant -> physician authorized read ->
+lab correction + distinct approval -> original historical version remains ->
+withdraw/revoke -> next affected clinical request denied -> patient access audit.
+README.txt provides the exact accounts, actions and local synthetic fixture controls.
+
+The engineering evaluation and retained earlier failures are under planning/step5_results.
+The reference is a constructed equivalent-policy evaluator on shared infrastructure;
+it is not a commercial competitor. Human/domain review and local stakeholder
+validation remain pending. Public PMDC documentation is context only; all outcomes
+in the demonstration are simulated. No app deployment is authorized.
+
+Application completion still requires Tehreem's, Haris's and Majid's email addresses
+and phone numbers, Tehreem's exact MS program title, applicant review of all
+statements, and the applicant's own signature. Humaira's details are supplied.
+Access to private application materials remains owner arranged. The public
+reviewer destination above is separate, with personal contacts redacted. No
+application has been submitted, no reviewer invited, and no email sent.

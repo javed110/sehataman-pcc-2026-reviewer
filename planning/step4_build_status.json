@@ -1,0 +1,70 @@
+{
+  "application": "SehatAman",
+  "urdu_name": "صحت امان",
+  "tagline": "Apni sehat. Apna ikhtiyar.",
+  "version": "0.4.0",
+  "deliverable": "One integrated local persisted demonstrable MVP",
+  "step4": "Implementation complete and available for user review",
+  "local_url": "http://127.0.0.1:8787/",
+  "entities": [
+    "Patient",
+    "Molecular diagnostics laboratory",
+    "Physician",
+    "Hospital"
+  ],
+  "single_application": true,
+  "data_policy": "Entirely synthetic; no live verification, clinical data, or external runtime integrations",
+  "security_focus": [
+    "CNIC-based synthetic linkage distinct from authentication and authorization",
+    "Password and local TOTP authentication",
+    "Server-enforced patient ownership, role and source-lab scope",
+    "Exact-version, time-bounded patient permission separate from appointment booking",
+    "Independent simulated professional registration and hospital affiliation",
+    "Hospital-supplied profile never automatically grants clinical access",
+    "Signed report submissions, distinct approval and immutable provenance/version history",
+    "Current authorization checks for metadata and file reads",
+    "Encrypted persisted state and required protected audit/integrity checks"
+  ],
+  "implementation_checks": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "passed": true,
+    "report": "step4_implementation_checks.json"
+  },
+  "browser_checks": "step4_browser_checks/verification.json",
+  "persisted_state_check": {
+    "synthetic": true,
+    "integrity": "verified",
+    "events_at_check": 69
+  },
+  "frozen_manifest": {
+    "file": "step4_frozen_scenario_manifest.json",
+    "sha256": "d7191bdd7ec753004da9bc48869f2e140481cf43b7a441947bceeff1fafd9890",
+    "digest_verified_unchanged": true,
+    "formal_execution": "Not run"
+  },
+  "research_claim": "Candidate Pakistan-informed conformance profile and testable state-transition benchmark; no claim of first-in-Pakistan, superiority or novel cryptography.",
+  "validation_status": {
+    "pakistan_web_research": "Contextual desk evidence retained in pakistan_web_validation_evidence.json",
+    "direct_local_stakeholder_validation": "Pending",
+    "independent_domain_review": "Pending",
+    "formal_120_case_evaluation": "Pending Step 5 approval",
+    "formal_500_trace_evaluation": "Pending Step 5 approval",
+    "reference_comparison": "Pending Step 5 approval",
+    "performance_study": "Pending Step 5 approval"
+  },
+  "deployment": {
+    "deployed": false,
+    "user_instruction": "Do not deploy for now",
+    "remote_project_created": false
+  },
+  "approval_gate": {
+    "step5_authorized": false,
+    "next_action": "Obtain explicit approval before Step 5 formal validation"
+  },
+  "guide": "../README.txt",
+  "launch": "../Run-SehatAman.cmd",
+  "demo_accounts": "../Show-DemoAccounts.cmd",
+  "production_status": "Local demonstrator; not a production clinical service or security certification"
+}

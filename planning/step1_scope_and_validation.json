@@ -1,0 +1,356 @@
+{
+  "document_type": "technical_scope_proposal",
+  "project": "Tehreem PCC 2026 ViroHandoff Guard",
+  "step": 1,
+  "date": "2026-10-21",
+  "timezone": "Asia/Karachi",
+  "status": "scope_approved_direct_local_stakeholder_validation_pending",
+  "scope_approval": {
+    "date": "2026-10-21",
+    "instruction": "Approved step 1",
+    "scope": "Step 1 scope approved; stakeholder interviews remain unperformed and Step 2 requires separate explicit approval."
+  },
+  "step_2_authorized": true,
+  "step_2_authorization": {
+    "date": "2026-10-21",
+    "instruction": "Approved, proceed with Step 2 only. Define the research comparison, cybersecurity threats and measurable success criteria. Keep local stakeholder validation pending and seek my approval before Step 3.",
+    "step_3_authorized": false
+  },
+  "scope_amendment": {
+    "date": "2026-10-21",
+    "instruction": "All data synthetic including all entities",
+    "effect": "All MVP entities, identities, CNIC fixtures, report data, profiles, registrations, affiliations, appointments, grants, verification responses and audit histories are invented. Public research sources are background only. No live verification or messaging services."
+  },
+  "final_deliverable": "A runnable browser application with a backend and persistent data, four business roles, synthetic demonstration data, setup instructions and repeatable live demonstration.",
+  "scope": {
+    "clinical_domain": "Adult molecular diagnostic report exchange, beginning with one synthetic respiratory PCR report format.",
+    "demonstration_scale": {
+      "laboratories": 2,
+      "hospitals": 1,
+      "physicians": 3,
+      "adult_patients": 5
+    },
+    "history": "Longitudinal history of reports actually supplied by participating laboratories. Full medication, diagnosis and consultation histories require separately agreed sources.",
+    "identity": "CNIC-based patient enrolment and matching; identity evidence, account authentication, specimen linkage and permission are separate checks.",
+    "discovery": "Hospital-attested profiles, independently checked professional registration, transparent specialty/location/fee/language/availability filters.",
+    "sharing": "Appointment-linked, explicit, record-version-specific, time-limited patient permission; checked for every record and file request.",
+    "integrations": "All laboratory and hospital entities and submissions are synthetic. NADRA and PMDC outcomes are explicitly labelled local simulated fixtures only. The MVP makes no live verification, hospital/lab, email, SMS or booking calls.",
+    "deferred": [
+      "Complete hospital EHR replacement",
+      "Autonomous diagnosis or clinical doctor ranking",
+      "Payments and teleconsultation",
+      "Minors and proxy/guardian access",
+      "Emergency override",
+      "Blockchain deployment",
+      "AI model training",
+      "Unapproved real patient or CNIC datasets"
+    ]
+  },
+  "candidate_contribution": {
+    "statement": "A candidate Pakistan-informed conformance profile and reproducible synthetic benchmark for molecular report release across report corrections and changes in patient consent, appointment state, independently evidenced professional registration and hospital affiliation.",
+    "novelty_status": "Candidate implementation and evaluation contribution. No first-in-Pakistan, first-in-world, novel cryptography or proven market-gap claim.",
+    "independent_credential_checks": "CNIC establishes person identity; PMDC evidence establishes professional registration and registered qualifications; a separately verified hospital authority attests current affiliation. These are stored and reviewed separately and none grants record access alone.",
+    "narrow_testable_question": "For predefined report and credential state changes, does this workflow prevent incorrect record release and preserve authorized access and report lineage without unacceptable user burden, compared with a properly configured role- and consent-based reference?",
+    "observable_outcomes": [
+      "Unauthorized record or version release",
+      "Incorrect denial of an authorized view",
+      "Visibility and completeness of source and correction history",
+      "Time between a recorded revocation/state change and denial of the next server request",
+      "User comprehension and task completion"
+    ],
+    "important_limits": [
+      "Public documentation cannot establish competitors lack the combined controls.",
+      "A recorded PMDC check is a dated snapshot, not a live assurance; freshness requirements need approval.",
+      "Evidence of integration demand, budget ownership and willingness to participate is pending.",
+      "No prior ViroHandoff test result validates this broader four-entity system."
+    ]
+  },
+  "cnIC_requirements": {
+    "spelling_note": "CNIC",
+    "patient_matching": "Normalize the CNIC and match against an independently enrolled patient. Also require laboratory patient/order/specimen linkage and a secondary demographic check. A mismatch or unresolved identity is held for review; no automatic patient-record merge.",
+    "identity_proof": "CNIC format validation is not identity proof. Capture verification method, outcome, verifier, evidence reference, timestamp and expiry/review state.",
+    "live_nadra": "No live NADRA verification is included. CNIC-format and matching test fixtures are invented and clearly labelled; all identity verification outcomes are simulated.",
+    "account_security": "Use separate account authentication and additional verification; possession or knowledge of a CNIC alone never grants access or account recovery.",
+    "data_protection": "Restrict and protect stored CNIC data, mask routine displays, use internal opaque patient IDs and exclude full CNIC from public URLs, application logs and demo recordings.",
+    "source_limit": "CNIC matching cannot prove correct physical specimen collection or analytical validity."
+  },
+  "laboratory_requirements": {
+    "approved_source": "Verify the laboratory organization and its authorized submitters separately from message content. Require issuer-bound integrity evidence rather than a bare file hash alone.",
+    "validate": [
+      "Patient enrolment/CNIC linkage",
+      "Lab patient ID and order/specimen mapping",
+      "Report and message identifiers",
+      "Test target and specimen type",
+      "Method/context needed to interpret the report",
+      "Issue time and status",
+      "Report version and predecessor",
+      "Issuer approval and file/content integrity"
+    ],
+    "provenance_fields": [
+      "Issuing laboratory",
+      "Authorized submitter/approver",
+      "Source report ID",
+      "Order and specimen IDs",
+      "Specimen/test context",
+      "Issued and received timestamps",
+      "File/content fingerprint plus issuer evidence",
+      "Version and status",
+      "Correction reason and authorizer",
+      "Predecessor report/version"
+    ],
+    "corrections": "Only authorized lab staff can issue an approved amendment. Preserve the original, add a linked version with reason and approver, label superseded reports, and reject duplicate replay or attempted rollback.",
+    "version_permission": "Consent for version 1 does not automatically authorize version 2. A correction prompts renewed sharing permission; an authorized old version remains clearly historical and superseded.",
+    "integrity_limit": "Checks establish digital origin, consistency and history within the approved threat assumptions; they do not certify the truth of the diagnosis or provide an absolute guarantee against a compromised trusted issuer."
+  },
+  "hospital_and_physician_requirements": {
+    "hospital_profile_submission": "Only a verified hospital authority may attest profiles, identity-to-account linkage and affiliation. Retain evidence reference, approver, effective dates, last check and status.",
+    "professional_registration": "Check PMDC registration number, person match, licence validity and registered qualifications separately from hospital affiliation.",
+    "affiliation": "Check hospital-specific affiliation with an authorized hospital office; PMDC registration and a physician's self-declaration do not establish current employment/privileges.",
+    "states": [
+      "Pending",
+      "Verified within approved freshness window",
+      "Expired",
+      "Suspended or revoked",
+      "Unknown or stale"
+    ],
+    "access_rule": "A listed physician receives no medical-record access until the patient grants permission for the relevant appointment, report version and time period. Each view requires authenticated identity and independently valid registration and affiliation evidence.",
+    "change_handling": "A recorded registration problem blocks affected professional access. A recorded hospital affiliation revocation blocks appointments under that affiliation. Unknown or stale verification requires review. These changes do not erase historical audit evidence.",
+    "public_profile": "Publish only the agreed profile fields. Do not expose physician CNIC or credential-verification documents to patients.",
+    "api_limit": "No live PMDC integration or real physician queries are included. All registration profiles, evidence and status changes are synthetic and labelled simulated."
+  },
+  "demonstration": [
+    {
+      "id": "D1",
+      "action": "Enrol two synthetic adults using distinct CNIC fixtures and separate account verification.",
+      "expected": "Separate patient histories; entering another CNIC does not grant access."
+    },
+    {
+      "id": "D2",
+      "action": "A laboratory submits a report with a CNIC/order/specimen mismatch.",
+      "expected": "Hold the report with a reason; it does not appear in the wrong patient history."
+    },
+    {
+      "id": "D3",
+      "action": "An approved laboratory submits the correct version 1 report.",
+      "expected": "The patient can see it with issuer, time, specimen context and version."
+    },
+    {
+      "id": "D4",
+      "action": "A hospital supplies three synthetic profiles; one passes registration and affiliation, one has registration only, one has affiliation only.",
+      "expected": "Separate status evidence is visible. Neither partial verification nor listing alone grants record access."
+    },
+    {
+      "id": "D5",
+      "action": "The patient filters profiles, books an appointment and initially gives no medical-record permission.",
+      "expected": "The physician cannot retrieve any clinical report."
+    },
+    {
+      "id": "D6",
+      "action": "The patient explicitly grants the fully verified physician access to version 1 for the appointment and chosen duration.",
+      "expected": "The selected physician sees only the permitted version; another physician and unselected reports remain blocked."
+    },
+    {
+      "id": "D7",
+      "action": "The lab issues an authorized version 2 correction; an old message is replayed and a file is altered.",
+      "expected": "The correction preserves its predecessor and authorizer. Version 2 needs new sharing consent; replay/alteration is rejected or held."
+    },
+    {
+      "id": "D8",
+      "action": "Independently withdraw consent, expire the grant, cancel the appointment, revoke hospital affiliation and expire the recorded registration evidence.",
+      "expected": "Each affected next record request is denied, including direct file/API requests from an already logged-in session."
+    },
+    {
+      "id": "D9",
+      "action": "Restart the application.",
+      "expected": "Records, versions, permissions and audit evidence persist. Patient can inspect who accessed what and when."
+    }
+  ],
+  "local_validation": {
+    "status": "direct_project_stakeholder_validation_pending",
+    "web_review_status": "Deep web contextual review performed; published stakeholder findings, provider claims and institutional standards are distinguished in pakistan_web_validation_evidence.json.",
+    "new_interviews_completed": 0,
+    "existing_evidence": "Official Pakistani product/regulator material and published Pakistani stakeholder research are desk evidence, not fresh validation of this MVP.",
+    "connected_evidence": "The project meeting material reviewed documents academic project discussion, not current hospital/lab/patient validation of the revised workflow.",
+    "proposed_sample": {
+      "lab_quality_and_operational_staff_across_two_labs": 4,
+      "physicians": 3,
+      "hospital_credentialing_and_IT_staff": 2,
+      "adult_patients": 6,
+      "total": 15
+    },
+    "sample_limit": "A purposive discovery sample, not a statistically representative national survey.",
+    "method": [
+      "Start with the current workflow before presenting the proposed solution.",
+      "Ask for a recent non-identifying example and a blank/redacted workflow artifact.",
+      "Use the same fictional mismatch/correction/consent-withdrawal/affiliation-change scenarios across roles.",
+      "Record role, date, site category, current system, exact workflow evidence, response and disagreement.",
+      "Ask respondents to confirm the recorded summary.",
+      "Review contradictory cases and implementation burden.",
+      "Compare with the actual configured incumbent workflow before claiming a gap."
+    ],
+    "questions": {
+      "labs": [
+        "How is CNIC checked and linked to an order/specimen today, and what happens when it disagrees?",
+        "Who can issue and authorize amended reports, and how are prior versions and recipients tracked?",
+        "Can your current LIS already provide this workflow, and what would a simpler configuration change achieve?",
+        "Which authenticated export and mandatory specimen/method fields can be supplied?"
+      ],
+      "hospitals": [
+        "How are staff profiles and current affiliation attested and removed?",
+        "How is PMDC licence verification recorded separately from appointment/employment status?",
+        "Who owns the integration decision, staff time and budget, and what evidence would justify a pilot?"
+      ],
+      "physicians": [
+        "How do you establish the report's source and latest authorized version today?",
+        "What happens when patient permission changes or you leave a hospital?",
+        "Which proposed checks would interrupt legitimate care, and what is the current workaround?"
+      ],
+      "patients": [
+        "Who can see your reports today and how do you know?",
+        "Using a fictional scenario, which physician and report version would this permission allow, and when would it stop?",
+        "Which profile details affect your choice, and what barriers arise from shared phones, language or CNIC access?"
+      ]
+    },
+    "minimum_evidence_before_gap_claim": [
+      "Independent workflow evidence from at least two laboratories and one hospital.",
+      "Physician and patient feedback on the actual proposed scenario.",
+      "Documented existing-system comparison and negative findings.",
+      "Confirmed feasible report export plus credential attestation.",
+      "Named institutional owner and a documented next action for an authorized pilot; this is not a claim of willingness to pay."
+    ],
+    "decision": "If the incumbent configuration already solves the problem economically, frame the MVP as a conformance/evaluation demonstrator or revise the claim. Do not manufacture a novel platform claim.",
+    "user_input_needed": "No participant input is required for the currently authorized synthetic protocol. New interviews, institutional feasibility and buying validation remain pending future access; do not claim them completed.",
+    "outreach": "No email or external messages have been sent. Every proposed email requires exact recipients and full message shown to Javed followed by explicit approval of that email."
+  },
+  "evidence": [
+    {
+      "id": "E1",
+      "source": "Akhlaq et al",
+      "year": 2020,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30922142/",
+      "type": "Published Pakistani qualitative stakeholder study",
+      "supports": "Fragmented exchange and governance/interoperability/workflow barriers in the studied context.",
+      "limits": "Historical evidence; not 2026 customer discovery or proof of this particular security gap."
+    },
+    {
+      "id": "E2",
+      "source": "Kanani et al",
+      "year": 2026,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42698998/",
+      "type": "Published Pakistani laboratory survey",
+      "supports": "30 completed responses show variation in delta-check practices; some use LIS/middleware blocking.",
+      "limits": "Clinical QC survey, small and tertiary-care-heavy sample; not evidence of cyberattacks, report-version failures or national incidence."
+    },
+    {
+      "id": "E3",
+      "source": "Luu et al",
+      "year": 2024,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38660616/",
+      "type": "Non-Pakistani laboratory transmission case report",
+      "supports": "Loss of specimen/method context and inconsistency across transmissions of nine tests.",
+      "limits": "Motivates metadata checks, not Pakistani incidence or efficacy of this MVP."
+    },
+    {
+      "id": "E4",
+      "source": "Chughtai Lab",
+      "url": "https://chughtailab.com/",
+      "type": "Official current product page",
+      "supports": "Patient app and longitudinal laboratory-report access already offered.",
+      "limits": "Public page does not establish internal version/consent/security implementation."
+    },
+    {
+      "id": "E5",
+      "source": "Aga Khan University Hospital",
+      "url": "https://hospitals.aku.edu/pakistan/health-solutions/Documents/Frequently%20Asked%20Questions%2C%20Teleclinics.pdf",
+      "type": "Official patient FAQ",
+      "supports": "Family Hifazat records, report access and consultation booking already offered.",
+      "limits": "Provider description, not an independent product/security audit."
+    },
+    {
+      "id": "E6",
+      "source": "Aga Khan University Hospital",
+      "url": "https://hospitals.aku.edu/pakistan/AboutUs/News/Documents/Family%20Hifazat%20brochure.pdf",
+      "type": "Official historical brochure",
+      "supports": "CNIC-supported enrolment, document checks and consent have already been documented locally.",
+      "limits": "Do not assume brochure enrolment steps or prices remain current."
+    },
+    {
+      "id": "E7",
+      "source": "Marham",
+      "url": "https://www.marham.pk/privacy",
+      "type": "Official privacy policy",
+      "supports": "Reports/prescriptions saved in records and shared with doctors are existing functions.",
+      "limits": "Policy statement is not an audit of authorization enforcement."
+    },
+    {
+      "id": "E8",
+      "source": "oladoc",
+      "url": "https://oladoc.com/terms-of-use",
+      "type": "Official terms effective 2026-06-30",
+      "supports": "Doctor discovery, appointments, laboratory services and electronic health records are existing services.",
+      "limits": "No assertion that the proposed combined policy is absent."
+    },
+    {
+      "id": "E9",
+      "source": "oladoc",
+      "url": "https://oladoc.com/privacy-policy",
+      "type": "Official privacy policy effective 2026-06-30",
+      "supports": "Explicit sensitive-data consent and withdrawal are already stated by a Pakistani provider.",
+      "limits": "Does not establish its exact record-version or affiliation-change enforcement."
+    },
+    {
+      "id": "E10",
+      "source": "PMDC",
+      "url": "https://www.pmdc.pk/Home/",
+      "type": "Official practitioners register description",
+      "supports": "Search by registration number/name for licence validity and registered qualifications.",
+      "limits": "Not proof of hospital affiliation or of identity-to-account linkage. No public real-time API access verified."
+    },
+    {
+      "id": "E11",
+      "source": "NADRA",
+      "url": "https://www.nadra.gov.pk/verification",
+      "type": "Official indexed verification-services material",
+      "supports": "NADRA offers CNIC verification, including consent-based Verisys.",
+      "limits": "Indexed official content available; direct full-page retrieval returned 403. No credentials, approved integration or service eligibility obtained."
+    },
+    {
+      "id": "E12",
+      "source": "NADRA",
+      "url": "https://www.nadra.gov.pk/media-release/nadra-unveils-nishan-pakistan-to-strengthen-secure-identity-verification-and-power-pakistans-digital-economy-4e319da8",
+      "date": "2026-02-10",
+      "type": "Official indexed announcement",
+      "supports": "Institutional onboarding/subscription for authorized identity-verification services.",
+      "limits": "Direct page retrieval returned 403. Applicability and commercial/technical access must be confirmed."
+    },
+    {
+      "id": "E13",
+      "source": "HL7",
+      "url": "https://hl7.org/fhir/diagnosticreport.html",
+      "type": "Published FHIR specification",
+      "supports": "Diagnostic report statuses include corrections/amendments and receiving systems must handle revised/retracted reports.",
+      "limits": "Version/provenance handling is an established requirement, not a new primitive."
+    },
+    {
+      "id": "E14",
+      "source": "HL7",
+      "url": "https://hl7.org/fhir/R4/consent.html",
+      "type": "Published FHIR specification",
+      "supports": "Consent representation does not itself implement access enforcement.",
+      "limits": "The MVP must demonstrate enforcement rather than claim security from data format alone."
+    }
+  ],
+  "search_audit": {
+    "pakistan_pubmed_query": "Pakistan[Title/Abstract] AND (\"electronic health record\" OR \"electronic medical record\" OR \"patient portal\" OR \"health information exchange\" OR \"laboratory information system\")",
+    "publication_dates": "2020/01/01 to 2026/10/21",
+    "returned_total": 25,
+    "title_and_abstract_records_reviewed": 25,
+    "scope_limit": "Focused scoping search plus selected exact-PMID checks and official Pakistani product/regulator sources. Not an exhaustive systematic review; biomedical-index coverage is incomplete for cybersecurity engineering."
+  },
+  "approval_gate": {
+    "current": "Step 1 scope approved and amended to all-synthetic data. Step 2 authorized and defined for review; direct stakeholder validation remains pending.",
+    "next": "Seek separate explicit authorization before Step 3. Web contextual evidence is not direct project stakeholder or purchasing validation.",
+    "built_or_tested_this_step": false
+  }
+}
+

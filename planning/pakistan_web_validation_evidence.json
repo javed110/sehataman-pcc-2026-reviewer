@@ -1,0 +1,257 @@
+{
+  "document_type": "pakistan_web_evidence_review",
+  "date": "2026-10-21",
+  "status": "web_based_contextual_validation_completed_with_limits",
+  "scope": "Published Pakistani stakeholder findings, institutional workflows, close research prior art and official product documentation. No new interviews, no live product/security testing and no real entities or medical data imported into the MVP.",
+  "conclusions": {
+    "supported": "Privacy, documentation completeness, credential verification and usable digital access are locally relevant requirements.",
+    "originality": "Broad multi-entity sharing, CNIC enrolment, consent, report histories and independent credential verification are established capabilities or practices.",
+    "unresolved": "Whether this exact combined lifecycle protocol is absent from current implementations, provides incremental operational value, or attracts a buyer remains unconfirmed.",
+    "next_human_validation": "Pending as explicitly requested; no participant access or outreach is needed to complete the present synthetic MVP protocol.",
+    "evidence_not_demonstration_data": "Real organizations and published aggregate studies are contextual sources only. Demonstration entities, identifiers, records and verification evidence are all synthetic."
+  },
+  "evidence_rules": [
+    "Distinguish empirical stakeholder responses from audits, viewpoints, regulations and provider claims.",
+    "Preserve setting, sample and time period; do not combine study sample sizes into a national sample.",
+    "Do not infer cyberattack incidence from missing fields, clinical errors or quality-control variation.",
+    "Do not infer safety, novelty or customer demand from a product page.",
+    "Do not reuse real records with renamed identities as synthetic data.",
+    "No first-in-Pakistan/world or compliance certification claims."
+  ],
+  "search_audit": {
+    "method": "Focused multi-query deep web review with PubMed discovery, exact-identifier checks, selected PMC/publisher methods review and official institutional/regulator documentation.",
+    "prior_scope_search": "The Step 1 title/abstract search returned 25 records; both pages were retrieved.",
+    "new_privacy_search": {
+      "query": "Pakistan[Title/Abstract] AND (patient* OR physician* OR clinician* OR stakeholder*) AND (privacy OR confidentiality OR interoperability OR \"data sharing\" OR \"health information exchange\") AND (digital OR electronic OR telemedicine)",
+      "publication_dates": "2021/01/01 to 2026/10/21",
+      "total": 28,
+      "records_retrieved": 12,
+      "remaining_not_retrieved": 16
+    },
+    "new_laboratory_search": {
+      "query": "Pakistan[Title/Abstract] AND (laborator* OR specimen OR \"patient identification\") AND (error* OR \"amended report\" OR \"corrected report\" OR \"information system\")",
+      "publication_dates": "2022/01/01 to 2026/10/21",
+      "total": 69,
+      "records_retrieved": 12,
+      "remaining_not_retrieved": 57
+    },
+    "targeted_search": {
+      "query": "Pakistan[Title/Abstract] AND requisition[Title/Abstract]",
+      "publication_dates": "2024/01/01 to 2026/10/21",
+      "total": 1,
+      "records_retrieved": 1
+    },
+    "web_topics": [
+      "Pakistani hospital/patient/clinician privacy and EHR adoption",
+      "Laboratory CNIC and specimen identification, requisition completeness and amended reports",
+      "Independent professional credentials and hospital appointments",
+      "Existing Pakistani doctor discovery, medical histories, lab systems and consent controls",
+      "Pakistani medical data-exchange engineering prior art"
+    ],
+    "boundaries": "Not an exhaustive systematic review. A broad natural-language query produced irrelevant/future issue records and was not used as evidence. Transport-failed requests were not treated as negative search results. Unverified social posts, aggregate search snippets without primary corroboration and future-dated unverified publications were excluded."
+  },
+  "sources": [
+    {
+      "id": "PK01",
+      "title": "Patients' experiences with tele-mental health services during COVID-19 in Pakistan",
+      "year": 2024,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38808404/",
+      "type": "Primary qualitative patient study",
+      "setting": "One Karachi tertiary hospital; 49 interviewees",
+      "finding": "Patients described privacy, technical literacy, affordability and relationship concerns, alongside access benefits.",
+      "implication": "Use clear sharing explanations, minimal exposed information and simple account/session controls.",
+      "limits": "Pandemic mental-health setting; adjacent to molecular report exchange; not demand or usability validation of this MVP.",
+      "retrieval": "PubMed abstract and WHO publisher text"
+    },
+    {
+      "id": "PK02",
+      "title": "On the perspective of doctors' intention—a hybrid BYOD model",
+      "year": 2025,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41088101/",
+      "type": "Primary physician survey",
+      "setting": "Pakistani doctors recruited through Facebook/snowball sampling",
+      "finding": "Perceived security/privacy risks and practical adoption conditions were associated with intentions to use personal devices.",
+      "implication": "Treat stolen/shared sessions and user burden as relevant risks; avoid inferring adoption from feature availability.",
+      "limits": "Cross-sectional non-probability sample; abstract reports 245, body discusses 249 available responses. Do not rely on a single exact sample count or infer causal effects.",
+      "retrieval": "Abstract plus first 60000 of 72432 body characters; not a complete full-text review"
+    },
+    {
+      "id": "PK03",
+      "title": "Revealing the missing links in the chain of relevant information from the clinicians to pathologists",
+      "year": 2025,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40735577/",
+      "type": "Primary local laboratory workflow audit",
+      "setting": "400 biopsy requisitions sampled from 2301 at one Peshawar hospital; 2024 records",
+      "finding": "Specimen and requesting-clinician information was often incomplete. The body reports 99.5% of forms had at least two patient identifiers.",
+      "implication": "Check specimen/test context and accountable issuers as well as CNIC; do not claim widespread patient identification failure from this study.",
+      "limits": "Histopathology rather than molecular diagnostics; convenience sample, mostly gynaecology; no measured downstream error effects. Table III differs from Table I for several values; use Table I/abstract for primary results.",
+      "retrieval": "Complete available PMC body, 17300 characters"
+    },
+    {
+      "id": "PK04",
+      "title": "Patient perspectives and utilization of telemedicine for chronic conditions in Pakistan barriers and facilitators towards its access",
+      "year": 2025,
+      "url": "https://link.springer.com/article/10.1186/s12982-025-00409-9",
+      "type": "Primary patient survey",
+      "setting": "Sehat Kahani chronic-care users; 460 recruited and 450 analysed; February–April 2024",
+      "finding": "Participants were generally favourable towards telemedicine, with access and use associated with education and economic circumstances.",
+      "implication": "Evaluate understandable controls and access burden rather than equating positive attitudes with successful use.",
+      "limits": "Existing users of a single platform; sex distribution and platform selection limit generalizability; not willingness to pay for this MVP.",
+      "retrieval": "Publisher methods, results and limitations"
+    },
+    {
+      "id": "PK05",
+      "title": "National Survey on Delta Check Practices in Clinical Laboratories Across Pakistan",
+      "year": 2026,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42698998/",
+      "type": "Primary laboratory survey",
+      "setting": "30 completed responses from 84 invitations; predominantly tertiary hospitals",
+      "finding": "Clinical delta-check practices and automation varied among respondents.",
+      "implication": "Do not assume uniform laboratory software or validation capability.",
+      "limits": "Clinical QC rather than cybersecurity; not an estimate of report tampering, patient mismatch or version-history failures.",
+      "retrieval": "PubMed abstract"
+    },
+    {
+      "id": "PK06",
+      "title": "Stakeholders perspectives and deployment strategies of health information exchange illustrated through an in-depth case study of Pakistan",
+      "year": 2020,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30922142/",
+      "type": "Primary qualitative stakeholder study",
+      "setting": "Purposefully selected Pakistani stakeholders, field notes and policy review",
+      "finding": "Fragmented exchange and governance, infrastructure, training and interoperability barriers were reported.",
+      "implication": "Keep the first integration narrow and record organisational dependencies.",
+      "limits": "Historical evidence; not a current purchasing decision or validation of this precise security protocol.",
+      "retrieval": "PubMed abstract"
+    },
+    {
+      "id": "PK07",
+      "title": "Errors in Surgical Pathology Reports: a Study from a Major Center in Pakistan",
+      "year": 2016,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27221868/",
+      "type": "Primary historical report-amendment audit",
+      "setting": "Karachi laboratory reports signed out in 2014",
+      "finding": "The study reviewed errors through issued amended reports, showing that amendment workflows already exist locally.",
+      "implication": "Test amendment lineage and authorization; do not present corrected-report workflows as a new invention.",
+      "limits": "Historical surgical pathology, not current molecular report-security incidence.",
+      "retrieval": "PubMed and originating institutional/journal abstracts"
+    },
+    {
+      "id": "PK08",
+      "title": "Towards Connected Care: Why Pakistan Needs Integrated Electronic Health Records",
+      "year": 2026,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42152212/",
+      "type": "Viewpoint",
+      "setting": "Pakistan-focused policy argument",
+      "finding": "Argues for interoperability, stakeholder involvement, training and patient education.",
+      "implication": "Supports the contextual relevance of connected records.",
+      "limits": "Opinion, not primary stakeholder validation or quantified market demand.",
+      "retrieval": "PubMed abstract"
+    },
+    {
+      "id": "PK09",
+      "title": "KP HCC Minimum Service Delivery Standards for Hospitals with 50 and above Beds",
+      "url": "https://hcc.kp.gov.pk/wp-content/uploads/2026/02/MSDS-for-Hospitals-50-above-Beds-Ed-1-Rev-1.pdf",
+      "type": "Official provincial hospital standard",
+      "locator": "Indicator 121, printed pages 256–257; PDF pages 279–280 (one-based)",
+      "finding": "Describes verification of qualifications/registration, a credential-verification form and a hospital administrator-signed incumbency list.",
+      "implication": "Keep professional credential evidence and hospital appointment evidence separate. Their existence is established practice, not novelty.",
+      "limits": "Provincial standard, cited section is surgical/procedural; not proof of implementation at every institution or a nationwide legal conclusion. URL upload date is not asserted as original publication date.",
+      "retrieval": "Official PDF relevant text"
+    },
+    {
+      "id": "PK10",
+      "title": "Access and Privacy Control for Healthcare Decision Support System: A Smart Medical Data Exchange Engine (SMDEE)",
+      "year": 2025,
+      "url": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cit2.70077",
+      "type": "Primary engineering research and close prior art",
+      "setting": "Reports evaluation using 1000 records from Pakistani institutions with dummy identities",
+      "finding": "Describes rule-based access, patient privacy preferences and standardized medical data exchange.",
+      "implication": "Do not claim that multi-entity patient-controlled sharing or rule-based release is new. Compare the proposed transition benchmark explicitly with this prior art.",
+      "limits": "Record-based experiment, not local customer discovery. Dummy identities do not imply all records were synthetic. No data from this paper will be reused. No absence claim follows from missing search terms.",
+      "retrieval": "Publisher abstract and implementation/request-processing sections"
+    },
+    {
+      "id": "PK11",
+      "title": "Chughtai Lab official app description",
+      "url": "https://chughtailab.com/",
+      "type": "Provider product statement",
+      "finding": "Advertises patient access to laboratory-report histories.",
+      "implication": "Existing capability: laboratory history.",
+      "limits": "No independent security audit or proof of specific missing controls.",
+      "retrieval": "Official page"
+    },
+    {
+      "id": "PK12",
+      "title": "AKUH Family Hifazat official FAQ and historical brochure",
+      "url": "https://hospitals.aku.edu/pakistan/health-solutions/Documents/Frequently%20Asked%20Questions%2C%20Teleclinics.pdf",
+      "additional_url": "https://hospitals.aku.edu/pakistan/AboutUs/News/Documents/Family%20Hifazat%20brochure.pdf",
+      "type": "Provider workflow documentation",
+      "finding": "Record access and booking already exist; older brochure documents CNIC-supported enrolment and consent.",
+      "implication": "CNIC-supported enrolment and a patient portal are not distinctive claims.",
+      "limits": "Historical brochure steps are not assumed current.",
+      "retrieval": "Official documents"
+    },
+    {
+      "id": "PK13",
+      "title": "Marham privacy policy",
+      "url": "https://www.marham.pk/privacy",
+      "type": "Provider policy",
+      "finding": "Describes saving reports in medical records and sharing with doctors.",
+      "implication": "Existing capability: record storage and sharing.",
+      "limits": "Policy does not independently verify enforcement or establish any competitor deficiency.",
+      "retrieval": "Official policy"
+    },
+    {
+      "id": "PK14",
+      "title": "oladoc privacy policy and terms effective June 30 2026",
+      "url": "https://oladoc.com/privacy-policy",
+      "additional_url": "https://oladoc.com/terms-of-use",
+      "type": "Provider policy and service description",
+      "finding": "Describes electronic records, chosen-provider sharing, explicit sensitive-data consent and withdrawal.",
+      "implication": "Consent and withdrawal alone cannot be claimed as a Pakistan market gap.",
+      "limits": "No live system testing; fine-grained enforcement and version transitions remain unverified.",
+      "retrieval": "Official policies"
+    },
+    {
+      "id": "PK15",
+      "title": "Sehat Kahani Consumer",
+      "url": "https://sehatkahani.com/consumer/",
+      "type": "Provider product statement",
+      "finding": "Advertises doctor choice, appointments, online medical records and laboratory partners.",
+      "implication": "Substantial overlap with the broad four-entity product concept.",
+      "limits": "Public features are self-reported; no internal authorization audit.",
+      "retrieval": "Official page"
+    },
+    {
+      "id": "PK16",
+      "title": "eShifa Health Sector Partnership",
+      "url": "https://eshifa.org/partnership/",
+      "type": "Provider institutional service description",
+      "finding": "Offers partners electronic medical records, laboratory information, appointment and registration systems.",
+      "implication": "Integration infrastructure already exists locally and must be considered as an alternative to a new platform.",
+      "limits": "Does not establish independent PMDC/affiliation or report-version controls; no purchasing validation.",
+      "retrieval": "Official page"
+    },
+    {
+      "id": "PK17",
+      "title": "PMDC official practitioners register",
+      "url": "https://www.pmdc.pk/Home/",
+      "type": "Official professional-verification source",
+      "finding": "Register search provides licence validity and registered qualifications.",
+      "implication": "Professional registration is distinct from identity and hospital appointment.",
+      "limits": "No live integration, real physician query or current affiliation inference. All MVP responses are synthetic.",
+      "retrieval": "Official page checked in Step 1"
+    },
+    {
+      "id": "PK18",
+      "title": "NADRA verification services and institutional onboarding",
+      "url": "https://www.nadra.gov.pk/verification",
+      "additional_url": "https://www.nadra.gov.pk/media-release/nadra-unveils-nishan-pakistan-to-strengthen-secure-identity-verification-and-power-pakistans-digital-economy-4e319da8",
+      "type": "Official identity-services material",
+      "finding": "Describes CNIC verification and institutional onboarding.",
+      "implication": "CNIC formatting is not identity proof; use explicit simulated verification status in the MVP.",
+      "limits": "Direct pages returned 403; official indexed material was available. No live API, eligibility, commercial arrangement or real identity verified.",
+      "retrieval": "Official indexed text in Step 1"
+    }
+  ]
+}

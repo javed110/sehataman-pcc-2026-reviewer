@@ -1,0 +1,137 @@
+SEHATAMAN PCC 2026 — STEP 6 REVIEWER HANDOVER
+Prepared 21 October 2026. Local synthetic MVP 0.5.0.
+
+DECISION AND AUTHORIZATION
+The user approved Step 5 and authorized preparation of this handover. Missing
+details remain pending. Deployment and application submission require separate,
+explicit approval. No reviewer invitation, permission change or email is authorized
+by this handover. The user separately authorized a public, contact-redacted
+reviewer repository and an update to the existing private application repository.
+Earlier planning files record approvals at their own stage;
+planning/step6_handover.json records the handover gate, and
+planning/reviewer_publication.json records the current public-delivery status.
+
+INTENDED REVIEWER DESTINATION
+https://github.com/javed110/sehataman-pcc-2026-reviewer
+Publication and link verification must be confirmed in reviewer_publication.json
+before claiming this destination is available. Public code, documents and video
+delivery does not deploy a running app or submit an application. The original
+https://github.com/javed110/sehataman-pcc-2026 repository remains private.
+The private application Word note retains the supplied contact information. The
+public reviewer copy redacts personal contacts while retaining confirmed names,
+roles and academic details. Redacted supplied contacts are distinct from pending
+facts. Do not copy protected local state or credentials into either delivery.
+
+WHAT A REVIEWER CAN ASSESS NOW
+One persisted application joins patients, molecular laboratories, physicians and
+hospital profile offices. It demonstrates diagnostic-report history, not a complete
+electronic medical record. Its narrow claim is enforcement of exact-version patient
+permission and current eligibility across recorded state transitions, with retained
+signed report provenance and correction lineage. The claim is bounded by synthetic
+fixtures, specified threats and a trusted host/key assumption.
+
+The evidence does not establish first-in-Pakistan status, a new cryptographic
+primitive, commercial superiority, clinical benefit or independent certification.
+Both evaluated arms pass; the constructed reference is faster at p95 in this run.
+Direct Pakistani stakeholder, independent/domain and buyer validation are pending.
+Web research provides context and does not replace participant validation.
+
+REVIEW IN ORDER
+1. Read docs/SehatAman_PCC26_Concept_Note.docx. It retains the supplied template.
+2. Read docs/CLAIM_EVIDENCE_CHECKLIST.txt for claims, denominators and limits.
+   docs/SECTION_BY_SECTION_REVIEW.txt guides the Word sections in order.
+3. Watch demos/sehataman-complete-walkthrough.mp4 (about 80 seconds). Four short
+   role clips are alongside it. These are sampled actual screen captures, edited
+   to omit role sign-ins and waiting; no audio or generated interface footage.
+   They precede the latest interface polish and may show older labels and spacing;
+   the core workflow and access rules are unchanged.
+4. Run the fresh interactive route below, then consult the retained test results.
+
+FRESH INTERACTIVE REVIEW ON WINDOWS
+Extract the ZIP to a short local path and open PowerShell in its SehatAman_PCC2026
+folder. Python 3.12+ and installation of requirements.txt are prerequisites on a
+new machine. The prepared laptop already has the runtime and dependencies.
+
+For a new machine, without changing PowerShell execution policy:
+  py -3.12 -m venv .venv
+  .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+  .\.venv\Scripts\python.exe manage.py --home .local-reviewer serve --port 8788
+
+On the prepared laptop, use this existing runtime instead of creating an environment:
+  & 'C:\Users\HP\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' manage.py --home .local-reviewer serve --port 8788
+
+Keep that server terminal open. In a second terminal in the same project folder,
+use the SAME Python and home to display credentials:
+  .\.venv\Scripts\python.exe manage.py --home .local-reviewer accounts
+or, on the prepared laptop:
+  & 'C:\Users\HP\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' manage.py --home .local-reviewer accounts
+
+Open http://127.0.0.1:8788/ and http://127.0.0.1:8788/reviewer locally.
+These addresses are run-locally instructions for this computer, not remote links
+to an externally accessible demonstration.
+Never paste credentials or second-factor codes into a submission or recording.
+Codes rotate every 30 seconds; a successfully accepted code cannot be reused.
+If needed, run accounts again after the next code interval. Use accounts with
+--home .local-reviewer for this route: Show-DemoAccounts.cmd uses the default
+.local home, whose credentials are different. A previously used review home
+retains its state. For another clean run choose a new empty home name, using it
+consistently for serve, accounts and fixture commands. No reset is necessary.
+If port 8788 is busy, choose another unused loopback port and use it in the URLs.
+
+INTERACTIVE CHECKPOINTS
+1. p01: inspect own R01 version 1 and R02 history, source and masked identifier.
+   d01: before booking or sharing, no report is available.
+2. p01: inspect the physician directory. D01 has both simulated checks valid;
+   D02 and D03 illustrate incomplete independent checks. Book an available D01 slot.
+   d01: an appointment alone still provides no clinical report access.
+3. p01: explicitly share only R01 version 1 for that appointment. Confirm the
+   purpose, interval and selection. d01: that version and protected file open;
+   unselected reports remain outside this grant.
+4. l01-s01: propose a correction to R01 with a reason. l01-a02: review and approve.
+   p01: the corrected version and original lineage remain visible. d01: the old
+   version grant does not open version 2. A new patient grant is required.
+5. p01: withdraw the original grant. d01: refresh/reopen its report/file in the
+   existing session; the next affected server request is denied. A copy already
+   delivered before withdrawal cannot be recalled.
+   Use separate browser profiles for patient and physician to preserve both
+   sessions. Two tabs in one profile share the login cookie. Hold appointment,
+   verification states and synthetic clock unchanged for this check.
+6. h01-m01: inspect profile and affiliation controls. Neither profile submission
+   nor affiliation confers record access; registration cannot be self-verified here.
+   Revoking the relevant affiliation blocks the next affected physician release.
+   See README.txt for a separate registration-invalidity fixture demonstration.
+7. Review the patient access history and stop/restart using the same home. Reports,
+   version lineage and committed changes persist. Keep keys/checkpoint with the
+   store; do not delete them to bypass an integrity hold.
+
+For a held identity/specimen package demonstration, README.txt describes local
+synthetic input fixtures and the distinct lab approver. In the separate review
+home, use manage.py --home .local-reviewer inputs. CNIC is a synthetic linkage
+attribute, never authentication or proof of a live NADRA match. Hospital affiliation
+is a separate attestation from simulated professional registration. No live PMDC,
+NADRA, lab or hospital connection is present.
+
+REPRODUCIBILITY AND DELIVERY CHECKS
+planning/step5_results retains both successful and failed runs. Reserved variants
+were predeclared but not blinded; the reference shares workflow and infrastructure.
+The 668.130 ms p95 is a historical local result, not a guaranteed response time.
+The ZIP verification used a fresh extraction and the prepared Windows Python
+runtime/dependencies. A clean dependency installation on another machine and
+other operating systems has not been tested in this handover.
+The ZIP includes PROJECT_MANIFEST.json with file hashes. External delivery reports
+in deliverables/ identify the archive and checked GitHub commit. They are outside
+the ZIP to avoid self-referential archive hashes. Credentials, databases, private
+keys, sessions, raw recording frames and render intermediates are excluded.
+
+PENDING BEFORE APPLICATION SUBMISSION
+See docs/APPLICATION_PENDING_FIELDS.txt. Tehreem, Haris and Majid contacts;
+Tehreem's exact MS program; business/budget/IP and roadmap confirmation; applicant
+review and own signature/date/stamp if applicable; reviewer-delivery confirmation.
+Humaira's corrected BS Molecular Biology and Genetics program, Semester 2, and
+contacts have been supplied; those contacts are redacted in the public reviewer
+copy only. No missing fact has been invented. Access to any private application
+materials still requires owner-arranged permission. No external reviewer has been invited.
+If the organizer needs another delivery channel, choose it and authorize that
+specific sharing separately. The local URL works only on the running laptop.
+Stakeholder/domain/market validation stays pending and must not be represented
+as complete. Deployment and submission remain explicitly unapproved.
